@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【餐桌上的永續影響力】NextT × T Planner 週末選物沙龍</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <span class="logo-badge">NextT</span>
+            <span class="logo-title">永續食農沙龍選物</span>
+        </div>
+        <nav>
+            <button class="nav-tab active" data-tab="catalog-tab">
+                <i class="fa-solid fa-utensils"></i> 沙龍選物體驗
+            </button>
+            <button class="nav-tab" data-tab="kol-tab">
+                <i class="fa-solid fa-people-group"></i> KOL 合作專區
+            </button>
+            <button class="nav-tab" data-tab="dashboard-tab">
+                <i class="fa-solid fa-chart-line"></i> ESG 影響力看板
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ==================== TAB 1: CATALOG & INTERACTIVE TABLE ==================== -->
+        <section id="catalog-tab" class="tab-content active">
+            <div class="hero">
+                <h1>餐桌上的永續影響力</h1>
+                <p>透過永續茶點的感官體驗，開啟在地品牌與跨國零售集團的深度對話。在品嚐美味的同時，點擊下方餐桌或商品，將產品加入選物籃，即時查看您的這筆選購所創造的 ESG 永續價值！</p>
+            </div>
+
+            <!-- Interactive Dining Table -->
+            <div class="interactive-table-section">
+                <div class="table-title-box">
+                    <h2><i class="fa-solid fa-circle-dot" style="color: var(--accent-orange);"></i> 互動永續餐桌（點擊茶點認識品牌）</h2>
+                </div>
+                
+                <div class="table-interactive-row">
+                    <!-- Circular Table SVG/Layout -->
+                    <div class="dining-table-container">
+                        <div class="table-surface">
+                            <div class="center-decor">
+                                <i class="fa-solid fa-leaf"></i>
+                                <span>NextT × T Planner<br>永續沙龍</span>
+                            </div>
+                            
+                            <!-- Hotspots -->
+                            <div class="hotspot hs-shrimp active" data-brand="yufu">
+                                <span class="hotspot-icon">🍤</span>
+                                <span class="hotspot-label">一夫水產・川燙蝦仁</span>
+                            </div>
+                            <div class="hotspot hs-peanut" data-brand="yunchang">
+                                <span class="hotspot-icon">🥜</span>
+                                <span class="hotspot-label">緣長好事・古法花生糖</span>
+                            </div>
+                            <div class="hotspot hs-rice" data-brand="chuanyong">
+                                <span class="hotspot-icon">🌾</span>
+                                <span class="hotspot-label">川涌果園・柑橘米香</span>
+                            </div>
+                            <div class="hotspot hs-blackbean" data-brand="xingfu">
+                                <span class="hotspot-icon">🍪</span>
+                                <span class="hotspot-label">幸福良食・黑豆酥</span>
+                            </div>
+                            <div class="hotspot hs-tea" data-brand="xingfu-tea">
+                                <span class="hotspot-icon">🍵</span>
+                                <span class="hotspot-label">幸福良食・熱黑豆茶</span>
+                            </div>
+                            <div class="hotspot hs-vinegar" data-brand="chuanyong-vinegar">
+                                <span class="hotspot-icon">🥤</span>
+                                <span class="hotspot-label">川涌果園・柑橘醋氣泡飲</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dynamic Detail Card -->
+                    <div class="brand-detail-card" id="brand-detail-card">
+                        <div>
+                            <div class="brand-detail-header">
+                                <span class="brand-badge" id="detail-badge">生態養殖</span>
+                                <span class="brand-badge" style="background: var(--accent-orange-light); color: var(--accent-orange);" id="detail-tag">#零用藥</span>
+                            </div>
+                            <h3 id="detail-name">一夫水產</h3>
+                            <p class="description" style="margin-top: 1rem;" id="detail-desc">以頂級水產為引，分享永續養殖觀點。採用循環水物理過濾與專利益生菌養殖，保證無抗生素與防腐劑，帶給餐桌最純粹的鮮甜體驗。</p>
+                        </div>
+                        
+                        <div>
+                            <div class="brand-esg-metrics">
+                                <div class="metric-pill">
+                                    <div class="metric-pill-val" id="detail-metric1">100%</div>
+                                    <div class="metric-pill-lbl" id="detail-metric1-lbl">循環水養殖</div>
+                                </div>
+                                <div class="metric-pill">
+                                    <div class="metric-pill-val" id="detail-metric2">0%</div>
+                                    <div class="metric-pill-lbl" id="detail-metric2-lbl">化學藥劑殘留</div>
+                                </div>
+                            </div>
+                            <div class="brand-card-footer">
+                                <button class="btn btn-outline" id="detail-video-btn"><i class="fa-solid fa-play"></i> 觀看故事</button>
+                                <button class="btn btn-primary" id="detail-add-btn">加入選物籃</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Catalog and Cart Split -->
+            <div class="catalog-container">
+                <!-- Product List -->
+                <div>
+                    <h2 style="margin-bottom: 1.5rem; color: var(--primary);"><i class="fa-solid fa-bag-shopping"></i> 沙龍現場限定型錄</h2>
+                    <div class="product-grid" id="product-grid">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+                
+                <!-- Sticky Cart -->
+                <div class="cart-panel">
+                    <div class="cart-header">
+                        <span class="cart-title"><i class="fa-solid fa-basket-shopping"></i> 我的選物籃</span>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </div>
+                    
+                    <div class="cart-items" id="cart-items">
+                        <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">選物籃還是空的，點選商品加入吧！</p>
+                    </div>
+                    
+                    <!-- Dynamic ESG Accumulator -->
+                    <div class="cart-impact-meter">
+                        <div class="cart-impact-title">
+                            <i class="fa-solid fa-seedling"></i> 累計創造的永續價值
+                        </div>
+                        <ul class="cart-impact-list" id="cart-impact-list">
+                            <li><span>耕地活化面積:</span> <span id="impact-land">0 坪</span></li>
+                            <li><span>循環水減量:</span> <span id="impact-water">0 公升</span></li>
+                            <li><span>賸食/廢棄果皮再利用:</span> <span id="impact-waste">0 公斤</span></li>
+                            <li><span>契作/青銀共創就業數:</span> <span id="impact-jobs">0 人</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cart-checkout-box">
+                        <input type="text" class="cart-input" id="checkout-name" placeholder="您的姓名">
+                        <input type="text" class="cart-input" id="checkout-phone" placeholder="您的聯絡電話">
+                        <button class="btn btn-accent" id="checkout-submit-btn" style="width: 100%;"><i class="fa-solid fa-square-check"></i> 確認送出預購訂單</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ==================== TAB 3: ESG IMPACT DASHBOARD ==================== -->
+        <section id="dashboard-tab" class="tab-content">
+            <div class="hero" style="margin-bottom: 2rem;">
+                <h1>NextT 永續食農聯盟 ESG 數據看板</h1>
+                <p>數據說話！此看板整合了所有合作業者（目前的五大品牌）在生產與營運端所創造的累計社會影響力與環境效益。透明的數據是打入大型跨國集團（如三商集團）綠色採購體系的最強綠色名片。</p>
+            </div>
+            
+            <!-- Highlight Cards -->
+            <div class="dashboard-grid">
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <span>活化休耕農地面積</span>
+                        <i class="fa-solid fa-map-location-dot dash-card-icon"></i>
+                    </div>
+                    <div class="dash-card-body">
+                        <span class="dash-card-val">15.5</span>
+                        <span class="dash-card-unit">公頃</span>
+                    </div>
+                    <div class="dash-card-footer">
+                        <i class="fa-solid fa-caret-up"></i>
+                        <span>較去年同期增長 12% (耕地活化)</span>
+                    </div>
+                </div>
+                
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <span>累計循環水使用量</span>
+                        <i class="fa-solid fa-droplet dash-card-icon"></i>
+                    </div>
+                    <div class="dash-card-body">
+                        <span class="dash-card-val">1,240,000</span>
+                        <span class="dash-card-unit">公升</span>
+                    </div>
+                    <div class="dash-card-footer">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>節能循環水養殖，減少地下水抽取</span>
+                    </div>
+                </div>
+                
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <span>剩食/廢棄果皮再利用</span>
+                        <i class="fa-solid fa-recycle dash-card-icon"></i>
+                    </div>
+                    <div class="dash-card-body">
+                        <span class="dash-card-val">480</span>
+                        <span class="dash-card-unit">公斤</span>
+                    </div>
+                    <div class="dash-card-footer">
+                        <i class="fa-solid fa-caret-up"></i>
+                        <span>將廢棄柑橘果皮轉化為高值食品</span>
+                    </div>
+                </div>
+                
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <span>契作農戶與青銀就業數</span>
+                        <i class="fa-solid fa-users dash-card-icon"></i>
+                    </div>
+                    <div class="dash-card-body">
+                        <span class="dash-card-val">28</span>
+                        <span class="dash-card-unit">人</span>
+                    </div>
+                    <div class="dash-card-footer">
+                        <i class="fa-solid fa-hand-holding-hand"></i>
+                        <span>提供老年農人穩定收入與青年就業</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts Row -->
+            <div class="dashboard-row-two">
+                <!-- Bar Chart 1 -->
+                <div class="chart-card">
+                    <h3> 各業者 ESG 環境效益貢獻指標</h3>
+                    <div class="mock-bar-chart">
+                        <div class="bar-row">
+                            <div class="bar-label-container">
+                                <span>幸福良食（活化農地）</span>
+                                <span>15 Hectares</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-row">
+                            <div class="bar-label-container">
+                                <span>一夫水產（水資源循環）</span>
+                                <span>100% Recycled Water</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-row">
+                            <div class="bar-label-container">
+                                <span>川涌果園（柑橘果皮再製）</span>
+                                <span>120 Kilograms Upcycled</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 40%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-row">
+                            <div class="bar-label-container">
+                                <span>緣長好事（契作花生農戶）</span>
+                                <span>12 Farmers Supported</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bar Chart 2 -->
+                <div class="chart-card">
+                    <h3> 沙龍預購訂單累積 ESG 價值（模擬沙龍現場銷售）</h3>
+                    <div class="mock-bar-chart">
+                        <div class="bar-row">
+                            <div class="bar-label-container">
+                                <span>當前消費者預購達成率</span>
+                                <span>82% (目標 $50,000)</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill bar-fill-orange" style="width: 82%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-row">
+                            <div class="bar-label-container">
+                                <span>帶動地方小農收益提升</span>
+                                <span>NT$ 41,000</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill bar-fill-orange" style="width: 82%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-row">
+                            <div class="bar-label-container">
+                                <span>預計支持減碳耕作面積</span>
+                                <span>350 坪</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill bar-fill-orange" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: KOL MATCHMAKING PORTAL ==================== -->
+        <section id="kol-tab" class="tab-content">
+            <!-- Lock Screen -->
+            <div id="kol-lock-screen" style="max-width: 500px; margin: 5rem auto; text-align: center; background: white; padding: 3rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-medium);">
+                <div style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 1.5rem;"><i class="fa-solid fa-user-shield"></i></div>
+                <h3 style="margin-bottom: 1rem; color: var(--primary);">業者專區驗證</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">此專區僅限 NextT 合作業者進入。請輸入 NextT 提供的專屬解鎖密碼以登記與挑選 KOL：</p>
+                <input type="password" id="kol-password-input" class="form-input-text" style="text-align: center; margin-bottom: 1.5rem; max-width: 300px;" placeholder="請輸入密碼">
+                <div>
+                    <button class="btn btn-primary" id="kol-unlock-btn">解鎖專區</button>
+                </div>
+                <p id="kol-error-msg" style="color: #ef4444; font-size: 0.85rem; margin-top: 1rem; display: none;"></p>
+            </div>
+
+            <!-- Matchmaking Screen (Hidden by default) -->
+            <div id="kol-content-screen" style="display: none;">
+                <div class="hero" style="margin-bottom: 2rem; text-align: left; padding: 1.5rem 0;">
+                    <h1>盛德好 KOL 團購合作與媒合登記</h1>
+                    <p>請在此登記您的品牌參與意願，並從我們精選的 KOL 陣容中挑選您感興趣的合作人選。我們的媒合團隊將在收到申請後，儘速為您對接聯絡！</p>
+                </div>
+                
+                <div class="ai-portal-grid" style="grid-template-columns: 1fr 1.3fr;">
+                    <!-- Registration Form -->
+                    <div class="ai-input-card" style="border-left: 4px solid var(--accent-orange);">
+                        <h3 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-file-signature"></i> 盛德好 KOL 團購登記</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">請確認並勾選符合以下合作規範，以利後續媒合流程：</p>
+                        
+                        <div class="form-group">
+                            <label for="kol-brand-select">1. 選擇您的品牌</label>
+                            <select class="form-input-text" id="kol-brand-select">
+                                <option value="chuanyong">川涌果園</option>
+                                <option value="yufu">一夫水產</option>
+                                <option value="yunchang">緣長好事</option>
+                                <option value="xingfu">幸福良食</option>
+                                <option value="chuanyong-vinegar">川涌果園 (果醋)</option>
+                                <option value="xingfu-tea">幸福良食 (黑豆茶)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" style="background: #fafaf9; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 1.25rem;">
+                            <label style="margin-bottom: 0.25rem; font-weight: 600;">2. 合作分潤規範</label>
+                            <p style="font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 500;">
+                                <i class="fa-solid fa-percent" style="color: var(--accent-orange);"></i> 統一為【團購售價之 20%】
+                            </p>
+                            <div style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted);">
+                                <input type="checkbox" id="kol-check-commission" style="margin-top: 3px; cursor: pointer;">
+                                <label for="kol-check-commission" style="font-weight: 500; color: var(--primary); cursor: pointer;">我確認並同意提供售價 20% 分潤</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" style="background: #fafaf9; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 1.25rem;">
+                            <label style="margin-bottom: 0.25rem; font-weight: 600;">3. 團購售價規範</label>
+                            <p style="font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 500;">
+                                <i class="fa-solid fa-tags" style="color: var(--accent-orange);"></i> 需額外提供會員比市場折扣更優惠
+                            </p>
+                            <div style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted);">
+                                <input type="checkbox" id="kol-check-price" style="margin-top: 3px; cursor: pointer;">
+                                <label for="kol-check-price" style="font-weight: 500; color: var(--primary); cursor: pointer;">我保證提供之價格低於市面公開折扣價</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="background: #fafaf9; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 1.25rem;">
+                            <label for="kol-product-propose" style="margin-bottom: 0.5rem; font-weight: 600;">4. 預計提供的團購品項或組合 (必填)</label>
+                            <textarea class="form-input-text" id="kol-product-propose" rows="4" placeholder="請詳細填寫您預計提供的團購商品品項與組合內容。例如：白蝦3包組，原價 $750，盛德好團購價 $680..."></textarea>
+                            <div style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                                <input type="checkbox" id="kol-check-propose" style="margin-top: 3px; cursor: pointer;">
+                                <label for="kol-check-propose" style="font-weight: 500; color: var(--primary); cursor: pointer;">確認已填寫完整商品組合與品項</label>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="kol-submit-btn" style="width: 100%; margin-top: 0.5rem;">
+                            <i class="fa-solid fa-paper-plane"></i> 送出媒合申請
+                        </button>
+                    </div>
+                    
+                    <!-- KOL Selection Cards (Scrollable List with Search) -->
+                    <div>
+                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fa-solid fa-people-arrows"></i> 第二步：勾選想媒合的 KOL</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">盛德好已為您對接以下 Podcast 創作者。請利用搜尋框查找並勾選：</p>
+                        
+                        <!-- Search Bar -->
+                        <input type="text" id="kol-search-input" class="form-input-text" placeholder="🔍 輸入 KOL 名字或節目名稱進行搜尋..." style="margin-bottom: 1rem; width: 100%;">
+                        
+                        <!-- Scrollable list -->
+                        <div id="kol-list-container" style="max-height: 400px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; background: white; display: flex; flex-direction: column; gap: 0.75rem; box-shadow: inset 0 2px 8px rgba(0,0,0,0.03);">
+                            <!-- Rendered dynamically by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- YouTube Video Modal -->
+    <div class="modal" id="video-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <div class="video-container">
+                <!-- iframe will be loaded dynamically by JS to prevent auto-play and slow loading -->
+                <iframe id="modal-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

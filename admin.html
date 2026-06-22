@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【後台管理】NextT 永續食農 AI 故事特助</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Admin-specific layout adjustments */
+        .admin-header {
+            background: #1e293b;
+            color: white;
+            border-bottom: 3px solid var(--accent-orange);
+        }
+        .admin-header .logo-badge {
+            background: var(--accent-orange);
+        }
+        .admin-header .logo-title {
+            color: white;
+        }
+        .admin-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .admin-nav-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+        .current-brands-list {
+            margin-top: 3rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            box-shadow: var(--shadow-subtle);
+        }
+        .brands-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .brands-table th, .brands-table td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .brands-table th {
+            background: #f8fafc;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .reset-btn {
+            background: #ef4444;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+        .reset-btn:hover {
+            background: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="logo-container">
+            <span class="logo-badge">NextT Admin</span>
+            <span class="logo-title">永續食農 - 後台管理系統</span>
+        </div>
+        <div class="admin-nav-info">
+            <i class="fa-solid fa-lock" style="color: var(--accent-orange);"></i>
+            <span>安全後台模式</span>
+            <a href="index.html" target="_blank" style="color: #60a5fa; text-decoration: none; font-weight: 600;">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> 開啟前台
+            </a>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <div class="hero" style="margin-bottom: 2rem; text-align: left; padding: 1.5rem 0;">
+            <h1 style="font-size: 2.2rem; color: var(--primary);"><i class="fa-solid fa-wand-magic-sparkles"></i> 合作業者 AI 故事特助</h1>
+            <p>小農與旅創業者無需填寫繁瑣表格，在此貼上官網連結或 IG 貼文，AI 即自動精煉品牌故事與 ESG 量化指標，確認發佈後將**即時與前台聯動更新**！</p>
+        </div>
+        
+        <div class="ai-portal-grid">
+            <!-- Inputs -->
+            <div class="ai-input-card">
+                <h3><i class="fa-solid fa-robot"></i> 第一步：貼上現有素材</h3>
+                <div class="form-group">
+                    <label for="ai-web-url">品牌官方網站或專頁 URL</label>
+                    <input type="url" class="form-input-text" id="ai-web-url" placeholder="https://www.example.com">
+                </div>
+                <div class="form-group">
+                    <label for="ai-ig-post">複製貼上最近的一篇 IG/FB 貼文或產品介紹文字</label>
+                    <textarea class="form-input-text" id="ai-ig-post" rows="8" placeholder="例如：川涌果園今年柑橘大豐收！我們堅持用手作柑橘米香與冰柑橘果醋，全部人工除草，不灑農藥，雖然累但是對土地好。請大家支持台灣在地果農..."></textarea>
+                </div>
+                
+                <!-- Target Brand Selector -->
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="ai-brand-target">請選擇要更新的品牌業者</label>
+                    <select class="form-input-text" id="ai-brand-target">
+                        <option value="chuanyong">川涌果園</option>
+                        <option value="yufu">一夫水產</option>
+                        <option value="yunchang">緣長好事</option>
+                        <option value="xingfu">幸福良食</option>
+                        <option value="xingfu-tea">幸福良食 (黑豆茶)</option>
+                        <option value="chuanyong-vinegar">川涌果園 (果醋)</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary" id="ai-run-btn" style="width: 100%; margin-top: 1rem;">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 啟動 AI 智能解析與行銷潤飾
+                </button>
+            </div>
+            
+            <!-- Output Display -->
+            <div class="ai-output-card" id="ai-output-card">
+                <!-- Empty State -->
+                <div class="ai-empty-state" id="ai-empty-state">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <p>在左側輸入素材並啟動 AI 特助，系統將在此呈現高質感的 ESG 提案文案、自動產生的業者標籤與數據指標。</p>
+                </div>
+                
+                <!-- Loading State -->
+                <div class="ai-loading-state" id="ai-loading-state">
+                    <div class="ai-loading-spinner"></div>
+                    <h4>AI 正在閱讀您的官網與分析 IG 貼文...</h4>
+                    <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem;">提取核心價值 -> 精煉 B2B 文案 -> 對應 ESG 量化指標</p>
+                </div>
+                
+                <!-- Results State -->
+                <div class="ai-results-state" id="ai-results-state">
+                    <div class="ai-output-title">
+                        <i class="fa-solid fa-circle-check" style="color: var(--accent-orange-light);"></i> AI 智能生成品牌報告
+                    </div>
+                    
+                    <div class="diff-container">
+                        <div class="diff-label">原輸入素材摘要</div>
+                        <div class="diff-content" id="ai-original-summary" style="opacity: 0.7; font-size: 0.85rem;"></div>
+                    </div>
+                    
+                    <div class="diff-container">
+                        <div class="diff-label">AI 潤飾後：B2B & ESG 故事行銷文案</div>
+                        <div class="diff-content" id="ai-refined-story" style="font-weight: 500;"></div>
+                    </div>
+                    
+                    <div class="diff-container">
+                        <div class="diff-label">AI 自動萃取的 ESG 特色標籤</div>
+                        <div class="diff-tags" id="ai-generated-tags"></div>
+                    </div>
+                    
+                    <div class="diff-container">
+                        <div class="diff-label">AI 量化 ESG 目標對應</div>
+                        <div class="diff-content" id="ai-esg-goals" style="font-size: 0.85rem;"></div>
+                    </div>
+                    
+                    <button class="btn btn-accent" id="ai-save-btn" style="align-self: flex-end;">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> 確認發佈並更新前台
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brands Management Dashboard -->
+        <div class="current-brands-list">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 1rem;">
+                <h3 style="color: var(--primary);"><i class="fa-solid fa-list-check"></i> 目前已發佈之業者資料狀態</h3>
+                <button class="reset-btn" id="reset-db-btn"><i class="fa-solid fa-rotate-left"></i> 重設為預設展示資料</button>
+            </div>
+            
+            <table class="brands-table">
+                <thead>
+                    <tr>
+                        <th>品牌名稱</th>
+                        <th>主打特色</th>
+                        <th>標籤</th>
+                        <th>最新故事內容簡介</th>
+                        <th>資料來源</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-brands-table-body">
+                    <!-- Loaded dynamically -->
+                </tbody>
+        </div>
+
+        <!-- KOL Matchmaking Requests Table -->
+        <div class="current-brands-list" style="margin-top: 2rem; border-color: #38bdf8;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 1rem;">
+                <h3 style="color: #0369a1;"><i class="fa-solid fa-people-arrows"></i> 第二波：盛德好 KOL 團購媒合登記結果</h3>
+                <span style="font-size: 0.8rem; background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.75rem; border-radius: 12px; font-weight: 600;" id="kol-reg-count">共 0 筆申請</span>
+            </div>
+            
+            <table class="brands-table">
+                <thead>
+                    <tr>
+                        <th>申請時間</th>
+                        <th>品牌名稱</th>
+                        <th>主打團購方案</th>
+                        <th>分潤成數</th>
+                        <th>欲合作 KOL</th>
+                        <th>狀態</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-kol-table-body">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">尚無業者提交 KOL 媒合申請。請至前台「KOL合作專區」輸入密碼登記。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
