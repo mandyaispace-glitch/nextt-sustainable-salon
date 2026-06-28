@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://mandyaispace-glitch.github.io/nextt-sustainable-salon/sitemap.xml

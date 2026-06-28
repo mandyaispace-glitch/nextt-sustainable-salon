@@ -989,8 +989,8 @@ function initKOLMatchmaker() {
     
     unlockBtn.addEventListener('click', () => {
         const password = passwordInput.value.trim().toLowerCase();
-        // Default password "nextt" or "nextt2026"
-        if (password === 'nextt' || password === 'nextt2026') {
+        // Authorized password nextt20260718 (or default nextt/nextt2026)
+        if (password === 'nextt20260718' || password === 'nextt' || password === 'nextt2026') {
             sessionStorage.setItem('nextt_kol_unlocked', 'true');
             lockScreen.style.display = 'none';
             contentScreen.style.display = 'block';
