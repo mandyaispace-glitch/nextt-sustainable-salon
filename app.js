@@ -99,11 +99,11 @@ const defaultProducts = [
     {
         id: "c1",
         brandId: "chuanyong",
-        title: "組合一：【酸甜喚醒・大地序曲】",
-        subtitle: "川涌果園「柑橘米香」 ＋ 冰柑橘果醋氣泡飲",
-        desc: "「台南東山天然柑橘果酸，加倍解膩！柑橘米香搭配果醋氣泡飲，酥脆微酸，敲鍵盤隨手抓，低負擔超療癒！」",
+        title: "【格外品翻轉・永續椪柑選物組】",
+        subtitle: "明星零嘴：柑橘米香（180g） ＋ 生活選物：純釀鮮榨椪柑果醋、柑橘家事清潔劑噴瓶",
+        desc: "「辦公室嚼感系零食首選！將台南東山在地柑橘的天然果酸，優雅揉入黃金比例的酥脆米香中。微酸微甜的療癒層次，順口解膩，敲鍵盤隨手抓，低卡低負擔。搭配100%果皮回收研發的天然洗劑，過一個零廢棄的柑橘感官生活。」",
         price: 230,
-        esgLbl: "減少 3.0kg 剩食，活化 6 坪減碳農地",
+        esgLbl: "🌱 減少 3.0kg 剩食，活化 6 坪減碳農地",
         land: 6,
         water: 0,
         waste: 3.0,
@@ -118,36 +118,36 @@ const defaultProducts = [
     {
         id: "c2",
         brandId: "yunchang",
-        title: "組合二：【濃郁撞擊・歲月溫潤】",
-        subtitle: "緣長好事「花生糖」 ＋ 幸福良食「熱黑豆茶」",
-        desc: "「極簡成分、大膽減糖的花生糖，搭配溫潤清雅黑豆茶。濃郁堅果香，酥脆清爽不黏牙，下午茶開會腦乾應援首選！」",
+        title: "【厚實堅果香・職人減糖花生禮】",
+        subtitle: "明星零嘴：三代傳承・微甜減糖花生糖（雲林元長核心產區契作）",
+        desc: "「誰說台式花生糖一定甜膩又黏牙？緣長好事顛覆傳統，大膽進行『減糖革命』！成分極簡純粹，咬下去只有滿口爆發的雲林在地花生香，香脆清爽不黏手。下午茶開會來一塊，補充滿滿優質植物油脂與好體力，既解饞又完全沒有罪惡感！」",
         price: 300,
-        esgLbl: "支持 13 坪友善農地契作，契作 12 戶小農",
+        esgLbl: "🌱 守護 3 代農業傳承，支持 100% 在地契作小農",
         land: 13,
         water: 0,
         waste: 0,
         jobs: 0.35,
         link: "https://line.me/R/ti/p/@899rxilc",
         emoji: "🥜",
-        brandName: "緣長好事 × 幸福良食",
+        brandName: "緣長好事",
         visualDesc: "沉穩的黑豆深色調與焙炒溫暖感。畫面呈現熱茶氤氳的煙霧，與質樸飽滿的花生堅果顆粒。",
         gradient: "linear-gradient(135deg, #1e293b 0%, #b45309 100%)"
     },
     {
         id: "c3",
         brandId: "xingfu",
-        title: "組合三：【醇厚收尾・漢方跨界】",
-        subtitle: "幸福良食「黑豆酥」 ＋ 草本誠食「熱丹參茶」",
-        desc: "「老農契作 100% 無農藥黑豆酥，搭配舒壓漢方丹參茶。鹹甜酥脆，富含植物蛋白與膳食纖維，越嚼越香的能量應援！」",
+        title: "【青銀共創・高膳食纖維黑豆點心組】",
+        subtitle: "明星零嘴：老農天團契作・烘焙黑豆酥 ＋ 機能飲品：低溫焙炒・產銷履歷黑豆茶",
+        desc: "「下午三點嘴饞想吃鹹點心？別再拿化學洋芋片傷害身體了！嚴選台南老農天團契作的 100% 無農藥黑豆，化身為鹹甜酥脆、嚼勁十足的黑豆酥。富含豐富的植物性蛋白質與高膳食纖維，越嚼越香，為長坐辦公室的你補充滿滿健康能量！」",
         price: 280,
-        esgLbl: "活化 10 坪台南休耕地，支持在地漢方溫補",
+        esgLbl: "🌱 100% 無化學農藥，活化破百公頃休耕地",
         land: 10,
         water: 0,
         waste: 0,
         jobs: 0.25,
         link: "https://openchat.line.me/tw/cover/jsThnluwcHgl6yxczBW3kCVguCqZ4YptkcF7EygtV0plYiuN_UqSKJ1lA5w?utm_source=line-openchat-seo&utm_medium=search_keyword&utm_campaign=default",
         emoji: "🫖",
-        brandName: "幸福良食 × 草本誠食",
+        brandName: "幸福良食",
         visualDesc: "深邃的漢方草本綠與金黃酥脆的對比。畫面傳遞出安心、溫補與職人手作的踏實感。",
         gradient: "linear-gradient(135deg, #065f46 0%, #fbbf24 100%)"
     },
@@ -198,22 +198,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v9');
-    const storedProducts = localStorage.getItem('nextt_products_data_v9');
-    const storedCart = localStorage.getItem('nextt_cart_data_v9');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v10');
+    const storedProducts = localStorage.getItem('nextt_products_data_v10');
+    const storedCart = localStorage.getItem('nextt_cart_data_v10');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v9', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v10', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v9', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v10', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -527,7 +527,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v9', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v10', JSON.stringify(cart));
     });
 }
 
@@ -554,7 +554,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v9', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v10', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -586,7 +586,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v9', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v10', JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -735,7 +735,7 @@ function initAIProcessor() {
                 brandsData[targetBrandId].desc = refinedStory.replace(/<br>/g, '\n').replace(/<\/?[^>]+(>|$)/g, ""); // Strip HTML tag details
                 brandsData[targetBrandId].tag = firstTag;
                                 // Write back to LocalStorage
-                 localStorage.setItem('nextt_brands_data_v9', JSON.stringify(brandsData));
+                 localStorage.setItem('nextt_brands_data_v10', JSON.stringify(brandsData));
                 
                 alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
                 
@@ -776,9 +776,9 @@ function initAdminReset() {
     
     resetBtn.addEventListener('click', () => {
         if (confirm('確定要將所有業者資料、KOL登記與活動報名名單重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data_v9');
-            localStorage.removeItem('nextt_products_data_v9');
-            localStorage.removeItem('nextt_cart_data_v9');
+            localStorage.removeItem('nextt_brands_data_v10');
+            localStorage.removeItem('nextt_products_data_v10');
+            localStorage.removeItem('nextt_cart_data_v10');
             localStorage.removeItem('nextt_kol_applications');
             localStorage.removeItem('nextt_rsvp_list');
             loadData();
@@ -832,15 +832,58 @@ function initModals() {
     const imgModal = document.getElementById('image-modal');
     const imgModalContent = document.getElementById('image-modal-img');
     const imgModalClose = document.getElementById('image-modal-close-btn');
+    const imgModalPrev = document.getElementById('image-modal-prev-btn');
+    const imgModalNext = document.getElementById('image-modal-next-btn');
+    
+    let currentGalleryImages = [];
+    let currentGalleryIndex = 0;
     
     if (imgModal) {
-        window.openImageModal = function(src, alt) {
+        window.openImageModal = function(srcOrArray, alt) {
             if (imgModalContent) {
-                imgModalContent.src = src;
+                if (Array.isArray(srcOrArray)) {
+                    currentGalleryImages = srcOrArray;
+                    currentGalleryIndex = 0;
+                    imgModalContent.src = currentGalleryImages[currentGalleryIndex];
+                    if (imgModalPrev) imgModalPrev.style.display = 'flex';
+                    if (imgModalNext) imgModalNext.style.display = 'flex';
+                } else {
+                    currentGalleryImages = [srcOrArray];
+                    currentGalleryIndex = 0;
+                    imgModalContent.src = srcOrArray;
+                    if (imgModalPrev) imgModalPrev.style.display = 'none';
+                    if (imgModalNext) imgModalNext.style.display = 'none';
+                }
                 imgModalContent.alt = alt || "放大圖卡";
                 imgModal.classList.add('active');
             }
         };
+        
+        function updateGalleryImage() {
+            if (imgModalContent && currentGalleryImages.length > 0) {
+                imgModalContent.src = currentGalleryImages[currentGalleryIndex];
+            }
+        }
+        
+        if (imgModalPrev) {
+            imgModalPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (currentGalleryImages.length > 1) {
+                    currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+                    updateGalleryImage();
+                }
+            });
+        }
+        
+        if (imgModalNext) {
+            imgModalNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (currentGalleryImages.length > 1) {
+                    currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+                    updateGalleryImage();
+                }
+            });
+        }
         
         if (imgModalClose) {
             imgModalClose.addEventListener('click', () => {

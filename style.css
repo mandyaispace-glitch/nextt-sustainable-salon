@@ -1630,6 +1630,12 @@ main {
     transform: rotate(90deg);
 }
 
+.image-modal-prev:hover, .image-modal-next:hover {
+    background: rgba(239, 110, 36, 0.8) !important;
+    color: white !important;
+    transform: translateY(-50%) scale(1.1);
+}
+
 /* ==================== EVENT ORIGIN SECTION ==================== */
 .origin-section {
     background: linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%);
