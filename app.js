@@ -198,22 +198,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v7');
-    const storedProducts = localStorage.getItem('nextt_products_data_v7');
-    const storedCart = localStorage.getItem('nextt_cart_data_v7');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v8');
+    const storedProducts = localStorage.getItem('nextt_products_data_v8');
+    const storedCart = localStorage.getItem('nextt_cart_data_v8');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v7', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v8', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v7', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v8', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -362,18 +362,18 @@ function renderCatalog() {
         const btnIcon = isFb ? '<i class="fa-brands fa-facebook"></i>' : '<i class="fa-brands fa-line"></i>';
         const btnClass = isFb ? 'pairing-btn-redirect btn-facebook' : 'pairing-btn-redirect btn-line';
         
-        const visualStyle = p.imageUrl 
-            ? `background-image: url('${p.imageUrl}'); background-size: cover; background-position: center;`
-            : `background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'};`;
+        const visualContent = p.imageUrl 
+            ? `<div class="pairing-visual" style="background: #f4f6f8; padding: 0; min-height: 180px; height: 180px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: 1px solid var(--morandi-border);">
+                   <img src="${p.imageUrl}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-sm);">
+               </div>`
+            : `<div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}">
+                   <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${p.emoji || '🌿'}</div>
+                   <div class="pairing-visual-title">${p.title.includes('：') ? p.title.split('：')[1] : p.title}</div>
+                   <div class="pairing-visual-concept">${p.visualDesc || ''}</div>
+               </div>`;
             
         card.innerHTML = `
-            <div class="pairing-visual" style="${visualStyle}">
-                ${p.imageUrl ? '' : `
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${p.emoji || '🌿'}</div>
-                    <div class="pairing-visual-title">${p.title.includes('：') ? p.title.split('：')[1] : p.title}</div>
-                    <div class="pairing-visual-concept">${p.visualDesc || ''}</div>
-                `}
-            </div>
+            ${visualContent}
             <div class="pairing-content">
                 <div class="pairing-header">
                     <span class="pairing-brand">${p.brandName || ''}</span>
@@ -480,7 +480,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v7', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v8', JSON.stringify(cart));
     });
 }
 
@@ -507,7 +507,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v7', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v8', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -539,7 +539,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v7', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v8', JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -688,7 +688,7 @@ function initAIProcessor() {
                 brandsData[targetBrandId].desc = refinedStory.replace(/<br>/g, '\n').replace(/<\/?[^>]+(>|$)/g, ""); // Strip HTML tag details
                 brandsData[targetBrandId].tag = firstTag;
                                 // Write back to LocalStorage
-                 localStorage.setItem('nextt_brands_data_v7', JSON.stringify(brandsData));
+                 localStorage.setItem('nextt_brands_data_v8', JSON.stringify(brandsData));
                 
                 alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
                 
@@ -729,9 +729,9 @@ function initAdminReset() {
     
     resetBtn.addEventListener('click', () => {
         if (confirm('確定要將所有業者資料與KOL登記紀錄重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data_v7');
-            localStorage.removeItem('nextt_products_data_v7');
-            localStorage.removeItem('nextt_cart_data_v7');
+            localStorage.removeItem('nextt_brands_data_v8');
+            localStorage.removeItem('nextt_products_data_v8');
+            localStorage.removeItem('nextt_cart_data_v8');
             localStorage.removeItem('nextt_kol_applications');
             loadData();
             renderCatalog();
