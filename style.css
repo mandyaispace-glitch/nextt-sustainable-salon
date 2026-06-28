@@ -442,10 +442,7 @@ main {
 
 /* Catalog and Cart Split */
 .catalog-container {
-    display: grid;
-    grid-template-columns: 2.2fr 1fr;
-    gap: 2rem;
-    align-items: start;
+    display: block;
 }
 
 @media (max-width: 1000px) {
@@ -1679,4 +1676,20 @@ main {
 
 .origin-card-content li {
     margin-bottom: 0.4rem;
+}
+
+/* B2B Grid */
+.b2b-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+    margin-top: 1.5rem;
+    align-items: center;
+}
+
+@media (max-width: 850px) {
+    .b2b-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 }

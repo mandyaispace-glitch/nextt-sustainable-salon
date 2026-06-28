@@ -137,7 +137,7 @@
                 </div>
             </div>
 
-            <!-- Product Catalog and Cart Split -->
+            <!-- Product Catalog Container (Full Width) -->
             <div class="catalog-container">
                 <!-- Product List -->
                 <div>
@@ -146,7 +146,7 @@
                     <!-- GPT Visual Guide Cards Gallery -->
                     <div class="gallery-section">
                         <div class="gallery-title">
-                            <i class="fa-solid fa-compass" style="color: var(--accent-orange);"></i> AI 侍茶師搭餐與 B2B 風味圖卡（點擊放大檢視）
+                            <i class="fa-solid fa-compass" style="color: var(--accent-orange);"></i> AI 侍茶師搭餐風味圖卡（點擊放大檢視）
                         </div>
                         <div class="gallery-grid">
                             <div class="gallery-card" onclick="openImageModal('images/flavor_wheel.png', '感官風味輪與搭餐指南')">
@@ -169,16 +169,6 @@
                                     <div class="gallery-card-desc">川涌果園、緣長好事、幸福良食、草本誠食的風味密碼</div>
                                 </div>
                             </div>
-                            <div class="gallery-card" onclick="openImageModal('images/group_package.png', '團購組合與 B2B 選購清單')">
-                                <div class="gallery-img-wrapper">
-                                    <img src="images/group_package.png" alt="團購組合與 B2B 選購清單">
-                                    <div class="gallery-zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                                </div>
-                                <div class="gallery-info">
-                                    <div class="gallery-card-title">團購組合與 B2B 選購清單</div>
-                                    <div class="gallery-card-desc">五大品牌聯名與產地限定特惠包裝</div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -186,36 +176,36 @@
                         <!-- Rendered by JS -->
                     </div>
                 </div>
+            </div>
+
+            <!-- B2B Group Buying Section -->
+            <div class="origin-section" style="margin-top: 3rem; background: linear-gradient(135deg, rgba(254, 243, 199, 0.4) 0%, rgba(255, 255, 255, 0.9) 100%);">
+                <div class="origin-header">
+                    <h2><i class="fa-solid fa-boxes-packing" style="color: #d97706;"></i> B2B 企業團購與產地限定組合</h2>
+                    <p>適合企業 ESG 節慶採購、通路綠色聯名禮盒或高毛利機能保健差異化主打商品。</p>
+                </div>
                 
-                <!-- Sticky Cart -->
-                <div class="cart-panel">
-                    <div class="cart-header">
-                        <span class="cart-title"><i class="fa-solid fa-basket-shopping"></i> 我的永續支持清單</span>
-                        <span class="cart-count" id="cart-count">0</span>
-                    </div>
-                    
-                    <div class="cart-items" id="cart-items">
-                        <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">目前尚未支持任何永續品牌。請在風味指南中勾選「支持試算」！</p>
-                    </div>
-                    
-                    <!-- Dynamic ESG Accumulator -->
-                    <div class="cart-impact-meter">
-                        <div class="cart-impact-title">
-                            <i class="fa-solid fa-seedling"></i> 累計支持的永續價值
-                        </div>
-                        <ul class="cart-impact-list" id="cart-impact-list">
-                            <li><span>耕地活化面積:</span> <span id="impact-land">0 坪</span></li>
-                            <li><span>循環水過濾減量:</span> <span id="impact-water">0 公升</span></li>
-                            <li><span>賸食/廢棄果皮再利用:</span> <span id="impact-waste">0 公斤</span></li>
-                            <li><span>契作/青銀共創就業數:</span> <span id="impact-jobs">0 人</span></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="cart-checkout-box" style="text-align: center; padding: 1rem 0;">
-                        <p style="font-size: 0.82rem; color: var(--morandi-blue-medium); line-height: 1.5; margin-bottom: 0;">
-                            <i class="fa-solid fa-circle-info"></i> 本網頁僅作永續影響力支持試算。<br>
-                            如需訂購與了解詳情，請點選風味指南與小農卡片中的 <b>LINE / FB 聯絡按鈕</b> 直達官方下單。
+                <div class="b2b-grid">
+                    <div>
+                        <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.8rem;">【產地限定】五大品牌團購組合與 B2B 選購清單</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1.2rem;">
+                            由 NextT 旅創加速器統一籌劃，為企業客戶提供一次到位的永續採購服務。包含川涌果園格外柑橘升級商品、緣長好事減糖文創禮盒、幸福良食青銀黑豆系列、草本誠食無毒丹參機能品及一夫水產溫室精品，支持產地直發，並享有大宗採購限定折扣與碳足跡抵減證書申報輔助。
                         </p>
+                        <div style="display: flex; gap: 1rem;">
+                            <a href="https://line.me/R/ti/p/@899rxilc" target="_blank" class="btn btn-primary btn-line" style="text-decoration: none;">
+                                <i class="fa-brands fa-line"></i> 企業大宗採購諮詢 (LINE)
+                            </a>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openImageModal('images/group_package.png', '團購組合與 B2B 選購清單')" style="max-width: 480px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-radius: var(--radius-sm); overflow: hidden; width: 100%;">
+                        <div class="gallery-img-wrapper" style="height: 250px;">
+                            <img src="images/group_package.png" alt="團購組合與 B2B 選購清單">
+                            <div class="gallery-zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                        </div>
+                        <div class="gallery-info" style="background: white; padding: 1rem;">
+                            <div class="gallery-card-title" style="font-weight: 700;">團購組合與 B2B 選購清單</div>
+                            <div class="gallery-card-desc" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">點擊放大檢視完整產品清單與規格</div>
+                        </div>
                     </div>
                 </div>
             </div>
