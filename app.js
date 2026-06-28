@@ -241,6 +241,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('video-modal')) {
         initModals();
     }
+    if (document.getElementById('rsvp-form')) {
+        initRSVPForm();
+    }
     if (document.getElementById('kol-unlock-btn')) {
         initKOLMatchmaker();
     }
@@ -734,41 +737,68 @@ function initAdminReset() {
     });
 }
 
-// 7. YouTube Embed Modals
+// 7. YouTube Embed Modals & Image Lightbox Modals
 function initModals() {
     const modal = document.getElementById('video-modal');
     const iframe = document.getElementById('modal-iframe');
     const closeBtn = document.getElementById('modal-close-btn');
     
-    if (!modal) return;
-    
-    window.openVideoModal = function(url) {
-        if (!url) return;
+    if (modal) {
+        window.openVideoModal = function(url) {
+            if (!url) return;
+            
+            // If the URL is an Instagram or Facebook link, open it in a new window/tab directly.
+            // This bypasses the X-Frame-Options blocking.
+            if (url.includes('instagram.com') || url.includes('facebook.com') || !url.includes('youtube.com/embed')) {
+                window.open(url, '_blank');
+                return;
+            }
+            
+            if (iframe) iframe.src = url;
+            modal.classList.add('active');
+        };
         
-        // If the URL is an Instagram or Facebook link, open it in a new window/tab directly.
-        // This bypasses the X-Frame-Options blocking.
-        if (url.includes('instagram.com') || url.includes('facebook.com') || !url.includes('youtube.com/embed')) {
-            window.open(url, '_blank');
-            return;
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+                if (iframe) iframe.src = ''; 
+            });
         }
         
-        if (iframe) iframe.src = url;
-        modal.classList.add('active');
-    };
-    
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-            if (iframe) iframe.src = ''; 
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                if (iframe) iframe.src = '';
+            }
         });
     }
+
+    // Image Lightbox Modal bindings
+    const imgModal = document.getElementById('image-modal');
+    const imgModalContent = document.getElementById('image-modal-img');
+    const imgModalClose = document.getElementById('image-modal-close-btn');
     
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            if (iframe) iframe.src = '';
+    if (imgModal) {
+        window.openImageModal = function(src, alt) {
+            if (imgModalContent) {
+                imgModalContent.src = src;
+                imgModalContent.alt = alt || "放大圖卡";
+                imgModal.classList.add('active');
+            }
+        };
+        
+        if (imgModalClose) {
+            imgModalClose.addEventListener('click', () => {
+                imgModal.classList.remove('active');
+            });
         }
-    });
+        
+        imgModal.addEventListener('click', (e) => {
+            if (e.target === imgModal) {
+                imgModal.classList.remove('active');
+            }
+        });
+    }
 }
 
 // 8. KOL Matchmaker (Front-end Private Tab)
@@ -1048,4 +1078,78 @@ function renderAdminKOLTable() {
             tableBody.appendChild(row);
         });
     }
+}
+
+function initRSVPForm() {
+    const form = document.getElementById('rsvp-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('rsvp-name').value.trim();
+        const company = document.getElementById('rsvp-company').value.trim();
+        const phone = document.getElementById('rsvp-phone').value.trim();
+        const email = document.getElementById('rsvp-email').value.trim();
+        const notes = document.getElementById('rsvp-notes').value.trim();
+        
+        const checkedSessions = [];
+        const checkboxes = document.querySelectorAll('input[name="rsvp-sessions"]:checked');
+        checkboxes.forEach(cb => checkedSessions.push(cb.value));
+        
+        if (checkedSessions.length === 0) {
+            alert('請至少勾選一個欲出席的場次！');
+            return;
+        }
+        
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalHTML = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 正在傳送報名資料...';
+        
+        if (GOOGLE_SCRIPT_URL) {
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    type: "rsvp",
+                    time: new Date().toLocaleString(),
+                    name: name,
+                    company: company,
+                    phone: phone,
+                    email: email,
+                    sessions: checkedSessions.join(', '),
+                    notes: notes
+                })
+            })
+            .then(() => {
+                showSuccess();
+            })
+            .catch(err => {
+                console.error("Error sending RSVP to GAS:", err);
+                showSuccess();
+            });
+        } else {
+            setTimeout(() => {
+                showSuccess();
+            }, 1000);
+        }
+        
+        function showSuccess() {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalHTML;
+            
+            // Save locally
+            const rsvpData = {
+                name, company, phone, email, sessions: checkedSessions, notes, time: new Date().toLocaleString()
+            };
+            const storedRsvps = JSON.parse(localStorage.getItem('nextt_rsvp_list') || '[]');
+            storedRsvps.push(rsvpData);
+            localStorage.setItem('nextt_rsvp_list', JSON.stringify(storedRsvps));
+            
+            alert(`✨ 報名成功！\n\n感謝您的預約，${name}。我們已為您登記出席場次：\n${checkedSessions.join('\n')}\n\n期待與您在沙龍現場相見！`);
+            form.reset();
+        }
+    });
 }

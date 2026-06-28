@@ -20,6 +20,9 @@
             <button class="nav-tab active" data-tab="catalog-tab">
                 <i class="fa-solid fa-utensils"></i> 沙龍選物體驗
             </button>
+            <button class="nav-tab" data-tab="rundown-tab">
+                <i class="fa-solid fa-calendar-days"></i> 活動流程與報名
+            </button>
             <button class="nav-tab" data-tab="kol-tab">
                 <i class="fa-solid fa-people-group"></i> KOL 合作專區
             </button>
@@ -113,6 +116,46 @@
                 <!-- Product List -->
                 <div>
                     <h2 style="margin-bottom: 1.5rem; color: var(--primary);"><i class="fa-solid fa-bag-shopping"></i> AI 侍茶師推薦・永續茶點風味指南 & 品牌特惠</h2>
+                    
+                    <!-- GPT Visual Guide Cards Gallery -->
+                    <div class="gallery-section">
+                        <div class="gallery-title">
+                            <i class="fa-solid fa-compass" style="color: var(--accent-orange);"></i> AI 侍茶師搭餐與 B2B 風味圖卡（點擊放大檢視）
+                        </div>
+                        <div class="gallery-grid">
+                            <div class="gallery-card" onclick="openImageModal('images/flavor_wheel.png', '感官風味輪與搭餐指南')">
+                                <div class="gallery-img-wrapper">
+                                    <img src="images/flavor_wheel.png" alt="感官風味輪與搭餐指南">
+                                    <div class="gallery-zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                                </div>
+                                <div class="gallery-info">
+                                    <div class="gallery-card-title">感官風味輪與搭餐指南</div>
+                                    <div class="gallery-card-desc">引導一邊聽故事、一邊品嚐，並直接掃碼下單</div>
+                                </div>
+                            </div>
+                            <div class="gallery-card" onclick="openImageModal('images/sommelier_card.png', 'AI 侍茶師風味指南卡')">
+                                <div class="gallery-img-wrapper">
+                                    <img src="images/sommelier_card.png" alt="AI 侍茶師風味指南卡">
+                                    <div class="gallery-zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                                </div>
+                                <div class="gallery-info">
+                                    <div class="gallery-card-title">AI 侍茶師風味指南卡</div>
+                                    <div class="gallery-card-desc">川涌果園、緣長好事、幸福良食、草本誠食的風味密碼</div>
+                                </div>
+                            </div>
+                            <div class="gallery-card" onclick="openImageModal('images/group_package.png', '團購組合與 B2B 選購清單')">
+                                <div class="gallery-img-wrapper">
+                                    <img src="images/group_package.png" alt="團購組合與 B2B 選購清單">
+                                    <div class="gallery-zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                                </div>
+                                <div class="gallery-info">
+                                    <div class="gallery-card-title">團購組合與 B2B 選購清單</div>
+                                    <div class="gallery-card-desc">五大品牌聯名與產地限定特惠包裝</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="product-grid" id="product-grid">
                         <!-- Rendered by JS -->
                     </div>
@@ -148,6 +191,140 @@
                             如需訂購與了解詳情，請點選風味指南與小農卡片中的 <b>LINE / FB 聯絡按鈕</b> 直達官方下單。
                         </p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: RUNDOWN & RSVP ==================== -->
+        <section id="rundown-tab" class="tab-content">
+            <div class="hero" style="margin-bottom: 2rem;">
+                <h1>活動行程與線上報名 (Rundown & RSVP)</h1>
+                <p>「NextT × T Planner 週末選物沙龍」為在地永續品牌打造專屬舞台，歡迎您線上預約出席 7/18 與 7/19 的活動場次。</p>
+            </div>
+            
+            <div class="rundown-container">
+                <!-- Rundown Timeline -->
+                <div class="timeline-section">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem;"><i class="fa-solid fa-clock" style="color: var(--accent-orange);"></i> 沙龍行程時間表 (Rundown)</h3>
+                    
+                    <div class="timeline">
+                        <div class="timeline-day-title">
+                            <i class="fa-solid fa-fish"></i> 7/18 (六) 一夫水產專場 (12:40 - 14:00)
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">12:40 - 13:00</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">貴賓與社群夥伴報到</div>
+                                <div class="timeline-desc">現場品牌快閃展示與自由交流。</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">13:00 - 13:10</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">活動暖場與理念說明</div>
+                                <div class="timeline-desc">NextT 引言，介紹「餐桌上的永續影響力」核心價值與跨界整合目的。</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">13:10 - 13:40</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">一夫水產專場分享</div>
+                                <div class="timeline-desc">以頂級水產為引，分享永續物理循環水養殖與無毒安全理念。</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">13:40 - 14:00</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">少量鮮味試吃體驗</div>
+                                <div class="timeline-desc">提供少量精緻鮮味試吃（如川燙蝦仁），拉開週末選物沙龍序幕。</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-day-title" style="margin-top: 2rem;">
+                            <i class="fa-solid fa-mug-hot"></i> 7/19 (日) 永續選物沙龍主場 (15:00 - 18:00)
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">15:00 - 15:05</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">開場與理念說明</div>
+                                <div class="timeline-desc">介紹「永續茶點搭餐組合」與今日跨界通路對話目的。</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">15:05 - 16:45</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">小農品牌故事分享 (4 隊)</div>
+                                <div class="timeline-desc">川涌果園、緣長好事、幸福良食、草本誠食創辦人親自分享（每隊 20-25 分鐘）。</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">16:45 - 17:15</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">三商集團專題分享</div>
+                                <div class="timeline-desc">擔任「產業賦能者」，分享綠色採購通路趨勢與對永續品牌的期許。</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">17:15 - 17:45</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">【焦點對談】永續食農的未來</div>
+                                <div class="timeline-desc">三商代表與五大品牌對談：探討包裝規格、通路門檻與 ESG 故事如何變現。</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">17:45 - 18:00</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">自由交流與團購取貨</div>
+                                <div class="timeline-desc">現場展示區下單、預訂現場取貨、小農深度交流。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RSVP Registration Box -->
+                <div class="rsvp-form-container">
+                    <div class="rsvp-hero-banner" style="background-image: url('images/salon_bg.png');">
+                        <div class="rsvp-hero-overlay">
+                            <div class="rsvp-hero-title">NextT 永續沙龍現場預約登記</div>
+                        </div>
+                    </div>
+                    
+                    <form id="rsvp-form">
+                        <div class="rsvp-form-group">
+                            <label for="rsvp-name"><i class="fa-solid fa-user"></i> 姓名 *</label>
+                            <input type="text" id="rsvp-name" class="rsvp-input" required placeholder="請輸入姓名">
+                        </div>
+                        <div class="rsvp-form-group">
+                            <label for="rsvp-company"><i class="fa-solid fa-building"></i> 單位 / 職稱 *</label>
+                            <input type="text" id="rsvp-company" class="rsvp-input" required placeholder="例如：某某公司 採購經理">
+                        </div>
+                        <div class="rsvp-form-group">
+                            <label for="rsvp-phone"><i class="fa-solid fa-phone"></i> 聯絡電話 *</label>
+                            <input type="tel" id="rsvp-phone" class="rsvp-input" required placeholder="請輸入電話">
+                        </div>
+                        <div class="rsvp-form-group">
+                            <label for="rsvp-email"><i class="fa-solid fa-envelope"></i> 電子信箱 *</label>
+                            <input type="email" id="rsvp-email" class="rsvp-input" required placeholder="請輸入 Email">
+                        </div>
+                        <div class="rsvp-form-group">
+                            <label><i class="fa-solid fa-calendar-check"></i> 欲報名場次 * (可複選)</label>
+                            <div class="rsvp-checkbox-group">
+                                <label class="rsvp-checkbox-label">
+                                    <input type="checkbox" name="rsvp-sessions" value="7/18 一夫水產專場">
+                                    7/18 (六) 一夫水產專場 (12:40 - 14:00)
+                                </label>
+                                <label class="rsvp-checkbox-label">
+                                    <input type="checkbox" name="rsvp-sessions" value="7/19 永續沙龍主場">
+                                    7/19 (日) 永續選物沙龍主場 (15:00 - 18:00)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="rsvp-form-group">
+                            <label for="rsvp-notes"><i class="fa-solid fa-message"></i> 備註 / 提問</label>
+                            <textarea id="rsvp-notes" class="rsvp-textarea" rows="3" placeholder="有任何想詢問品牌或通路的內容嗎？"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-accent" style="width: 100%; padding: 0.75rem;"><i class="fa-solid fa-paper-plane"></i> 確認送出報名</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -403,10 +580,15 @@
         <div class="modal-content">
             <button class="modal-close" id="modal-close-btn">&times;</button>
             <div class="video-container">
-                <!-- iframe will be loaded dynamically by JS to prevent auto-play and slow loading -->
                 <iframe id="modal-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div class="image-modal" id="image-modal">
+        <button class="image-modal-close" id="image-modal-close-btn">&times;</button>
+        <img class="image-modal-content" id="image-modal-img" src="" alt="放大圖卡">
     </div>
 
     <!-- JS Logic -->
