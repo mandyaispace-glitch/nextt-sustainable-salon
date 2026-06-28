@@ -277,13 +277,33 @@ main {
     opacity: 1;
 }
 
-/* Specific positions on circular table */
-.hs-shrimp { top: 15%; left: 25%; }
-.hs-peanut { top: 15%; right: 25%; }
-.hs-rice { bottom: 15%; left: 22%; }
-.hs-blackbean { bottom: 15%; right: 22%; }
-.hs-tea { top: 45%; right: 8%; }
-.hs-vinegar { top: 45%; left: 8%; }
+/* Specific positions on circular table for 5 brands */
+.hs-yufu { top: 10%; left: 45%; }
+.hs-yunchang { top: 35%; right: 12%; }
+.hs-xingfu { bottom: 15%; right: 20%; }
+.hs-caoben { bottom: 15%; left: 20%; }
+.hs-chuanyong { top: 35%; left: 12%; }
+
+/* Social Media Button Colors */
+.btn-line {
+    background-color: #06c755 !important;
+    color: white !important;
+    border: none !important;
+}
+.btn-line:hover {
+    background-color: #05b04b !important;
+    box-shadow: 0 4px 12px rgba(6, 199, 85, 0.3) !important;
+}
+
+.btn-facebook {
+    background-color: #1877f2 !important;
+    color: white !important;
+    border: none !important;
+}
+.btn-facebook:hover {
+    background-color: #166fe5 !important;
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3) !important;
+}
 
 /* Info display block next to table */
 .table-interactive-row {

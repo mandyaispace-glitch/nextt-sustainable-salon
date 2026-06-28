@@ -12,11 +12,14 @@ const defaultBrands = {
         metric1Lbl: "循環水過濾率",
         metric2: "0%",
         metric2Lbl: "化學藥劑殘留",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", 
+        videoUrl: "https://www.youtube.com/embed/kJASthYFG54", 
         land: 0,
         water: 500,
         waste: 0,
-        jobs: 0.1
+        jobs: 0.1,
+        contactUrl: "https://oashop.line.me/shops/eqh9088q",
+        contactType: "line",
+        contactLabel: "前往 LINE 商城"
     },
     "yunchang": {
         name: "緣長好事",
@@ -27,11 +30,14 @@ const defaultBrands = {
         metric1Lbl: "契作小農",
         metric2: "100%",
         metric2Lbl: "在地花生使用",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        videoUrl: "https://www.instagram.com/p/DSB0g-lkmx6/",
         land: 5,
         water: 0,
         waste: 0,
-        jobs: 0.15
+        jobs: 0.15,
+        contactUrl: "https://line.me/R/ti/p/@899rxilc",
+        contactType: "line",
+        contactLabel: "與品牌 LINE 聯繫"
     },
     "chuanyong": {
         name: "川涌果園",
@@ -42,11 +48,14 @@ const defaultBrands = {
         metric1Lbl: "格外果皮利用",
         metric2: "100%",
         metric2Lbl: "有機肥栽培",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        videoUrl: "https://www.youtube.com/embed/f32bVJ0YK2M",
         land: 8,
         water: 0,
         waste: 3,
-        jobs: 0.08
+        jobs: 0.08,
+        contactUrl: "https://page.line.me/860pfyue?oat_content=url&openQrModal=true",
+        contactType: "line",
+        contactLabel: "與小農 LINE 預購"
     },
     "xingfu": {
         name: "幸福良食",
@@ -57,41 +66,14 @@ const defaultBrands = {
         metric1Lbl: "活化休耕農地",
         metric2: "100%",
         metric2Lbl: "無化學農藥",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        videoUrl: "https://www.youtube.com/embed/Qwz-Rhyh-y4",
         land: 10,
         water: 0,
         waste: 0,
-        jobs: 0.25
-    },
-    "xingfu-tea": {
-        name: "幸福良食 (黑豆茶專區)",
-        badge: "青銀共創・耕地活化",
-        tag: "#無防腐劑",
-        desc: "採用友善農法栽種之精選黑豆，經過低溫烘焙熟成。沖泡香氣濃郁，無任何化學添加，每一口都代表對高齡農夫與健康的永續支持。",
-        metric1: "100%",
-        metric1Lbl: "台灣在地生產",
-        metric2: "0 殘留",
-        metric2Lbl: "381項農藥檢驗",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        land: 8,
-        water: 0,
-        waste: 0,
-        jobs: 0.2
-    },
-    "chuanyong-vinegar": {
-        name: "川涌果園 (果醋氣泡飲)",
-        badge: "循環經濟・格外果品",
-        tag: "#零浪費研發",
-        desc: "以慢速發酵法製成天然柑橘醋，搭配氣泡水呈現微酸爽口風味。將無法進入主流通路的美麗格外品，化為夏日最環保的消暑極品。",
-        metric1: "2.5kg/瓶",
-        metric1Lbl: "廢棄柑橘果皮減量",
-        metric2: "100%",
-        metric2Lbl: "天然發酵熟成",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        land: 6,
-        water: 0,
-        waste: 2.5,
-        jobs: 0.05
+        jobs: 0.25,
+        contactUrl: "https://openchat.line.me/tw/cover/jsThnluwcHgl6yxczBW3kCVguCqZ4YptkcF7EygtV0plYiuN_UqSKJ1lA5w?utm_source=line-openchat-seo&utm_medium=search_keyword&utm_campaign=default",
+        contactType: "line",
+        contactLabel: "加入 LINE 社群"
     },
     "caoben": {
         name: "草本誠食",
@@ -102,11 +84,14 @@ const defaultBrands = {
         metric1Lbl: "無毒友善農法",
         metric2: "2 戶",
         metric2Lbl: "青農契作",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        videoUrl: "https://www.facebook.com/watch/?v=887325650442172",
         land: 4,
         water: 0,
         waste: 0.5,
-        jobs: 0.05
+        jobs: 0.05,
+        contactUrl: "https://www.facebook.com/honestfarmtaoyuan",
+        contactType: "facebook",
+        contactLabel: "前往 FB 專頁"
     }
 };
 
@@ -123,7 +108,7 @@ const defaultProducts = [
         water: 0,
         waste: 3.0,
         jobs: 0.05,
-        link: "https://www.chuanyong.tw/discount-nextt",
+        link: "https://page.line.me/860pfyue?oat_content=url&openQrModal=true",
         emoji: "🍊",
         brandName: "川涌果園",
         visualDesc: "溫暖的夕陽橘與莫蘭迪藍交織。畫面上呈現清涼的氣泡感，與飽滿的稻穗米香點綴。",
@@ -141,7 +126,7 @@ const defaultProducts = [
         water: 0,
         waste: 0,
         jobs: 0.35,
-        link: "https://www.yunchang.tw/products/nextt-bundle",
+        link: "https://line.me/R/ti/p/@899rxilc",
         emoji: "🥜",
         brandName: "緣長好事 × 幸福良食",
         visualDesc: "沉穩的黑豆深色調與焙炒溫暖感。畫面呈現熱茶氤氳的煙霧，與質樸飽滿的花生堅果顆粒。",
@@ -159,7 +144,7 @@ const defaultProducts = [
         water: 0,
         waste: 0,
         jobs: 0.25,
-        link: "https://www.xingfuliangshi.com/caoben",
+        link: "https://openchat.line.me/tw/cover/jsThnluwcHgl6yxczBW3kCVguCqZ4YptkcF7EygtV0plYiuN_UqSKJ1lA5w?utm_source=line-openchat-seo&utm_medium=search_keyword&utm_campaign=default",
         emoji: "🫖",
         brandName: "幸福良食 × 草本誠食",
         visualDesc: "深邃的漢方草本綠與金黃酥脆的對比。畫面傳遞出安心、溫補與職人手作的踏實感。",
@@ -177,7 +162,7 @@ const defaultProducts = [
         water: 500,
         waste: 0,
         jobs: 0.1,
-        link: "https://www.yufuaqua.com/nextt-promo",
+        link: "https://oashop.line.me/shops/eqh9088q",
         emoji: "🍤",
         brandName: "一夫水產",
         visualDesc: "湛藍澄澈的循環水波紋。畫面呈現急速冷凍川燙蝦仁的粉嫩色澤與鮮甜彈牙感。",
@@ -195,10 +180,10 @@ const defaultProducts = [
         water: 0,
         waste: 0.5,
         jobs: 0.05,
-        link: "https://caobengardens.com.tw/popcorn",
+        link: "https://www.facebook.com/honestfarmtaoyuan",
         emoji: "🍿",
         brandName: "草本誠食",
-        visualDesc: "清新的草莓粉嫩紅與莫蘭迪灰藍。畫面呈現蓬鬆的爆米花與乾燥草莓碎片的點綴。",
+        visualDesc: "清新的草莓粉嫩紅與莫蘭迪灰藍. 畫面呈現蓬鬆的爆米花與乾燥草莓碎片的點綴。",
         gradient: "linear-gradient(135deg, #f43f5e 0%, #cbd5e1 100%)"
     }
 ];
@@ -212,22 +197,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v3');
-    const storedProducts = localStorage.getItem('nextt_products_data_v3');
-    const storedCart = localStorage.getItem('nextt_cart_data_v3');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v4');
+    const storedProducts = localStorage.getItem('nextt_products_data_v4');
+    const storedCart = localStorage.getItem('nextt_cart_data_v4');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v3', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v4', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v3', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v4', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -335,19 +320,22 @@ function updateBrandDetailCard(brandId) {
     
     const addBtn = document.getElementById('detail-add-btn');
     if (addBtn) {
-        const product = productsData.find(p => p.brandId === brandId);
-        const isPledged = product ? cart.some(item => item.product.id === product.id) : false;
-        addBtn.innerHTML = isPledged ? '<i class="fa-solid fa-check"></i> 取消支持試算' : '<i class="fa-solid fa-plus"></i> 加入支持試算';
+        // Reset classes
+        addBtn.className = "btn btn-primary";
+        
+        if (brand.contactType === 'line') {
+            addBtn.classList.add('btn-line');
+            addBtn.innerHTML = `<i class="fa-brands fa-line"></i> ${brand.contactLabel || '加 LINE 訂購'}`;
+        } else if (brand.contactType === 'facebook') {
+            addBtn.classList.add('btn-facebook');
+            addBtn.innerHTML = `<i class="fa-brands fa-facebook"></i> ${brand.contactLabel || '前往 FB 專頁'}`;
+        } else {
+            addBtn.innerHTML = `<i class="fa-solid fa-up-right-from-square"></i> 聯絡官方`;
+        }
         
         addBtn.onclick = () => {
-            if (product) {
-                const checkbox = document.getElementById(`pledge-check-${product.id}`);
-                togglePledge(product.id, checkbox ? checkbox.parentElement : null);
-                
-                const nowPledged = cart.some(item => item.product.id === product.id);
-                addBtn.innerHTML = nowPledged ? '<i class="fa-solid fa-check"></i> 取消支持試算' : '<i class="fa-solid fa-plus"></i> 加入支持試算';
-            } else {
-                alert(`已成功記錄您對 ${brand.name} 的支持！`);
+            if (brand.contactUrl) {
+                window.open(brand.contactUrl, '_blank');
             }
         };
     }
@@ -363,6 +351,13 @@ function renderCatalog() {
         const isPledged = cart.some(item => item.product.id === p.id);
         const card = document.createElement('div');
         card.className = 'pairing-card';
+        
+        // Determine button style for LINE vs Facebook
+        const isFb = p.link && p.link.includes('facebook.com');
+        const btnText = isFb ? '前往官方 FB' : '加 LINE 預購/諮詢';
+        const btnIcon = isFb ? '<i class="fa-brands fa-facebook"></i>' : '<i class="fa-brands fa-line"></i>';
+        const btnClass = isFb ? 'pairing-btn-redirect btn-facebook' : 'pairing-btn-redirect btn-line';
+        
         card.innerHTML = `
             <div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}">
                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${p.emoji || '🌿'}</div>
@@ -380,8 +375,8 @@ function renderCatalog() {
                 <div class="pairing-footer">
                     <span class="product-price">NT$ ${p.price}</span>
                     <div class="pairing-action-row">
-                        <a href="${p.link}" target="_blank" class="pairing-btn-redirect">
-                            <i class="fa-solid fa-up-right-from-square"></i> 前往品牌活動頁
+                        <a href="${p.link}" target="_blank" class="${btnClass}">
+                            ${btnIcon} ${btnText}
                         </a>
                         <div class="pledge-checkbox-container ${isPledged ? 'active' : ''}" onclick="togglePledge('${p.id}', this)">
                             <input type="checkbox" id="pledge-check-${p.id}" ${isPledged ? 'checked' : ''} onclick="event.stopPropagation(); togglePledge('${p.id}', this.parentElement)">
@@ -475,7 +470,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v3', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v4', JSON.stringify(cart));
     });
 }
 
@@ -502,21 +497,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    // Sync interactive table detail card button if visible
-    const detailName = document.getElementById('detail-name');
-    if (detailName) {
-        const brand = Object.values(brandsData).find(b => b.name === detailName.innerText);
-        if (brand) {
-            const brandId = Object.keys(brandsData).find(key => brandsData[key].name === brand.name);
-            const addBtn = document.getElementById('detail-add-btn');
-            if (addBtn && product.brandId === brandId) {
-                const nowPledged = cart.some(item => item.product.id === product.id);
-                addBtn.innerHTML = nowPledged ? '<i class="fa-solid fa-check"></i> 取消支持試算' : '<i class="fa-solid fa-plus"></i> 加入支持試算';
-            }
-        }
-    }
-    
-    localStorage.setItem('nextt_cart_data_v3', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v4', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -698,7 +679,7 @@ function initAIProcessor() {
                 brandsData[targetBrandId].tag = firstTag;
                 
                 // Write back to LocalStorage
-                localStorage.setItem('nextt_brands_data_v3', JSON.stringify(brandsData));
+                localStorage.setItem('nextt_brands_data_v4', JSON.stringify(brandsData));
                 
                 alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
                 
@@ -739,9 +720,9 @@ function initAdminReset() {
     
     resetBtn.addEventListener('click', () => {
         if (confirm('確定要將所有業者資料與KOL登記紀錄重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data_v3');
-            localStorage.removeItem('nextt_products_data_v3');
-            localStorage.removeItem('nextt_cart_data_v3');
+            localStorage.removeItem('nextt_brands_data_v4');
+            localStorage.removeItem('nextt_products_data_v4');
+            localStorage.removeItem('nextt_cart_data_v4');
             localStorage.removeItem('nextt_kol_applications');
             loadData();
             renderCatalog();
@@ -762,6 +743,15 @@ function initModals() {
     if (!modal) return;
     
     window.openVideoModal = function(url) {
+        if (!url) return;
+        
+        // If the URL is an Instagram or Facebook link, open it in a new window/tab directly.
+        // This bypasses the X-Frame-Options blocking.
+        if (url.includes('instagram.com') || url.includes('facebook.com') || !url.includes('youtube.com/embed')) {
+            window.open(url, '_blank');
+            return;
+        }
+        
         if (iframe) iframe.src = url;
         modal.classList.add('active');
     };
