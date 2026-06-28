@@ -5,13 +5,13 @@ const GOOGLE_SCRIPT_URL = "";
 const defaultBrands = {
     "yufu": {
         name: "一夫水產",
-        badge: "生態水產養殖",
-        tag: "#循環水養殖",
-        desc: "以頂級水產為引，分享永續養殖觀點。採用循環水物理過濾與專利益生菌養殖，保證無抗生素與防腐劑，帶給餐桌最純粹的鮮甜體驗。",
+        badge: "科技與環境永續",
+        tag: "#24H溫室循環水養殖",
+        desc: "以頂級水產為引，分享永續養殖觀點。採用 24H 溫室循環水養殖，透過物理過濾與專利益生菌系統，保證無抗生素與防腐劑，帶給餐桌最純粹的鮮甜體驗。",
         metric1: "100%",
         metric1Lbl: "循環水過濾率",
-        metric2: "0%",
-        metric2Lbl: "化學藥劑殘留",
+        metric2: "24H",
+        metric2Lbl: "溫室自動監測",
         videoUrl: "https://www.youtube.com/embed/kJASthYFG54", 
         land: 0,
         water: 500,
@@ -23,13 +23,13 @@ const defaultBrands = {
     },
     "yunchang": {
         name: "緣長好事",
-        badge: "古法傳承・小農契作",
-        tag: "#青年返鄉",
-        desc: "嚴選在地契作花生，秉持古法手作花生糖。無添加防腐劑，透過與在地花生農民的合作，保障土地與農人收益，傳承百年香濃滋味。",
-        metric1: "12 戶",
-        metric1Lbl: "契作小農",
-        metric2: "100%",
-        metric2Lbl: "在地花生使用",
+        badge: "精緻文創與高毛利禮盒",
+        tag: "#地方創生",
+        desc: "誕生於台灣花生的故鄉——雲林元長。承載家族三代農業傳承，看見農村老化與地方價值不易被看見的現況，決定串連在地小農，以「地方創生 × 祝福文化 × 文創設計」為核心，顛覆傳統花生糖太甜、不健康的刻板印象，打造出兼具人情味與洗練質感的「減糖花生禮盒」。",
+        metric1: "3 代",
+        metric1Lbl: "家族農業傳承",
+        metric2: "減糖",
+        metric2Lbl: "洗練質感伴手禮",
         videoUrl: "https://www.instagram.com/p/DSB0g-lkmx6/",
         land: 5,
         water: 0,
@@ -41,13 +41,13 @@ const defaultBrands = {
     },
     "chuanyong": {
         name: "川涌果園",
-        badge: "循環經濟・果皮再製",
-        tag: "#賸食綠色加值",
-        desc: "堅持以全有機肥栽培柑橘，並創意將賣相不佳的格外品與果皮再製，製成柑橘米香與果醋。為格外品找到新出路，減少碳足跡與浪費。",
-        metric1: "120 kg",
-        metric1Lbl: "格外果皮利用",
-        metric2: "100%",
-        metric2Lbl: "有機肥栽培",
+        badge: "循環經濟與減廢",
+        tag: "#100%柑橘格外品升級再造",
+        desc: "堅持以全有機肥栽培柑橘，並創意將賣相不佳的格外品與果皮 100% 升級再造，製成柑橘米香與果醋。為格外品找到綠色加值新出路，減少碳足跡與浪費。",
+        metric1: "100%",
+        metric1Lbl: "格外品升級利用",
+        metric2: "有機",
+        metric2Lbl: "栽培無化學除草劑",
         videoUrl: "https://www.youtube.com/embed/f32bVJ0YK2M",
         land: 8,
         water: 0,
@@ -59,13 +59,13 @@ const defaultBrands = {
     },
     "xingfu": {
         name: "幸福良食",
-        badge: "青銀共創・耕地活化",
-        tag: "#活化休耕地",
-        desc: "由返鄉青年帶領在地高齡農夫，以友善耕作方式種植黑豆。成功活化台南休耕農地，建立「青銀共創」的健康食農生態鏈。",
-        metric1: "15 公頃",
+        badge: "規模化與社會影響力",
+        tag: "#青銀共創",
+        desc: "由返鄉青年帶領在地老農天團，以友善耕作活化台南超過 140 公頃的休耕農地。堅持 100% 無化學農藥，成功打造兼顧環境與在地高齡化問題的「青銀共創」健康食農生態鏈。",
+        metric1: "140 公頃",
         metric1Lbl: "活化休耕農地",
         metric2: "100%",
-        metric2Lbl: "無化學農藥",
+        metric2Lbl: "無化學農藥農產品",
         videoUrl: "https://www.youtube.com/embed/Qwz-Rhyh-y4",
         land: 10,
         water: 0,
@@ -77,13 +77,13 @@ const defaultBrands = {
     },
     "caoben": {
         name: "草本誠食",
-        badge: "無毒耕作・漢方本草",
-        tag: "#友善農法",
-        desc: "秉持無毒耕作理念，栽種丹參等漢方本草與草莓。與在地青年農民契作，推廣溫補健康與無化學添加之食品，守護生態與家人健康。",
+        badge: "精緻文創與高毛利禮盒",
+        tag: "#無毒漢方食療",
+        desc: "深耕台灣本土「中草藥（丹參）」的精緻轉型。創辦人秉持「醫食同源」與「土地永續」理念，與在地農民契作，堅持不用農藥與除草劑，培育出高營養價值的無毒本土丹參，並透過現代烘焙與食品科技，將傳統中藥材搖身一變成為現代人日常的舒壓茶飲與機能點心。",
         metric1: "100%",
-        metric1Lbl: "無毒友善農法",
-        metric2: "2 戶",
-        metric2Lbl: "青農契作",
+        metric1Lbl: "國產無毒漢方",
+        metric2: "友善",
+        metric2Lbl: "保護生態與多樣性",
         videoUrl: "https://www.facebook.com/watch/?v=887325650442172",
         land: 4,
         water: 0,
@@ -197,22 +197,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v4');
-    const storedProducts = localStorage.getItem('nextt_products_data_v4');
-    const storedCart = localStorage.getItem('nextt_cart_data_v4');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v5');
+    const storedProducts = localStorage.getItem('nextt_products_data_v5');
+    const storedCart = localStorage.getItem('nextt_cart_data_v5');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v4', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v5', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v4', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v5', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -470,7 +470,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v4', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v5', JSON.stringify(cart));
     });
 }
 
@@ -497,7 +497,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v4', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v5', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -679,7 +679,7 @@ function initAIProcessor() {
                 brandsData[targetBrandId].tag = firstTag;
                 
                 // Write back to LocalStorage
-                localStorage.setItem('nextt_brands_data_v4', JSON.stringify(brandsData));
+                localStorage.setItem('nextt_brands_data_v5', JSON.stringify(brandsData));
                 
                 alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
                 
@@ -720,9 +720,9 @@ function initAdminReset() {
     
     resetBtn.addEventListener('click', () => {
         if (confirm('確定要將所有業者資料與KOL登記紀錄重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data_v4');
-            localStorage.removeItem('nextt_products_data_v4');
-            localStorage.removeItem('nextt_cart_data_v4');
+            localStorage.removeItem('nextt_brands_data_v5');
+            localStorage.removeItem('nextt_products_data_v5');
+            localStorage.removeItem('nextt_cart_data_v5');
             localStorage.removeItem('nextt_kol_applications');
             loadData();
             renderCatalog();
