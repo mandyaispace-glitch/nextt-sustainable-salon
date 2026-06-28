@@ -466,25 +466,47 @@ main {
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1.5rem;
 }
 
-@media (max-width: 1200px) {
-    .product-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.product-grid > div:nth-child(1),
+.product-grid > div:nth-child(2),
+.product-grid > div:nth-child(3) {
+    grid-column: span 2;
+}
+
+.product-grid > div:nth-child(4) {
+    grid-column: 2 / span 2;
+}
+
+.product-grid > div:nth-child(5) {
+    grid-column: 4 / span 2;
 }
 
 @media (max-width: 900px) {
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    .product-grid > div:nth-child(1),
+    .product-grid > div:nth-child(2),
+    .product-grid > div:nth-child(3),
+    .product-grid > div:nth-child(4),
+    .product-grid > div:nth-child(5) {
+        grid-column: span 1 !important;
+    }
 }
 
 @media (max-width: 600px) {
     .product-grid {
         grid-template-columns: 1fr;
+    }
+    .product-grid > div:nth-child(1),
+    .product-grid > div:nth-child(2),
+    .product-grid > div:nth-child(3),
+    .product-grid > div:nth-child(4),
+    .product-grid > div:nth-child(5) {
+        grid-column: span 1 !important;
     }
 }
 
@@ -1716,5 +1738,13 @@ main {
     .b2b-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+    .salon-layout-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    .rundown-split-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
     }
 }

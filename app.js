@@ -101,7 +101,7 @@ const defaultProducts = [
         brandId: "chuanyong",
         title: "組合一：【酸甜喚醒・大地序曲】",
         subtitle: "川涌果園「柑橘米香」 ＋ 冰柑橘果醋氣泡飲",
-        desc: "「天然柑橘的澄澈果酸，在冰涼氣泡中輕快躍動；搭配酥脆米香，微酸微苦間，喚醒舌尖對土地最純粹的記憶。」",
+        desc: "「台南東山天然柑橘果酸，加倍解膩！柑橘米香搭配果醋氣泡飲，酥脆微酸，敲鍵盤隨手抓，低負擔超療癒！」",
         price: 230,
         esgLbl: "減少 3.0kg 剩食，活化 6 坪減碳農地",
         land: 6,
@@ -120,7 +120,7 @@ const defaultProducts = [
         brandId: "yunchang",
         title: "組合二：【濃郁撞擊・歲月溫潤】",
         subtitle: "緣長好事「花生糖」 ＋ 幸福良食「熱黑豆茶」",
-        desc: "「台灣在地花生的厚實油脂香，碰上低溫焙炒的溫潤黑豆茶。當濃郁堅果遇上清雅穀香，甘甜尾韻在口中優雅化解。」",
+        desc: "「極簡成分、大膽減糖的花生糖，搭配溫潤清雅黑豆茶。濃郁堅果香，酥脆清爽不黏牙，下午茶開會腦乾應援首選！」",
         price: 300,
         esgLbl: "支持 13 坪友善農地契作，契作 12 戶小農",
         land: 13,
@@ -138,7 +138,7 @@ const defaultProducts = [
         brandId: "xingfu",
         title: "組合三：【醇厚收尾・漢方跨界】",
         subtitle: "幸福良食「黑豆酥」 ＋ 草本誠食「熱丹參茶」",
-        desc: "「黑豆酥的鹹甜酥脆，在齒頰間散發溫柔層次；輕啜一口漢方丹參茶，甘醇入喉，這是一場最接地氣的食農對話。」",
+        desc: "「老農契作 100% 無農藥黑豆酥，搭配舒壓漢方丹參茶。鹹甜酥脆，富含植物蛋白與膳食纖維，越嚼越香的能量應援！」",
         price: 280,
         esgLbl: "活化 10 坪台南休耕地，支持在地漢方溫補",
         land: 10,
@@ -156,7 +156,7 @@ const defaultProducts = [
         brandId: "yufu",
         title: "品牌精選：【鮮美陸上・永續共生】",
         subtitle: "一夫水產「鮮凍川燙蝦仁」",
-        desc: "「陸上室內循環水養殖，零用藥、零抗生素，急速冷凍鎖住最純粹的鮮甜。每一尾白蝦，都是對海洋與餐桌的安全承諾。」",
+        desc: "「深夜加班、週末小酌宵夜救星！溫室循環水高規格養殖藍寶石蝦，抗生素零檢出，退冰川燙 60 秒開動，極致鮮甜、低脂高蛋白無負擔！」",
         price: 250,
         esgLbl: "支持 500L 循環水過濾，減抽 100% 地下水",
         land: 0,
@@ -172,10 +172,10 @@ const defaultProducts = [
     {
         id: "c5",
         brandId: "caoben",
-        title: "隨手歡樂禮：【歡樂時光・酸甜陪伴】",
+        title: "品牌精選：【酸甜夢幻・安心零嘴】",
         subtitle: "草本誠食「草莓爆米花」",
-        desc: "「現場交流的歡樂時光，別忘了抓一把草莓爆米花，讓友善耕作的酸甜滋味陪伴你的靈魂激盪。」",
-        price: 120,
+        desc: "「嚴選友善耕作草莓，結合非基改爆米花，無人工色素與香精。每一口都是酸甜自然莓果香，追劇大口吃超安心！」",
+        price: 150,
         esgLbl: "支持無毒草莓契作與青年回鄉就業",
         land: 4,
         water: 0,
@@ -198,22 +198,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v8');
-    const storedProducts = localStorage.getItem('nextt_products_data_v8');
-    const storedCart = localStorage.getItem('nextt_cart_data_v8');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v9');
+    const storedProducts = localStorage.getItem('nextt_products_data_v9');
+    const storedCart = localStorage.getItem('nextt_cart_data_v9');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v8', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v9', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v8', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v9', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -257,6 +257,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('admin-kol-table-body')) {
         renderAdminKOLTable();
     }
+    if (document.getElementById('admin-rsvp-table-body')) {
+        renderAdminRSVPTable();
+        const exportBtn = document.getElementById('export-rsvp-csv-btn');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', exportRSVPToCSV);
+        }
+    }
     if (document.getElementById('ai-run-btn')) {
         initAIProcessor();
     }
@@ -269,13 +276,53 @@ function initNavigation() {
     
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
+            const dataTab = tab.getAttribute('data-tab');
             
-            tab.classList.add('active');
-            const targetContent = document.getElementById(tab.getAttribute('data-tab'));
-            if (targetContent) {
-                targetContent.classList.add('active');
+            if (dataTab === 'rundown-tab') {
+                // Switch to catalog-tab content, but keep this tab active
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const catalogTab = document.getElementById('catalog-tab');
+                if (catalogTab) catalogTab.classList.add('active');
+                
+                const target = document.getElementById('rundown-section');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else if (dataTab === 'dashboard-tab') {
+                // Switch to catalog-tab content, but keep this tab active
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const catalogTab = document.getElementById('catalog-tab');
+                if (catalogTab) catalogTab.classList.add('active');
+                
+                const target = document.getElementById('dashboard-section');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else if (dataTab === 'catalog-tab') {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const catalogTab = document.getElementById('catalog-tab');
+                if (catalogTab) catalogTab.classList.add('active');
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Normal tab behavior (e.g. kol-tab)
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const targetContent = document.getElementById(dataTab);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
             }
         });
     });
@@ -480,7 +527,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v8', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v9', JSON.stringify(cart));
     });
 }
 
@@ -507,7 +554,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v8', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v9', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -539,7 +586,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v8', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v9', JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -688,7 +735,7 @@ function initAIProcessor() {
                 brandsData[targetBrandId].desc = refinedStory.replace(/<br>/g, '\n').replace(/<\/?[^>]+(>|$)/g, ""); // Strip HTML tag details
                 brandsData[targetBrandId].tag = firstTag;
                                 // Write back to LocalStorage
-                 localStorage.setItem('nextt_brands_data_v8', JSON.stringify(brandsData));
+                 localStorage.setItem('nextt_brands_data_v9', JSON.stringify(brandsData));
                 
                 alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
                 
@@ -728,16 +775,18 @@ function initAdminReset() {
     if (!resetBtn) return;
     
     resetBtn.addEventListener('click', () => {
-        if (confirm('確定要將所有業者資料與KOL登記紀錄重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data_v8');
-            localStorage.removeItem('nextt_products_data_v8');
-            localStorage.removeItem('nextt_cart_data_v8');
+        if (confirm('確定要將所有業者資料、KOL登記與活動報名名單重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
+            localStorage.removeItem('nextt_brands_data_v9');
+            localStorage.removeItem('nextt_products_data_v9');
+            localStorage.removeItem('nextt_cart_data_v9');
             localStorage.removeItem('nextt_kol_applications');
+            localStorage.removeItem('nextt_rsvp_list');
             loadData();
             renderCatalog();
             updateCartUI();
             renderAdminTable();
             renderAdminKOLTable();
+            renderAdminRSVPTable();
             alert('已成功重設為原始狀態！');
         }
     });
@@ -1158,4 +1207,83 @@ function initRSVPForm() {
             form.reset();
         }
     });
+}
+
+// Admin render of RSVP reservations list
+function renderAdminRSVPTable() {
+    const tableBody = document.getElementById('admin-rsvp-table-body');
+    const countBadge = document.getElementById('rsvp-reg-count');
+    if (!tableBody) return;
+    
+    let rsvps = [];
+    const stored = localStorage.getItem('nextt_rsvp_list');
+    if (stored) {
+        rsvps = JSON.parse(stored);
+    }
+    
+    if (countBadge) {
+        countBadge.innerText = `共 ${rsvps.length} 筆報名`;
+    }
+    
+    if (rsvps.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">尚無貴賓提交 7/18-7/19 活動預約登記。</td>
+            </tr>
+        `;
+    } else {
+        tableBody.innerHTML = '';
+        // Show newest first
+        [...rsvps].reverse().forEach(r => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><span style="font-size: 0.8rem; color: #64748b;">${r.time || ''}</span></td>
+                <td><strong>${r.name || ''}</strong></td>
+                <td><span style="font-size: 0.85rem;">${r.company || ''}</span></td>
+                <td><span style="font-family: monospace; font-size: 0.85rem;">${r.phone || ''}</span></td>
+                <td><span style="font-size: 0.85rem;">${r.email || ''}</span></td>
+                <td><span class="brand-badge" style="background: #eff6ff; color: var(--primary); font-size: 0.75rem;">${Array.isArray(r.sessions) ? r.sessions.join(', ') : (r.sessions || '')}</span></td>
+                <td><div style="max-width: 200px; font-size: 0.8rem;" title="${r.notes || ''}">${r.notes || ''}</div></td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+}
+
+// Export RSVP list from browser to a CSV file (Excel compatible Chinese encoding)
+function exportRSVPToCSV() {
+    const stored = localStorage.getItem('nextt_rsvp_list');
+    if (!stored) {
+        alert('目前尚無報名資料可匯出！');
+        return;
+    }
+    const rsvps = JSON.parse(stored);
+    if (rsvps.length === 0) {
+        alert('目前尚無報名資料可匯出！');
+        return;
+    }
+    
+    // CSV headers
+    const headers = ['報名時間', '姓名', '單位/職稱', '聯絡電話', '電子信箱', '預約場次', '備註'];
+    const rows = rsvps.map(r => [
+        `"${r.time || ''}"`,
+        `"${r.name || ''}"`,
+        `"${r.company || ''}"`,
+        `"${r.phone || ''}"`,
+        `"${r.email || ''}"`,
+        `"${Array.isArray(r.sessions) ? r.sessions.join('; ') : (r.sessions || '')}"`,
+        `"${(r.notes || '').replace(/"/g, '""')}"`
+    ]);
+    
+    // Add UTF-8 BOM for Excel Chinese compatibility
+    let csvContent = "\uFEFF" + headers.join(',') + '\n' + rows.map(e => e.join(",")).join("\n");
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `NextT_rsvp_list_${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }

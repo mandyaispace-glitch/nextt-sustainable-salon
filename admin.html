@@ -223,6 +223,38 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- RSVP Reservations Table -->
+        <div class="current-brands-list" style="margin-top: 2rem; border-color: #10b981;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 1rem;">
+                <h3 style="color: #047857;"><i class="fa-solid fa-calendar-check"></i> 第一波：7/18-7/19 活動沙龍預約報名名單</h3>
+                <div style="display: flex; gap: 0.75rem; align-items: center;">
+                    <span style="font-size: 0.8rem; background: #d1fae5; color: #047857; padding: 0.25rem 0.75rem; border-radius: 12px; font-weight: 600;" id="rsvp-reg-count">共 0 筆報名</span>
+                    <button class="btn btn-primary" id="export-rsvp-csv-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: #10b981; border: none; cursor: pointer;">
+                        <i class="fa-solid fa-file-csv"></i> 匯出 CSV 檔 (Excel 相容)
+                    </button>
+                </div>
+            </div>
+            
+            <table class="brands-table">
+                <thead>
+                    <tr>
+                        <th>登記時間</th>
+                        <th>姓名</th>
+                        <th>單位 / 職稱</th>
+                        <th>聯絡電話</th>
+                        <th>電子信箱</th>
+                        <th>預約場次</th>
+                        <th>備註 / 提問</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-rsvp-table-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">尚無貴賓提交 7/18-7/19 活動預約登記。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="app.js"></script>
