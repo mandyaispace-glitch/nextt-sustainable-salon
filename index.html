@@ -33,8 +33,9 @@
         <!-- ==================== TAB 1: CATALOG & INTERACTIVE TABLE ==================== -->
         <section id="catalog-tab" class="tab-content active">
             <div class="hero">
-                <h1>餐桌上的永續影響力</h1>
-                <p>透過永續茶點的感官體驗，開啟在地品牌與跨國零售集團的深度對話。在品嚐美味的同時，點擊下方餐桌或商品，將產品加入選物籃，即時查看您的這筆選購所創造的 ESG 永續價值！</p>
+                <h1>餐桌上的永續影響力：週末選物沙龍</h1>
+                <p>—— AI 侍茶師推薦・永續茶點風味指南</p>
+                <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.95;">透過茶點與本草搭餐的感官體驗，推動在地永續品牌的商業變現。點擊下方互動餐桌認識品牌，並在風味指南中勾選「支持試算」，即時累積您的支持為社會與環境創造的 ESG 永續價值成果。點擊「前往品牌活動頁」可直達業者頁面完成最終訂購與支付！</p>
             </div>
 
             <!-- Interactive Dining Table -->
@@ -104,7 +105,7 @@
                             </div>
                             <div class="brand-card-footer">
                                 <button class="btn btn-outline" id="detail-video-btn"><i class="fa-solid fa-play"></i> 觀看故事</button>
-                                <button class="btn btn-primary" id="detail-add-btn">加入選物籃</button>
+                                <button class="btn btn-primary" id="detail-add-btn">加入支持試算</button>
                             </div>
                         </div>
                     </div>
@@ -115,7 +116,7 @@
             <div class="catalog-container">
                 <!-- Product List -->
                 <div>
-                    <h2 style="margin-bottom: 1.5rem; color: var(--primary);"><i class="fa-solid fa-bag-shopping"></i> 沙龍現場限定型錄</h2>
+                    <h2 style="margin-bottom: 1.5rem; color: var(--primary);"><i class="fa-solid fa-bag-shopping"></i> AI 侍茶師推薦・永續茶點風味指南 & 品牌特惠</h2>
                     <div class="product-grid" id="product-grid">
                         <!-- Rendered by JS -->
                     </div>
@@ -124,22 +125,22 @@
                 <!-- Sticky Cart -->
                 <div class="cart-panel">
                     <div class="cart-header">
-                        <span class="cart-title"><i class="fa-solid fa-basket-shopping"></i> 我的選物籃</span>
+                        <span class="cart-title"><i class="fa-solid fa-basket-shopping"></i> 我的永續支持清單</span>
                         <span class="cart-count" id="cart-count">0</span>
                     </div>
                     
                     <div class="cart-items" id="cart-items">
-                        <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">選物籃還是空的，點選商品加入吧！</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">目前尚未支持任何永續品牌。請在風味指南中勾選「支持試算」！</p>
                     </div>
                     
                     <!-- Dynamic ESG Accumulator -->
                     <div class="cart-impact-meter">
                         <div class="cart-impact-title">
-                            <i class="fa-solid fa-seedling"></i> 累計創造的永續價值
+                            <i class="fa-solid fa-seedling"></i> 累計支持的永續價值
                         </div>
                         <ul class="cart-impact-list" id="cart-impact-list">
                             <li><span>耕地活化面積:</span> <span id="impact-land">0 坪</span></li>
-                            <li><span>循環水減量:</span> <span id="impact-water">0 公升</span></li>
+                            <li><span>循環水過濾減量:</span> <span id="impact-water">0 公升</span></li>
                             <li><span>賸食/廢棄果皮再利用:</span> <span id="impact-waste">0 公斤</span></li>
                             <li><span>契作/青銀共創就業數:</span> <span id="impact-jobs">0 人</span></li>
                         </ul>
@@ -148,7 +149,7 @@
                     <div class="cart-checkout-box">
                         <input type="text" class="cart-input" id="checkout-name" placeholder="您的姓名">
                         <input type="text" class="cart-input" id="checkout-phone" placeholder="您的聯絡電話">
-                        <button class="btn btn-accent" id="checkout-submit-btn" style="width: 100%;"><i class="fa-solid fa-square-check"></i> 確認送出預購訂單</button>
+                        <button class="btn btn-accent" id="checkout-submit-btn" style="width: 100%;"><i class="fa-solid fa-square-check"></i> 確認送出支持意願登記</button>
                     </div>
                 </div>
             </div>

@@ -1024,3 +1024,192 @@ main {
     border-radius: 12px;
     font-size: 0.75rem;
 }
+
+/* ==================== MORANDI GREY-BLUE THEME & PAIRING CARDS ==================== */
+:root {
+    --morandi-blue-dark: #2c3e50;
+    --morandi-blue-medium: #4f6f8f;
+    --morandi-blue-light: #f4f7f9;
+    --morandi-blue-glow: rgba(79, 111, 143, 0.15);
+    --morandi-border: rgba(79, 111, 143, 0.18);
+}
+
+.pairing-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.pairing-card {
+    background: #ffffff;
+    border: 1px solid var(--morandi-border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    box-shadow: 0 4px 20px rgba(79, 111, 143, 0.04);
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+
+@media (max-width: 800px) {
+    .pairing-card {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding: 1.25rem;
+    }
+}
+
+.pairing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(79, 111, 143, 0.08);
+    border-color: var(--morandi-blue-medium);
+}
+
+.pairing-visual {
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 180px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+}
+
+.pairing-visual-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.pairing-visual-concept {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    max-width: 200px;
+}
+
+.pairing-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pairing-header {
+    margin-bottom: 1rem;
+}
+
+.pairing-brand {
+    font-size: 0.75rem;
+    color: var(--morandi-blue-medium);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.pairing-title {
+    font-size: 1.25rem;
+    color: var(--morandi-blue-dark);
+    margin: 0.25rem 0;
+    font-weight: 700;
+}
+
+.pairing-subtitle {
+    font-size: 0.9rem;
+    color: #475569;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.pairing-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    background: var(--morandi-blue-light);
+    border-left: 3px solid var(--morandi-blue-medium);
+    padding: 0.75rem 1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.pairing-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1px dashed rgba(79, 111, 143, 0.1);
+}
+
+.pairing-action-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.pairing-btn-redirect {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--morandi-blue-medium);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    border: none;
+    cursor: pointer;
+}
+
+.pairing-btn-redirect:hover {
+    background: var(--morandi-blue-dark);
+    box-shadow: 0 4px 12px rgba(79, 111, 143, 0.2);
+}
+
+/* Custom pledge checkbox styling */
+.pledge-checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffffff;
+    border: 1px solid var(--morandi-border);
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--morandi-blue-dark);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    user-select: none;
+}
+
+.pledge-checkbox-container:hover {
+    background: var(--morandi-blue-light);
+    border-color: var(--morandi-blue-medium);
+}
+
+.pledge-checkbox-container.active {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.pledge-checkbox-container input {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}

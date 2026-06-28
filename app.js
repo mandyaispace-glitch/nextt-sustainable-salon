@@ -92,81 +92,114 @@ const defaultBrands = {
         water: 0,
         waste: 2.5,
         jobs: 0.05
+    },
+    "caoben": {
+        name: "草本誠食",
+        badge: "無毒耕作・漢方本草",
+        tag: "#友善農法",
+        desc: "秉持無毒耕作理念，栽種丹參等漢方本草與草莓。與在地青年農民契作，推廣溫補健康與無化學添加之食品，守護生態與家人健康。",
+        metric1: "100%",
+        metric1Lbl: "無毒友善農法",
+        metric2: "2 戶",
+        metric2Lbl: "青農契作",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        land: 4,
+        water: 0,
+        waste: 0.5,
+        jobs: 0.05
     }
 };
 
 const defaultProducts = [
     {
-        id: "p1",
-        brandId: "yufu",
-        title: "一夫水產 鮮凍川燙蝦仁",
-        desc: "生態水循環養殖，捕撈後急速冷凍，川燙即食。保證無發泡劑，極致彈牙。",
-        price: 250,
-        esgLbl: "支持 500L 循環水養殖",
-        land: 0,
-        water: 500,
-        waste: 0,
-        jobs: 0.1
-    },
-    {
-        id: "p2",
-        brandId: "yunchang",
-        title: "緣長好事 古法手工花生糖",
-        desc: "契作在地土豆，麥芽慢火熬煮。酥脆不黏牙，傳承三代的永續手藝。",
-        price: 180,
-        esgLbl: "支持 5 坪契作農地與地方青年就業",
-        land: 5,
-        water: 0,
-        waste: 0,
-        jobs: 0.15
-    },
-    {
-        id: "p3",
+        id: "c1",
         brandId: "chuanyong",
-        title: "川涌果園 柑橘米香爆米丸",
-        desc: "使用格外品柑橘果泥，結合小農無毒白米。淡淡香橘味，美味且零浪費。",
-        price: 150,
-        esgLbl: "減少 3kg 柑橘格外品浪費",
-        land: 8,
+        title: "組合一：【酸甜喚醒・大地序曲】",
+        subtitle: "川涌果園「柑橘米香」 ＋ 冰柑橘果醋氣泡飲",
+        desc: "「天然柑橘的澄澈果酸，在冰涼氣泡中輕快躍動；搭配酥脆米香，微酸微苦間，喚醒舌尖對土地最純粹的記憶。」",
+        price: 230,
+        esgLbl: "減少 3.0kg 剩食，活化 6 坪減碳農地",
+        land: 6,
         water: 0,
-        waste: 3,
-        jobs: 0.08
+        waste: 3.0,
+        jobs: 0.05,
+        link: "https://www.chuanyong.tw/discount-nextt",
+        emoji: "🍊",
+        brandName: "川涌果園",
+        visualDesc: "溫暖的夕陽橘與莫蘭迪藍交織。畫面上呈現清涼的氣泡感，與飽滿的稻穗米香點綴。",
+        gradient: "linear-gradient(135deg, #f59e0b 0%, #4f6f8f 100%)"
     },
     {
-        id: "p4",
+        id: "c2",
+        brandId: "yunchang",
+        title: "組合二：【濃郁撞擊・歲月溫潤】",
+        subtitle: "緣長好事「花生糖」 ＋ 幸福良食「熱黑豆茶」",
+        desc: "「台灣在地花生的厚實油脂香，碰上低溫焙炒的溫潤黑豆茶。當濃郁堅果遇上清雅穀香，甘甜尾韻在口中優雅化解。」",
+        price: 300,
+        esgLbl: "支持 13 坪友善農地契作，契作 12 戶小農",
+        land: 13,
+        water: 0,
+        waste: 0,
+        jobs: 0.35,
+        link: "https://www.yunchang.tw/products/nextt-bundle",
+        emoji: "🥜",
+        brandName: "緣長好事 × 幸福良食",
+        visualDesc: "沉穩的黑豆深色調與焙炒溫暖感。畫面呈現熱茶氤氳的煙霧，與質樸飽滿的花生堅果顆粒。",
+        gradient: "linear-gradient(135deg, #1e293b 0%, #b45309 100%)"
+    },
+    {
+        id: "c3",
         brandId: "xingfu",
-        title: "幸福良食 芝麻黑豆酥",
-        desc: "台南在地友善黑豆與黑芝麻的健康結合。酥香可口，高鈣健康營養。",
-        price: 160,
-        esgLbl: "活化 10 坪台南休耕地與青銀共創",
+        title: "組合三：【醇厚收尾・漢方跨界】",
+        subtitle: "幸福良食「黑豆酥」 ＋ 草本誠食「熱丹參茶」",
+        desc: "「黑豆酥的鹹甜酥脆，在齒頰間散發溫柔層次；輕啜一口漢方丹參茶，甘醇入喉，這是一場最接地氣的食農對話。」",
+        price: 280,
+        esgLbl: "活化 10 坪台南休耕地，支持在地漢方溫補",
         land: 10,
         water: 0,
         waste: 0,
-        jobs: 0.25
+        jobs: 0.25,
+        link: "https://www.xingfuliangshi.com/caoben",
+        emoji: "🫖",
+        brandName: "幸福良食 × 草本誠食",
+        visualDesc: "深邃的漢方草本綠與金黃酥脆的對比。畫面傳遞出安心、溫補與職人手作的踏實感。",
+        gradient: "linear-gradient(135deg, #065f46 0%, #fbbf24 100%)"
     },
     {
-        id: "p5",
-        brandId: "xingfu-tea",
-        title: "幸福良食 焙炒黑豆茶包 (12入)",
-        desc: "友善無毒黑豆，經高溫焙炒。無咖啡因，冷泡熱沖皆宜，高齡農友親手包裝。",
-        price: 120,
-        esgLbl: "支持 8 坪無毒黑豆契作",
-        land: 8,
-        water: 0,
+        id: "c4",
+        brandId: "yufu",
+        title: "品牌精選：【鮮美陸上・永續共生】",
+        subtitle: "一夫水產「鮮凍川燙蝦仁」",
+        desc: "「陸上室內循環水養殖，零用藥、零抗生素，急速冷凍鎖住最純粹的鮮甜。每一尾白蝦，都是對海洋與餐桌的安全承諾。」",
+        price: 250,
+        esgLbl: "支持 500L 循環水過濾，減抽 100% 地下水",
+        land: 0,
+        water: 500,
         waste: 0,
-        jobs: 0.2
+        jobs: 0.1,
+        link: "https://www.yufuaqua.com/nextt-promo",
+        emoji: "🍤",
+        brandName: "一夫水產",
+        visualDesc: "湛藍澄澈的循環水波紋。畫面呈現急速冷凍川燙蝦仁的粉嫩色澤與鮮甜彈牙感。",
+        gradient: "linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)"
     },
     {
-        id: "p6",
-        brandId: "chuanyong-vinegar",
-        title: "川涌果園 冰柑橘醋氣泡飲",
-        desc: "天然古法柑橘釀造醋調配，沁涼解渴。氣泡細緻，柑橘清香。",
-        price: 80,
-        esgLbl: "消耗 2.5kg 格外果皮材料",
-        land: 6,
+        id: "c5",
+        brandId: "caoben",
+        title: "隨手歡樂禮：【歡樂時光・酸甜陪伴】",
+        subtitle: "草本誠食「草莓爆米花」",
+        desc: "「現場交流的歡樂時光，別忘了抓一把草莓爆米花，讓友善耕作的酸甜滋味陪伴你的靈魂激盪。」",
+        price: 120,
+        esgLbl: "支持無毒草莓契作與青年回鄉就業",
+        land: 4,
         water: 0,
-        waste: 2.5,
-        jobs: 0.05
+        waste: 0.5,
+        jobs: 0.05,
+        link: "https://caobengardens.com.tw/popcorn",
+        emoji: "🍿",
+        brandName: "草本誠食",
+        visualDesc: "清新的草莓粉嫩紅與莫蘭迪灰藍。畫面呈現蓬鬆的爆米花與乾燥草莓碎片的點綴。",
+        gradient: "linear-gradient(135deg, #f43f5e 0%, #cbd5e1 100%)"
     }
 ];
 
@@ -179,21 +212,28 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data');
-    const storedProducts = localStorage.getItem('nextt_products_data');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v3');
+    const storedProducts = localStorage.getItem('nextt_products_data_v3');
+    const storedCart = localStorage.getItem('nextt_cart_data_v3');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v3', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v3', JSON.stringify(productsData));
+    }
+
+    if (storedCart) {
+        cart = JSON.parse(storedCart);
+    } else {
+        cart = [];
     }
 }
 
@@ -295,10 +335,17 @@ function updateBrandDetailCard(brandId) {
     
     const addBtn = document.getElementById('detail-add-btn');
     if (addBtn) {
+        const product = productsData.find(p => p.brandId === brandId);
+        const isPledged = product ? cart.some(item => item.product.id === product.id) : false;
+        addBtn.innerHTML = isPledged ? '<i class="fa-solid fa-check"></i> 取消支持試算' : '<i class="fa-solid fa-plus"></i> 加入支持試算';
+        
         addBtn.onclick = () => {
-            const product = productsData.find(p => p.brandId === brandId);
             if (product) {
-                addToCart(product.id);
+                const checkbox = document.getElementById(`pledge-check-${product.id}`);
+                togglePledge(product.id, checkbox ? checkbox.parentElement : null);
+                
+                const nowPledged = cart.some(item => item.product.id === product.id);
+                addBtn.innerHTML = nowPledged ? '<i class="fa-solid fa-check"></i> 取消支持試算' : '<i class="fa-solid fa-plus"></i> 加入支持試算';
             } else {
                 alert(`已成功記錄您對 ${brand.name} 的支持！`);
             }
@@ -306,31 +353,41 @@ function updateBrandDetailCard(brandId) {
     }
 }
 
-// 3. Render Product Catalog
+// 3. Render Product Catalog (Restructured to show pairing combinations)
 function renderCatalog() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
     grid.innerHTML = '';
     
     productsData.forEach(p => {
-        const brand = brandsData[p.brandId];
+        const isPledged = cart.some(item => item.product.id === p.id);
         const card = document.createElement('div');
-        card.className = 'product-card';
+        card.className = 'pairing-card';
         card.innerHTML = `
-            <div class="product-image">
-                <div class="video-badge-overlay" onclick="event.stopPropagation(); openVideoModal('${brand.videoUrl}')">
-                    <i class="fa-solid fa-play"></i> 影音介紹
-                </div>
-                <div style="font-size: 3rem;">${getEmojiForProduct(p.id)}</div>
+            <div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${p.emoji || '🌿'}</div>
+                <div class="pairing-visual-title">${p.title.includes('：') ? p.title.split('：')[1] : p.title}</div>
+                <div class="pairing-visual-concept">${p.visualDesc || ''}</div>
             </div>
-            <div class="product-info">
-                <div class="product-brand">${brand.name}</div>
-                <h4 class="product-title">${p.title}</h4>
-                <p class="product-desc">${p.desc}</p>
-                <span class="product-esg-lbl"><i class="fa-solid fa-leaf"></i> ${p.esgLbl}</span>
-                <div class="product-footer">
+            <div class="pairing-content">
+                <div class="pairing-header">
+                    <span class="pairing-brand">${p.brandName || ''}</span>
+                    <h4 class="pairing-title">${p.title}</h4>
+                    <div class="pairing-subtitle">${p.subtitle || ''}</div>
+                    <p class="pairing-desc">${p.desc}</p>
+                    <span class="product-esg-lbl"><i class="fa-solid fa-leaf"></i> ${p.esgLbl}</span>
+                </div>
+                <div class="pairing-footer">
                     <span class="product-price">NT$ ${p.price}</span>
-                    <button class="btn btn-primary btn-sm" onclick="addToCart('${p.id}')">加入選物籃</button>
+                    <div class="pairing-action-row">
+                        <a href="${p.link}" target="_blank" class="pairing-btn-redirect">
+                            <i class="fa-solid fa-up-right-from-square"></i> 前往品牌活動頁
+                        </a>
+                        <div class="pledge-checkbox-container ${isPledged ? 'active' : ''}" onclick="togglePledge('${p.id}', this)">
+                            <input type="checkbox" id="pledge-check-${p.id}" ${isPledged ? 'checked' : ''} onclick="event.stopPropagation(); togglePledge('${p.id}', this.parentElement)">
+                            <label for="pledge-check-${p.id}" onclick="event.stopPropagation(); togglePledge('${p.id}', this.parentElement)">支持試算</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -350,7 +407,7 @@ function getEmojiForProduct(productId) {
     }
 }
 
-// 4. Cart Logic
+// 4. Cart Logic (Pledge list)
 function initCart() {
     const checkoutBtn = document.getElementById('checkout-submit-btn');
     if (!checkoutBtn) return;
@@ -360,28 +417,28 @@ function initCart() {
         const phone = document.getElementById('checkout-phone').value.trim();
         
         if (cart.length === 0) {
-            alert('選物籃還是空的喔！');
+            alert('您尚未選擇要支持並試算的永續搭餐組合喔！');
             return;
         }
         if (!name || !phone) {
-            alert('請填寫姓名與聯絡電話以送出預購單！');
+            alert('請填寫姓名與聯絡電話以登記支持意願！');
             return;
         }
         
-        let summaryText = `【NextT 永續沙龍預購單】\n預購姓名：${name}\n聯絡電話：${phone}\n\n預購品項：\n`;
+        let summaryText = `【NextT 永續沙龍支持與意願登記】\n登記姓名：${name}\n聯絡電話：${phone}\n\n預計支持品項/組合：\n`;
         let itemsSummary = "";
         cart.forEach(item => {
-            summaryText += `- ${item.product.title} (NT$ ${item.product.price}) × ${item.quantity}\n`;
-            itemsSummary += `- ${item.product.title} × ${item.quantity}\n`;
+            summaryText += `- ${item.product.title} (NT$ ${item.product.price})\n`;
+            itemsSummary += `- ${item.product.title}\n`;
         });
         
         const impact = calculateImpact();
-        summaryText += `\n此預購單累計創造之 ESG 永續影響力：\n`;
+        summaryText += `\n此清單預估帶來的 ESG 永續影響力：\n`;
         summaryText += `- 耕地活化面積: ${impact.land} 坪\n`;
         summaryText += `- 水資源回收再利用: ${impact.water} 公升\n`;
         summaryText += `- 剩食/格外品轉化: ${impact.waste} 公斤\n`;
         summaryText += `- 支持契作與青銀共創就業份額: ${impact.jobs.toFixed(2)} 人\n`;
-        summaryText += `\n(已為您生成預購資料！現場團購優惠已套用)`;
+        summaryText += `\n💡 溫馨提醒：本網站僅作永續影響力試算。其中有約 80% 的業者需前往專屬連結進行最終訂購與支付，請點選風味指南中的「前往品牌活動頁」進行下單。`;
         
         // Send to Google Sheets if configured
         if (GOOGLE_SCRIPT_URL) {
@@ -404,47 +461,116 @@ function initCart() {
         
         cart = [];
         updateCartUI();
+        // Uncheck all checkboxes in front-end
+        const checkboxes = document.querySelectorAll('.pledge-checkbox-container input');
+        checkboxes.forEach(cb => {
+            cb.checked = false;
+            cb.parentElement.classList.remove('active');
+        });
+        // Also update interactive detail card button if visible
+        const addBtn = document.getElementById('detail-add-btn');
+        if (addBtn) {
+            addBtn.innerHTML = '<i class="fa-solid fa-plus"></i> 加入支持試算';
+        }
+        
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
+        localStorage.setItem('nextt_cart_data_v3', JSON.stringify(cart));
     });
 }
 
-window.addToCart = function(productId) {
+// Dynamic support toggle function
+window.togglePledge = function(productId, element) {
     const product = productsData.find(p => p.id === productId);
     if (!product) return;
     
-    const existing = cart.find(item => item.product.id === productId);
-    if (existing) {
-        existing.quantity++;
+    const index = cart.findIndex(item => item.product.id === productId);
+    if (index > -1) {
+        cart.splice(index, 1);
+        if (element) {
+            element.classList.remove('active');
+            const checkbox = element.querySelector('input');
+            if (checkbox) checkbox.checked = false;
+        }
     } else {
         cart.push({ product, quantity: 1 });
+        if (element) {
+            element.classList.add('active');
+            const checkbox = element.querySelector('input');
+            if (checkbox) checkbox.checked = true;
+        }
     }
     updateCartUI();
+    
+    // Sync interactive table detail card button if visible
+    const detailName = document.getElementById('detail-name');
+    if (detailName) {
+        const brand = Object.values(brandsData).find(b => b.name === detailName.innerText);
+        if (brand) {
+            const brandId = Object.keys(brandsData).find(key => brandsData[key].name === brand.name);
+            const addBtn = document.getElementById('detail-add-btn');
+            if (addBtn && product.brandId === brandId) {
+                const nowPledged = cart.some(item => item.product.id === product.id);
+                addBtn.innerHTML = nowPledged ? '<i class="fa-solid fa-check"></i> 取消支持試算' : '<i class="fa-solid fa-plus"></i> 加入支持試算';
+            }
+        }
+    }
+    
+    localStorage.setItem('nextt_cart_data_v3', JSON.stringify(cart));
+};
+
+window.addToCart = function(productId) {
+    const checkbox = document.getElementById(`pledge-check-${productId}`);
+    togglePledge(productId, checkbox ? checkbox.parentElement : null);
 };
 
 function removeFromCart(productId) {
     cart = cart.filter(item => item.product.id !== productId);
     updateCartUI();
+    
+    const checkbox = document.getElementById(`pledge-check-${productId}`);
+    if (checkbox) {
+        checkbox.checked = false;
+        if (checkbox.parentElement) checkbox.parentElement.classList.remove('active');
+    }
+    
+    // Sync interactive table detail card button if visible
+    const detailName = document.getElementById('detail-name');
+    if (detailName) {
+        const brand = Object.values(brandsData).find(b => b.name === detailName.innerText);
+        if (brand) {
+            const brandId = Object.keys(brandsData).find(key => brandsData[key].name === brand.name);
+            const addBtn = document.getElementById('detail-add-btn');
+            const product = productsData.find(p => p.id === productId);
+            if (addBtn && product && product.brandId === brandId) {
+                addBtn.innerHTML = '<i class="fa-solid fa-plus"></i> 加入支持試算';
+            }
+        }
+    }
+    
+    localStorage.setItem('nextt_cart_data_v3', JSON.stringify(cart));
 }
 
 function updateCartUI() {
     const itemsContainer = document.getElementById('cart-items');
     const countBadge = document.getElementById('cart-count');
     
-    if (countBadge) countBadge.innerText = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+    if (countBadge) countBadge.innerText = cart.length;
     
     if (itemsContainer) {
         if (cart.length === 0) {
-            itemsContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">選物籃還是空的，點選商品加入吧！</p>';
+            itemsContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">目前尚未支持任何永續品牌。請在風味指南中勾選「支持試算」！</p>';
         } else {
             itemsContainer.innerHTML = '';
             cart.forEach(item => {
                 const row = document.createElement('div');
                 row.className = 'cart-item';
                 row.innerHTML = `
-                    <div class="cart-item-name">${item.product.title} (NT$ ${item.product.price}) × ${item.quantity}</div>
+                    <div class="cart-item-name" style="font-weight:600; color:var(--morandi-blue-dark); font-size:0.8rem;">
+                        ${item.product.title.split('：')[0]} × 支持
+                    </div>
                     <div class="cart-item-action">
-                        <button class="cart-remove-btn" onclick="removeFromCart('${item.product.id}')">移除</button>
+                        <button class="cart-remove-btn" onclick="removeFromCart('${item.product.id}')">取消支持</button>
                     </div>
                 `;
                 itemsContainer.appendChild(row);
@@ -472,10 +598,10 @@ function calculateImpact() {
     let jobs = 0;
     
     cart.forEach(item => {
-        land += item.product.land * item.quantity;
-        water += item.product.water * item.quantity;
-        waste += item.product.waste * item.quantity;
-        jobs += item.product.jobs * item.quantity;
+        land += item.product.land;
+        water += item.product.water;
+        waste += item.product.waste;
+        jobs += item.product.jobs;
     });
     
     return { land, water, waste, jobs };
@@ -572,7 +698,7 @@ function initAIProcessor() {
                 brandsData[targetBrandId].tag = firstTag;
                 
                 // Write back to LocalStorage
-                localStorage.setItem('nextt_brands_data', JSON.stringify(brandsData));
+                localStorage.setItem('nextt_brands_data_v3', JSON.stringify(brandsData));
                 
                 alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
                 
@@ -613,10 +739,13 @@ function initAdminReset() {
     
     resetBtn.addEventListener('click', () => {
         if (confirm('確定要將所有業者資料與KOL登記紀錄重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data');
-            localStorage.removeItem('nextt_products_data');
+            localStorage.removeItem('nextt_brands_data_v3');
+            localStorage.removeItem('nextt_products_data_v3');
+            localStorage.removeItem('nextt_cart_data_v3');
             localStorage.removeItem('nextt_kol_applications');
             loadData();
+            renderCatalog();
+            updateCartUI();
             renderAdminTable();
             renderAdminKOLTable();
             alert('已成功重設為原始狀態！');
