@@ -1585,3 +1585,98 @@ main {
     color: var(--accent-orange);
     transform: rotate(90deg);
 }
+
+/* ==================== EVENT ORIGIN SECTION ==================== */
+.origin-section {
+    background: linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%);
+    border: 1px solid var(--morandi-border);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-subtle);
+    position: relative;
+    overflow: hidden;
+}
+
+.origin-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--morandi-blue-medium);
+}
+
+.origin-header {
+    margin-bottom: 1.5rem;
+}
+
+.origin-header h2 {
+    font-size: 1.35rem;
+    color: var(--primary);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.origin-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+}
+
+.origin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+@media (max-width: 850px) {
+    .origin-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+.origin-card {
+    background: #ffffff;
+    border: 1px solid var(--morandi-border);
+    border-radius: var(--radius-sm);
+    padding: 1.75rem;
+    box-shadow: 0 4px 12px rgba(79, 111, 143, 0.02);
+    transition: var(--transition-smooth);
+}
+
+.origin-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 111, 143, 0.05);
+}
+
+.origin-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--morandi-blue-dark);
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--morandi-blue-light);
+    padding-bottom: 0.5rem;
+}
+
+.origin-card-content {
+    font-size: 0.82rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.origin-card-content ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+}
+
+.origin-card-content li {
+    margin-bottom: 0.4rem;
+}
