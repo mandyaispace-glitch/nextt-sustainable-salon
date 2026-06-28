@@ -111,8 +111,9 @@ const defaultProducts = [
         link: "https://page.line.me/860pfyue?oat_content=url&openQrModal=true",
         emoji: "🍊",
         brandName: "川涌果園",
-        visualDesc: "溫暖的夕陽橘與莫蘭迪藍交織。畫面上呈現清涼的氣泡感，與飽滿的稻穗米香點綴。",
-        gradient: "linear-gradient(135deg, #f59e0b 0%, #4f6f8f 100%)"
+        visualDesc: "溫慢的夕陽橘與莫蘭迪藍交織。畫面上呈現清涼的氣泡感，與飽滿的稻穗米香點綴。",
+        gradient: "linear-gradient(135deg, #f59e0b 0%, #4f6f8f 100%)",
+        imageUrl: "images/chuanyong_package.png"
     },
     {
         id: "c2",
@@ -197,22 +198,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v6');
-    const storedProducts = localStorage.getItem('nextt_products_data_v6');
-    const storedCart = localStorage.getItem('nextt_cart_data_v6');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v7');
+    const storedProducts = localStorage.getItem('nextt_products_data_v7');
+    const storedCart = localStorage.getItem('nextt_cart_data_v7');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v6', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v7', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v6', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v7', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -361,11 +362,17 @@ function renderCatalog() {
         const btnIcon = isFb ? '<i class="fa-brands fa-facebook"></i>' : '<i class="fa-brands fa-line"></i>';
         const btnClass = isFb ? 'pairing-btn-redirect btn-facebook' : 'pairing-btn-redirect btn-line';
         
+        const visualStyle = p.imageUrl 
+            ? `background-image: url('${p.imageUrl}'); background-size: cover; background-position: center;`
+            : `background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'};`;
+            
         card.innerHTML = `
-            <div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}">
-                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${p.emoji || '🌿'}</div>
-                <div class="pairing-visual-title">${p.title.includes('：') ? p.title.split('：')[1] : p.title}</div>
-                <div class="pairing-visual-concept">${p.visualDesc || ''}</div>
+            <div class="pairing-visual" style="${visualStyle}">
+                ${p.imageUrl ? '' : `
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${p.emoji || '🌿'}</div>
+                    <div class="pairing-visual-title">${p.title.includes('：') ? p.title.split('：')[1] : p.title}</div>
+                    <div class="pairing-visual-concept">${p.visualDesc || ''}</div>
+                `}
             </div>
             <div class="pairing-content">
                 <div class="pairing-header">
@@ -473,7 +480,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v6', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v7', JSON.stringify(cart));
     });
 }
 
@@ -500,7 +507,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v6', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v7', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -532,7 +539,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v3', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v7', JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -680,9 +687,8 @@ function initAIProcessor() {
                 // Convert <br> back to simple newlines for description field
                 brandsData[targetBrandId].desc = refinedStory.replace(/<br>/g, '\n').replace(/<\/?[^>]+(>|$)/g, ""); // Strip HTML tag details
                 brandsData[targetBrandId].tag = firstTag;
-                
-                // Write back to LocalStorage
-                localStorage.setItem('nextt_brands_data_v6', JSON.stringify(brandsData));
+                                // Write back to LocalStorage
+                 localStorage.setItem('nextt_brands_data_v7', JSON.stringify(brandsData));
                 
                 alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
                 
@@ -723,9 +729,9 @@ function initAdminReset() {
     
     resetBtn.addEventListener('click', () => {
         if (confirm('確定要將所有業者資料與KOL登記紀錄重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data_v6');
-            localStorage.removeItem('nextt_products_data_v6');
-            localStorage.removeItem('nextt_cart_data_v6');
+            localStorage.removeItem('nextt_brands_data_v7');
+            localStorage.removeItem('nextt_products_data_v7');
+            localStorage.removeItem('nextt_cart_data_v7');
             localStorage.removeItem('nextt_kol_applications');
             loadData();
             renderCatalog();
