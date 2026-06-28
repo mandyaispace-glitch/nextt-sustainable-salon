@@ -453,8 +453,26 @@ main {
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .product-card {
@@ -1062,21 +1080,14 @@ main {
     background: #ffffff;
     border: 1px solid var(--morandi-border);
     border-radius: var(--radius-md);
-    padding: 1.75rem;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
     box-shadow: 0 4px 20px rgba(79, 111, 143, 0.04);
     transition: var(--transition-smooth);
     overflow: hidden;
-}
-
-@media (max-width: 800px) {
-    .pairing-card {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
-        padding: 1.25rem;
-    }
+    height: 100%;
 }
 
 .pairing-card:hover {
