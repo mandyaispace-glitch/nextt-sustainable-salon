@@ -409,8 +409,9 @@ function renderCatalog() {
         const btnClass = isShopee ? 'pairing-btn-redirect btn-shopee' : 'pairing-btn-redirect btn-line';
         
         const visualContent = p.imageUrl 
-            ? `<div class="pairing-visual" style="background: #f4f6f8; padding: 0; min-height: 140px; height: 140px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: 1px solid var(--morandi-border);">
+            ? `<div class="pairing-visual" onclick="openImageModal('${p.imageUrl}', '${p.title}')" style="background: #f4f6f8; padding: 0; min-height: 140px; height: 140px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: 1px solid var(--morandi-border); cursor: pointer; position: relative;">
                    <img src="${p.imageUrl}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-sm);">
+                   <div class="gallery-zoom-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.25); opacity: 0; transition: 0.3s; color: white; border-radius: var(--radius-sm);"><i class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.5rem;"></i></div>
                </div>`
             : `<div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}; min-height: 140px; height: 140px; padding: 1.25rem;">
                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">${p.emoji || '🌿'}</div>

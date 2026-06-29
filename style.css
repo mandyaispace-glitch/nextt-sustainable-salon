@@ -1156,6 +1156,10 @@ main {
     box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
 }
 
+.pairing-visual:hover .gallery-zoom-overlay {
+    opacity: 1 !important;
+}
+
 .pairing-visual-title {
     font-size: 1.1rem;
     font-weight: 700;
