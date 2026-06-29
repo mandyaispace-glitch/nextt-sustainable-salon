@@ -248,6 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('kol-unlock-btn')) {
         initKOLMatchmaker();
     }
+    if (document.getElementById('admin-unlock-btn')) {
+        initAdminLockScreen();
+    }
     
     // Back-end admin initializers
     if (document.getElementById('admin-brands-table-body')) {
@@ -985,8 +988,8 @@ function initKOLMatchmaker() {
     
     unlockBtn.addEventListener('click', () => {
         const password = passwordInput.value.trim().toLowerCase();
-        // Authorized password nextt20260718 (or default nextt/nextt2026)
-        if (password === 'nextt20260718' || password === 'nextt' || password === 'nextt2026') {
+        // Authorized password nextt2026
+        if (password === 'nextt2026') {
             sessionStorage.setItem('nextt_kol_unlocked', 'true');
             lockScreen.style.display = 'none';
             contentScreen.style.display = 'block';
@@ -1325,4 +1328,38 @@ function exportRSVPToCSV() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+function initAdminLockScreen() {
+    const unlockBtn = document.getElementById('admin-unlock-btn');
+    const passwordInput = document.getElementById('admin-password-input');
+    const lockScreen = document.getElementById('admin-lock-screen');
+    const contentScreen = document.getElementById('admin-content-screen');
+    const errorMsg = document.getElementById('admin-error-msg');
+    
+    if (!unlockBtn) return;
+    
+    if (sessionStorage.getItem('nextt_admin_unlocked') === 'true') {
+        lockScreen.style.display = 'none';
+        contentScreen.style.display = 'block';
+    }
+    
+    unlockBtn.addEventListener('click', () => {
+        const password = passwordInput.value.trim();
+        if (password === 'nextt20260718') {
+            sessionStorage.setItem('nextt_admin_unlocked', 'true');
+            lockScreen.style.display = 'none';
+            contentScreen.style.display = 'block';
+            errorMsg.style.display = 'none';
+        } else {
+            errorMsg.innerText = '❌ 密碼錯誤，請輸入 NextT 提供的專屬後台解鎖密碼。';
+            errorMsg.style.display = 'block';
+        }
+    });
+
+    passwordInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            unlockBtn.click();
+        }
+    });
 }
