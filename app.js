@@ -181,7 +181,7 @@ const defaultProducts = [
         water: 0,
         waste: 0.5,
         jobs: 0.05,
-        link: "https://www.facebook.com/honestfarmtaoyuan",
+        link: "https://shopee.tw/puresisoap",
         emoji: "🍿",
         brandName: "草本誠食",
         visualDesc: "清新的草莓粉嫩紅與莫蘭迪灰藍. 畫面呈現蓬鬆的爆米花與乾燥草莓碎片的點綴。",
@@ -198,22 +198,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v10');
-    const storedProducts = localStorage.getItem('nextt_products_data_v10');
-    const storedCart = localStorage.getItem('nextt_cart_data_v10');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v11');
+    const storedProducts = localStorage.getItem('nextt_products_data_v11');
+    const storedCart = localStorage.getItem('nextt_cart_data_v11');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v10', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v11', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v10', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v11', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -399,24 +399,23 @@ function renderCatalog() {
     grid.innerHTML = '';
     
     productsData.forEach(p => {
-        const isPledged = cart.some(item => item.product.id === p.id);
         const card = document.createElement('div');
         card.className = 'pairing-card';
         
-        // Determine button style for LINE vs Facebook
-        const isFb = p.link && p.link.includes('facebook.com');
-        const btnText = isFb ? '前往官方 FB' : '加 LINE 預購/諮詢';
-        const btnIcon = isFb ? '<i class="fa-brands fa-facebook"></i>' : '<i class="fa-brands fa-line"></i>';
-        const btnClass = isFb ? 'pairing-btn-redirect btn-facebook' : 'pairing-btn-redirect btn-line';
+        // Determine button style for LINE vs Shopee
+        const isShopee = p.link && p.link.includes('shopee.tw');
+        const btnText = '前往銷售賣場';
+        const btnIcon = isShopee ? '<i class="fa-solid fa-store"></i>' : '<i class="fa-brands fa-line"></i>';
+        const btnClass = isShopee ? 'pairing-btn-redirect btn-shopee' : 'pairing-btn-redirect btn-line';
         
         const visualContent = p.imageUrl 
-            ? `<div class="pairing-visual" style="background: #f4f6f8; padding: 0; min-height: 180px; height: 180px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: 1px solid var(--morandi-border);">
+            ? `<div class="pairing-visual" style="background: #f4f6f8; padding: 0; min-height: 140px; height: 140px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: 1px solid var(--morandi-border);">
                    <img src="${p.imageUrl}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-sm);">
                </div>`
-            : `<div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}">
-                   <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${p.emoji || '🌿'}</div>
-                   <div class="pairing-visual-title">${p.title.includes('：') ? p.title.split('：')[1] : p.title}</div>
-                   <div class="pairing-visual-concept">${p.visualDesc || ''}</div>
+            : `<div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}; min-height: 140px; height: 140px; padding: 1.25rem;">
+                   <div style="font-size: 2rem; margin-bottom: 0.25rem;">${p.emoji || '🌿'}</div>
+                   <div class="pairing-visual-title" style="font-size: 1rem;">${p.title.includes('：') ? p.title.split('：')[1] : p.title}</div>
+                   <div class="pairing-visual-concept" style="font-size: 0.7rem; max-width: 160px;">${p.visualDesc || ''}</div>
                </div>`;
             
         card.innerHTML = `
@@ -424,21 +423,17 @@ function renderCatalog() {
             <div class="pairing-content">
                 <div class="pairing-header">
                     <span class="pairing-brand">${p.brandName || ''}</span>
-                    <h4 class="pairing-title">${p.title}</h4>
-                    <div class="pairing-subtitle">${p.subtitle || ''}</div>
+                    <h4 class="pairing-title" style="font-size: 1.15rem; margin: 0.25rem 0;">${p.title}</h4>
+                    <div class="pairing-subtitle" style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;">${p.subtitle || ''}</div>
                     <p class="pairing-desc">${p.desc}</p>
                     <span class="product-esg-lbl"><i class="fa-solid fa-leaf"></i> ${p.esgLbl}</span>
                 </div>
-                <div class="pairing-footer">
-                    <span class="product-price">NT$ ${p.price}</span>
-                    <div class="pairing-action-row">
-                        <a href="${p.link}" target="_blank" class="${btnClass}">
+                <div class="pairing-footer" style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; border-top: 1px dashed rgba(79, 111, 143, 0.1);">
+                    <span class="product-price" style="font-weight: 700; color: var(--primary); font-size: 1.1rem;">NT$ ${p.price}</span>
+                    <div class="pairing-action-row" style="flex-grow: 1; display: flex; justify-content: flex-end;">
+                        <a href="${p.link}" target="_blank" class="${btnClass}" style="width: 100%; justify-content: center; text-align: center; box-sizing: border-box; padding: 0.5rem 0.75rem; font-size: 0.8rem;">
                             ${btnIcon} ${btnText}
                         </a>
-                        <div class="pledge-checkbox-container ${isPledged ? 'active' : ''}" onclick="togglePledge('${p.id}', this)">
-                            <input type="checkbox" id="pledge-check-${p.id}" ${isPledged ? 'checked' : ''} onclick="event.stopPropagation(); togglePledge('${p.id}', this.parentElement)">
-                            <label for="pledge-check-${p.id}" onclick="event.stopPropagation(); togglePledge('${p.id}', this.parentElement)">支持試算</label>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -527,7 +522,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v10', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v11', JSON.stringify(cart));
     });
 }
 
@@ -554,7 +549,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v10', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v11', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -586,7 +581,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v10', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v11', JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -734,8 +729,8 @@ function initAIProcessor() {
                 // Convert <br> back to simple newlines for description field
                 brandsData[targetBrandId].desc = refinedStory.replace(/<br>/g, '\n').replace(/<\/?[^>]+(>|$)/g, ""); // Strip HTML tag details
                 brandsData[targetBrandId].tag = firstTag;
-                                // Write back to LocalStorage
-                 localStorage.setItem('nextt_brands_data_v10', JSON.stringify(brandsData));
+                // Write back to LocalStorage
+                localStorage.setItem('nextt_brands_data_v11', JSON.stringify(brandsData));
                 
                 alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
                 
@@ -776,9 +771,9 @@ function initAdminReset() {
     
     resetBtn.addEventListener('click', () => {
         if (confirm('確定要將所有業者資料、KOL登記與活動報名名單重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data_v10');
-            localStorage.removeItem('nextt_products_data_v10');
-            localStorage.removeItem('nextt_cart_data_v10');
+            localStorage.removeItem('nextt_brands_data_v11');
+            localStorage.removeItem('nextt_products_data_v11');
+            localStorage.removeItem('nextt_cart_data_v11');
             localStorage.removeItem('nextt_kol_applications');
             localStorage.removeItem('nextt_rsvp_list');
             loadData();
