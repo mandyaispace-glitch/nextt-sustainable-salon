@@ -404,7 +404,7 @@ function renderCatalog() {
         
         // Determine button style for LINE vs Shopee
         const isShopee = p.link && p.link.includes('shopee.tw');
-        const btnText = '前往銷售賣場';
+        const btnText = '前往賣場';
         const btnIcon = isShopee ? '<i class="fa-solid fa-store"></i>' : '<i class="fa-brands fa-line"></i>';
         const btnClass = isShopee ? 'pairing-btn-redirect btn-shopee' : 'pairing-btn-redirect btn-line';
         
