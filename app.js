@@ -244,6 +244,30 @@ function loadData() {
     } else {
         cart = [];
     }
+
+    loadBrandDataFromFirestore();
+}
+
+function loadBrandDataFromFirestore() {
+    if (isFirebaseEnabled) {
+        db.collection('brands').get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    const id = doc.id;
+                    const data = doc.data();
+                    if (brandsData[id]) {
+                        brandsData[id] = { ...brandsData[id], ...data };
+                    }
+                });
+                // Update interactive table details if loaded
+                const activeBrand = document.querySelector('.hotspot.active');
+                if (activeBrand) {
+                    const brandId = activeBrand.dataset.brand;
+                    updateBrandDetailCard(brandId);
+                }
+            })
+            .catch(err => console.error("Error loading brand data from Cloud Firestore:", err));
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -270,28 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (document.getElementById('kol-unlock-btn')) {
         initKOLMatchmaker();
-    }
-    if (document.getElementById('admin-unlock-btn')) {
-        initAdminLockScreen();
-    }
-    
-    // Back-end admin initializers
-    if (document.getElementById('admin-brands-table-body')) {
-        renderAdminTable();
-        initAdminReset();
-    }
-    if (document.getElementById('admin-kol-table-body')) {
-        renderAdminKOLTable();
-    }
-    if (document.getElementById('admin-rsvp-table-body')) {
-        renderAdminRSVPTable();
-        const exportBtn = document.getElementById('export-rsvp-csv-btn');
-        if (exportBtn) {
-            exportBtn.addEventListener('click', exportRSVPToCSV);
-        }
-    }
-    if (document.getElementById('ai-run-btn')) {
-        initAIProcessor();
     }
 });
 
@@ -669,154 +671,7 @@ function calculateImpact() {
 
 window.removeFromCart = removeFromCart; // Expose globally
 
-// 5. AI Onboarding Assistant Logic
-function initAIProcessor() {
-    const runBtn = document.getElementById('ai-run-btn');
-    const emptyState = document.getElementById('ai-empty-state');
-    const loadingState = document.getElementById('ai-loading-state');
-    const resultsState = document.getElementById('ai-results-state');
-    
-    if (!runBtn) return;
-    
-    runBtn.addEventListener('click', () => {
-        const url = document.getElementById('ai-web-url').value;
-        const igText = document.getElementById('ai-ig-post').value;
-        const targetBrandId = document.getElementById('ai-brand-target').value;
-        
-        if (!igText && !url) {
-            alert('請至少填寫官網連結或 IG 貼文內容！');
-            return;
-        }
-        
-        // Show Loading
-        emptyState.style.display = 'none';
-        resultsState.style.display = 'none';
-        loadingState.style.display = 'block';
-        
-        // Simulate AI Processing (2 seconds)
-        setTimeout(() => {
-            loadingState.style.display = 'none';
-            resultsState.style.display = 'flex';
-            
-            const brandName = brandsData[targetBrandId] ? brandsData[targetBrandId].name : "小農品牌";
-            
-            // Populate Mock AI Results based on selected brand
-            document.getElementById('ai-original-summary').innerText = `分析來源: ${url || '手動素材貼上'} \n套用業者: ${brandName}\n摘要長度: ${igText ? igText.substring(0, 80) + '...' : '官網自動解析完成'}`;
-            
-            // Specific content template based on target brand
-            let refinedText = "";
-            let tagPillsHTML = "";
-            let esgGoalsHTML = "";
-            
-            if (targetBrandId === 'yufu') {
-                refinedText = `「生態養殖的極致，以綠色循環守護蔚藍」<br><br><b>一夫水產</b> 始終堅持『零用藥』與『永續共生』理念。本次沙龍展示的『川燙蝦仁』採用 100% 循環水物理過濾系統進行陸上高科技室內養殖，相較於傳統戶外抽水養殖，能有效省下數萬公升水資源。生產全流程無任何化學添加，從源頭保證消費者的健康與海洋生態環境的永續。`;
-                tagPillsHTML = `<span class="diff-tag-pill">#室內循環水</span><span class="diff-tag-pill">#零用藥安全水產</span><span class="diff-tag-pill">#永續海洋資源</span>`;
-                esgGoalsHTML = `• 符合 SDG 14 (保育海洋與海洋資源) 與 SDG 12 (責任消費與生產)。<br>• 為大型超市通路及跨國飯店提供無毒低碳的海鮮採購來源。`;
-            } else if (targetBrandId === 'chuanyong' || targetBrandId === 'chuanyong-vinegar') {
-                refinedText = `「柑橘大收成，格外品的新生故事」<br><br><b>川涌果園</b>深耕台灣在地柑橘栽植，長期致力於<b>友善土地的減碳農法</b>，全面採用<b>100% 有機肥料</b>栽培，嚴格拒絕化學除草劑。<br><br>為了打破傳統格外品被拋棄的命運，我們將其精心提煉，研發出<b>『柑橘醋氣泡飲』</b>與<b>『柑橘米香爆米丸』</b>，以綠色加值思維創造格外品的第二生命。每一口酥脆與酸甜，都在減少 2.5kg 的剩食浪費，並實質活化了 6 坪以上的友善果園面積。`;
-                tagPillsHTML = `<span class="diff-tag-pill">#減碳農法</span><span class="diff-tag-pill">#格外品加值</span><span class="diff-tag-pill">#賸食綠色經濟</span><span class="diff-tag-pill">#100%有機栽培</span>`;
-                esgGoalsHTML = `• 符合 SDG 12 (責任消費與生產) 與 SDG 15 (陸地生態)。<br>• 協助大型零售業（如三商集團）綠色採購之格外加分項目。`;
-            } else if (targetBrandId === 'xingfu' || targetBrandId === 'xingfu-tea') {
-                refinedText = `「高齡農夫與回鄉青年的共同心願」<br><br><b>幸福良食</b> 成功在台南推廣無毒黑豆種植。我們以契作方式，由青年團隊提供技術與行銷，邀請在地平均 75 歲的高齡農夫一起耕作，成功活化了超過 15 公頃的休耕農地。沙龍限定的黑豆酥與低溫烘焙黑豆茶，無防腐劑、無農藥殘留，是一份傳遞土地關懷與銀髮族尊嚴的溫慢點心。`;
-                tagPillsHTML = `<span class="diff-tag-pill">#青銀共創</span><span class="diff-tag-pill">#活化休耕地</span><span class="diff-tag-pill">#無化學防腐劑</span><span class="diff-tag-pill">#友善無毒契作</span>`;
-                esgGoalsHTML = `• 符合 SDG 8 (尊嚴工作與經濟成長) 與 SDG 11 (永續城鄉與社區)。<br>• 為企業 ESG 節慶禮盒及綠色辦公室茶點提供故事性極強的社會責任方案。`;
-            } else {
-                refinedText = `「契作花生的在地溫暖，用老手藝傳遞好事」<br><br><b>緣長好事</b> 秉持古法，堅持手作花生糖。我們支持了超過 12 戶在地花生農戶，確保他們獲得公正的契作收入，鼓勵青年留鄉發展。精選當季飽滿土豆，無防腐劑，每一顆花生糖都是對台灣傳統農業文化與小農生計的堅實支持。`;
-                tagPillsHTML = `<span class="diff-tag-pill">#小農契作花生</span><span class="diff-tag-pill">#青年返鄉創業</span><span class="diff-tag-pill">#百年手藝傳承</span>`;
-                esgGoalsHTML = `• 符合 SDG 1 (消除貧窮) 與 SDG 12 (責任消費與生產)。<br>• 完美的通路伴手禮與年節採購首選，富含厚實的在地溫情與文化故事。`;
-            }
-            
-            document.getElementById('ai-refined-story').innerHTML = refinedText;
-            
-            const tagsContainer = document.getElementById('ai-generated-tags');
-            tagsContainer.innerHTML = tagPillsHTML;
-            
-            const esgContainer = document.getElementById('ai-esg-goals');
-            esgContainer.innerHTML = esgGoalsHTML;
-            
-        }, 2000);
-    });
-    
-    // Save/Publish Button to update LocalStorage
-    const saveBtn = document.getElementById('ai-save-btn');
-    if (saveBtn) {
-        saveBtn.addEventListener('click', () => {
-            const targetBrandId = document.getElementById('ai-brand-target').value;
-            const refinedStory = document.getElementById('ai-refined-story').innerHTML;
-            
-            // Extract the first tag pill
-            const tagPills = document.querySelectorAll('#ai-generated-tags .diff-tag-pill');
-            let firstTag = "#永續耕作";
-            if (tagPills.length > 0) {
-                firstTag = tagPills[0].innerText;
-            }
-            
-            if (brandsData[targetBrandId]) {
-                // Update story and tag
-                // Convert <br> back to simple newlines for description field
-                brandsData[targetBrandId].desc = refinedStory.replace(/<br>/g, '\n').replace(/<\/?[^>]+(>|$)/g, ""); // Strip HTML tag details
-                brandsData[targetBrandId].tag = firstTag;
-                // Write back to LocalStorage
-                localStorage.setItem('nextt_brands_data_v11', JSON.stringify(brandsData));
-                
-                alert(`✨ 【${brandsData[targetBrandId].name}】的資料已成功發佈！與前台資料即時連動同步。`);
-                
-                // Reload admin table
-                renderAdminTable();
-                
-                // Reset AI panel
-                emptyState.style.display = 'block';
-                resultsState.style.display = 'none';
-            }
-        });
-    }
-}
 
-// 6. Admin Panel list renderer
-function renderAdminTable() {
-    const tableBody = document.getElementById('admin-brands-table-body');
-    if (!tableBody) return;
-    
-    tableBody.innerHTML = '';
-    Object.keys(brandsData).forEach(key => {
-        const brand = brandsData[key];
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td><strong>${brand.name}</strong></td>
-            <td><span class="brand-badge">${brand.badge}</span></td>
-            <td><span style="color: var(--accent-orange); font-weight: 500;">${brand.tag}</span></td>
-            <td><div style="max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${brand.desc}">${brand.desc}</div></td>
-            <td><span style="font-size: 0.85rem; color: #15803d; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> 本地儲存已同步</span></td>
-        `;
-        tableBody.appendChild(row);
-    });
-}
-
-function initAdminReset() {
-    const resetBtn = document.getElementById('reset-db-btn');
-    if (!resetBtn) return;
-    
-    resetBtn.addEventListener('click', () => {
-        if (isFirebaseEnabled) {
-            alert('⚠️ 目前正運作於 Firebase 雲端資料庫模式，基於資安考量，前台不支援一鍵刪除雲端資料。如需清空資料，請至 Firebase Console 進行操作。');
-            return;
-        }
-        if (confirm('確定要將所有業者資料、KOL登記與活動報名名單重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
-            localStorage.removeItem('nextt_brands_data_v11');
-            localStorage.removeItem('nextt_products_data_v11');
-            localStorage.removeItem('nextt_cart_data_v11');
-            localStorage.removeItem('nextt_kol_applications');
-            localStorage.removeItem('nextt_rsvp_list');
-            loadData();
-            renderCatalog();
-            updateCartUI();
-            renderAdminTable();
-            renderAdminKOLTable();
-            renderAdminRSVPTable();
-            alert('已成功重設為原始狀態！');
-        }
-    });
-}
 
 // 7. YouTube Embed Modals & Image Lightbox Modals
 function initModals() {
@@ -1316,215 +1171,4 @@ function initRSVPForm() {
     });
 }
 
-// Admin render of RSVP reservations list
-function renderAdminRSVPTable(data) {
-    const tableBody = document.getElementById('admin-rsvp-table-body');
-    const countBadge = document.getElementById('rsvp-reg-count');
-    if (!tableBody) return;
-    
-    let rsvps = [];
-    if (data) {
-        rsvps = data;
-    } else if (isFirebaseEnabled) {
-        fetchCloudSubmissions();
-        return;
-    } else {
-        const stored = localStorage.getItem('nextt_rsvp_list');
-        if (stored) {
-            rsvps = JSON.parse(stored);
-        }
-    }
-    
-    if (countBadge) {
-        countBadge.innerText = `共 ${rsvps.length} 筆報名`;
-    }
-    
-    if (rsvps.length === 0) {
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">尚無貴賓提交 7/18-7/19 活動預約登記。</td>
-            </tr>
-        `;
-    } else {
-        tableBody.innerHTML = '';
-        // Show newest first
-        [...rsvps].reverse().forEach(r => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><span style="font-size: 0.8rem; color: #64748b;">${r.time || ''}</span></td>
-                <td><strong>${r.name || ''}</strong></td>
-                <td><span style="font-size: 0.85rem;">${r.company || ''}</span></td>
-                <td><span style="font-family: monospace; font-size: 0.85rem;">${r.phone || ''}</span></td>
-                <td><span style="font-size: 0.85rem;">${r.email || ''}</span></td>
-                <td><span class="brand-badge" style="background: #eff6ff; color: var(--primary); font-size: 0.75rem;">${Array.isArray(r.sessions) ? r.sessions.join(', ') : (r.sessions || '')}</span></td>
-                <td><div style="max-width: 200px; font-size: 0.8rem;" title="${r.notes || ''}">${r.notes || ''}</div></td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
-}
 
-let cloudRsvps = [];
-let cloudKols = [];
-
-function fetchCloudSubmissions() {
-    if (!isFirebaseEnabled) return;
-    
-    const tableBodyRsvp = document.getElementById('admin-rsvp-table-body');
-    const countBadgeRsvp = document.getElementById('rsvp-reg-count');
-    const tableBodyKol = document.getElementById('admin-kol-table-body');
-    const countBadgeKol = document.getElementById('kol-reg-count');
-    
-    // Fetch RSVPs
-    db.collection('rsvps').get()
-        .then(snapshot => {
-            cloudRsvps = [];
-            snapshot.forEach(doc => {
-                cloudRsvps.push(doc.data());
-            });
-            renderAdminRSVPTable(cloudRsvps);
-        })
-        .catch(err => {
-            console.error("Error fetching RSVPs from Firestore:", err);
-            if (tableBodyRsvp) {
-                tableBodyRsvp.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #ef4444; padding: 2rem;">❌ 雲端資料庫讀取失敗：權限不足。</td></tr>`;
-            }
-        });
-        
-    // Fetch KOLs
-    db.collection('kols').get()
-        .then(snapshot => {
-            cloudKols = [];
-            snapshot.forEach(doc => {
-                cloudKols.push(doc.data());
-            });
-            renderAdminKOLTable(cloudKols);
-        })
-        .catch(err => {
-            console.error("Error fetching KOLs from Firestore:", err);
-            if (tableBodyKol) {
-                tableBodyKol.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #ef4444; padding: 2rem;">❌ 雲端資料庫讀取失敗：權限不足。</td></tr>`;
-            }
-        });
-}
-
-// Export RSVP list from browser to a CSV file (Excel compatible Chinese encoding)
-function exportRSVPToCSV() {
-    let rsvps = [];
-    if (isFirebaseEnabled) {
-        rsvps = cloudRsvps;
-    } else {
-        const stored = localStorage.getItem('nextt_rsvp_list');
-        if (stored) {
-            rsvps = JSON.parse(stored);
-        }
-    }
-    
-    if (rsvps.length === 0) {
-        alert('目前尚無報名資料可匯出！');
-        return;
-    }
-    
-    // CSV headers
-    const headers = ['報名時間', '姓名', '單位/職稱', '聯絡電話', '電子信箱', '預約場次', '備註'];
-    const rows = rsvps.map(r => [
-        `"${r.time || ''}"`,
-        `"${r.name || ''}"`,
-        `"${r.company || ''}"`,
-        `"${r.phone || ''}"`,
-        `"${r.email || ''}"`,
-        `"${Array.isArray(r.sessions) ? r.sessions.join('; ') : (r.sessions || '')}"`,
-        `"${(r.notes || '').replace(/"/g, '""')}"`
-    ]);
-    
-    // Add UTF-8 BOM for Excel Chinese compatibility
-    let csvContent = "\uFEFF" + headers.join(',') + '\n' + rows.map(e => e.join(",")).join("\n");
-    
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.setAttribute("href", url);
-    link.setAttribute("download", `NextT_rsvp_list_${new Date().toISOString().slice(0,10)}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-function initAdminLockScreen() {
-    const unlockBtn = document.getElementById('admin-unlock-btn');
-    const passwordInput = document.getElementById('admin-password-input');
-    const lockScreen = document.getElementById('admin-lock-screen');
-    const contentScreen = document.getElementById('admin-content-screen');
-    const errorMsg = document.getElementById('admin-error-msg');
-    
-    if (!unlockBtn) return;
-    
-    if (isFirebaseEnabled) {
-        // Firebase Cloud Session Check
-        auth.onAuthStateChanged(user => {
-            if (user && user.email === 'admin@nextt.com') {
-                sessionStorage.setItem('nextt_admin_unlocked', 'true');
-                lockScreen.style.display = 'none';
-                contentScreen.style.display = 'block';
-                fetchCloudSubmissions();
-            } else {
-                lockScreen.style.display = 'block';
-                contentScreen.style.display = 'none';
-            }
-        });
-    } else {
-        // Local Fallback Session Check
-        if (sessionStorage.getItem('nextt_admin_unlocked') === 'true') {
-            lockScreen.style.display = 'none';
-            contentScreen.style.display = 'block';
-            renderAdminRSVPTable();
-            renderAdminKOLTable();
-        }
-    }
-    
-    unlockBtn.addEventListener('click', () => {
-        const password = passwordInput.value.trim();
-        
-        if (isFirebaseEnabled) {
-            unlockBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 驗證中...';
-            unlockBtn.disabled = true;
-            
-            // Sign in securely via Cloud Auth using pre-configured Admin email and input password
-            auth.signInWithEmailAndPassword('admin@nextt.com', password)
-                .then(() => {
-                    unlockBtn.innerHTML = '<i class="fa-solid fa-key"></i> 解鎖管理系統';
-                    unlockBtn.disabled = false;
-                    sessionStorage.setItem('nextt_admin_unlocked', 'true');
-                    lockScreen.style.display = 'none';
-                    contentScreen.style.display = 'block';
-                    errorMsg.style.display = 'none';
-                })
-                .catch(err => {
-                    unlockBtn.innerHTML = '<i class="fa-solid fa-key"></i> 解鎖管理系統';
-                    unlockBtn.disabled = false;
-                    errorMsg.innerText = '❌ 密碼錯誤或驗證失敗，請輸入正確的管理者密碼。';
-                    errorMsg.style.display = 'block';
-                    console.error(err);
-                });
-        } else {
-            // Local Fallback Check
-            if (password === 'nextt20260718') {
-                sessionStorage.setItem('nextt_admin_unlocked', 'true');
-                lockScreen.style.display = 'none';
-                contentScreen.style.display = 'block';
-                errorMsg.style.display = 'none';
-                renderAdminRSVPTable();
-                renderAdminKOLTable();
-            } else {
-                errorMsg.innerText = '❌ 密碼錯誤，請輸入 NextT 提供的專屬後台解鎖密碼。';
-                errorMsg.style.display = 'block';
-            }
-        }
-    });
-
-    passwordInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            unlockBtn.click();
-        }
-    });
-}
