@@ -71,7 +71,7 @@ const defaultBrands = {
         metric1Lbl: "化學除草劑殘留",
         metric2: "100%",
         metric2Lbl: "格外品柑橘利用",
-        videoUrl: "https://www.youtube.com/embed/f32bVJ0YK2M",
+        videoUrl: "https://www.youtube.com/embed/s-Rldo9qRpw",
         land: 8,
         water: 0,
         waste: 3,
@@ -683,14 +683,31 @@ function initModals() {
         window.openVideoModal = function(url) {
             if (!url) return;
             
-            // If the URL is an Instagram or Facebook link, open it in a new window/tab directly.
-            // This bypasses the X-Frame-Options blocking.
-            if (url.includes('instagram.com') || url.includes('facebook.com') || !url.includes('youtube.com/embed')) {
+            let embedUrl = url;
+            try {
+                if (url.includes('youtube.com/watch')) {
+                    const urlObj = new URL(url);
+                    const videoId = urlObj.searchParams.get('v');
+                    if (videoId) {
+                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                    }
+                } else if (url.includes('youtu.be/')) {
+                    const parts = url.split('youtu.be/');
+                    if (parts.length > 1) {
+                        const videoId = parts[1].split('?')[0];
+                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                    }
+                }
+            } catch (e) {
+                console.error("Error parsing video URL:", e);
+            }
+            
+            if (embedUrl.includes('instagram.com') || embedUrl.includes('facebook.com') || !embedUrl.includes('youtube.com/embed')) {
                 window.open(url, '_blank');
                 return;
             }
             
-            if (iframe) iframe.src = url;
+            if (iframe) iframe.src = embedUrl;
             modal.classList.add('active');
         };
         
