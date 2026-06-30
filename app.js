@@ -221,22 +221,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v11');
-    const storedProducts = localStorage.getItem('nextt_products_data_v11');
-    const storedCart = localStorage.getItem('nextt_cart_data_v11');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v12');
+    const storedProducts = localStorage.getItem('nextt_products_data_v12');
+    const storedCart = localStorage.getItem('nextt_cart_data_v12');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v11', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v12', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v11', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v12', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -551,7 +551,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v11', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v12', JSON.stringify(cart));
     });
 }
 
@@ -578,7 +578,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v11', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v12', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -610,7 +610,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v11', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v12', JSON.stringify(cart));
 }
 
 function updateCartUI() {
