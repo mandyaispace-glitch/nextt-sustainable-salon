@@ -1,5 +1,28 @@
-// Google Apps Script Web App URL (Paste your URL once deployed. If empty, uses LocalStorage only)
+// Google Apps Script Web App URL (Paste your URL once deployed. If empty, uses LocalStorage/Firebase only)
 const GOOGLE_SCRIPT_URL = "";
+
+// =================【Firebase 雲端設定區】=================
+// 請至 Firebase Console 建立專案並獲取網頁應用程式配置參數貼在此處。
+// 若為預設 placeholder 值，系統將自動啟用地端 LocalStorage 測試與相容模式。
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+let db = null;
+let auth = null;
+let isFirebaseEnabled = false;
+
+if (typeof firebase !== 'undefined' && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    auth = firebase.auth();
+    isFirebaseEnabled = true;
+}
 
 // Default Database constants to fall back on
 const defaultBrands = {
@@ -774,6 +797,10 @@ function initAdminReset() {
     if (!resetBtn) return;
     
     resetBtn.addEventListener('click', () => {
+        if (isFirebaseEnabled) {
+            alert('⚠️ 目前正運作於 Firebase 雲端資料庫模式，基於資安考量，前台不支援一鍵刪除雲端資料。如需清空資料，請至 Firebase Console 進行操作。');
+            return;
+        }
         if (confirm('確定要將所有業者資料、KOL登記與活動報名名單重設嗎？這會清除您所有的 AI 修改與登記申請。')) {
             localStorage.removeItem('nextt_brands_data_v11');
             localStorage.removeItem('nextt_products_data_v11');
@@ -1053,36 +1080,51 @@ function initKOLMatchmaker() {
                 status: '待審核'
             };
             
-            let applications = [];
-            const stored = localStorage.getItem('nextt_kol_applications');
-            if (stored) {
-                applications = JSON.parse(stored);
-            }
-            
-            applications.push(app);
-            localStorage.setItem('nextt_kol_applications', JSON.stringify(applications));
-            
-            // Send to Google Sheets if configured
-            if (GOOGLE_SCRIPT_URL) {
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        type: "kol",
-                        ...app
+            if (isFirebaseEnabled) {
+                db.collection('kols').add(app)
+                    .then(() => {
+                        if (GOOGLE_SCRIPT_URL) {
+                            fetch(GOOGLE_SCRIPT_URL, {
+                                method: "POST",
+                                mode: "no-cors",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ type: "kol", ...app })
+                            }).catch(err => console.error("Error sending to GAS:", err));
+                        }
+                        showKOLSuccess();
                     })
-                }).catch(err => console.error("Error sending to GAS:", err));
+                    .catch(err => {
+                        alert('❌ 提交資料至雲端資料庫失敗，請確認網路連線。');
+                        console.error(err);
+                    });
+            } else {
+                let applications = [];
+                const stored = localStorage.getItem('nextt_kol_applications');
+                if (stored) {
+                    applications = JSON.parse(stored);
+                }
+                applications.push(app);
+                localStorage.setItem('nextt_kol_applications', JSON.stringify(applications));
+                
+                if (GOOGLE_SCRIPT_URL) {
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ type: "kol", ...app })
+                    }).catch(err => console.error("Error sending to GAS:", err));
+                }
+                showKOLSuccess();
             }
             
-            alert(`🎉 盛德好 KOL 媒合申請送出成功！\n品牌：${app.brandName}\n媒合KOL：${app.kols}\n分潤：20%\n\nNextT 團隊將會儘快為您辦理媒合對接！`);
-            
-            // Clear inputs
-            document.getElementById('kol-product-propose').value = '';
-            document.getElementById('kol-check-commission').checked = false;
-            document.getElementById('kol-check-price').checked = false;
-            document.getElementById('kol-check-propose').checked = false;
-            checkboxes.forEach(cb => cb.checked = false);
+            function showKOLSuccess() {
+                alert(`🎉 盛德好 KOL 媒合申請送出成功！\n品牌：${app.brandName}\n媒合KOL：${app.kols}\n分潤：20%\n\nNextT 團隊將會儘快為您辦理媒合對接！`);
+                document.getElementById('kol-product-propose').value = '';
+                document.getElementById('kol-check-commission').checked = false;
+                document.getElementById('kol-check-price').checked = false;
+                document.getElementById('kol-check-propose').checked = false;
+                checkboxes.forEach(cb => cb.checked = false);
+            }
         });
     }
 }
@@ -1138,15 +1180,22 @@ function initKOLSearch() {
 }
 
 // 9. Admin render of KOL requests
-function renderAdminKOLTable() {
+function renderAdminKOLTable(data) {
     const tableBody = document.getElementById('admin-kol-table-body');
     const countBadge = document.getElementById('kol-reg-count');
     if (!tableBody) return;
     
     let applications = [];
-    const stored = localStorage.getItem('nextt_kol_applications');
-    if (stored) {
-        applications = JSON.parse(stored);
+    if (data) {
+        applications = data;
+    } else if (isFirebaseEnabled) {
+        fetchCloudSubmissions();
+        return;
+    } else {
+        const stored = localStorage.getItem('nextt_kol_applications');
+        if (stored) {
+            applications = JSON.parse(stored);
+        }
     }
     
     if (countBadge) {
@@ -1204,63 +1253,86 @@ function initRSVPForm() {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 正在傳送報名資料...';
         
-        if (GOOGLE_SCRIPT_URL) {
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    type: "rsvp",
-                    time: new Date().toLocaleString(),
-                    name: name,
-                    company: company,
-                    phone: phone,
-                    email: email,
-                    sessions: checkedSessions.join(', '),
-                    notes: notes
+        const rsvpData = {
+            time: new Date().toLocaleString(),
+            name: name,
+            company: company,
+            phone: phone,
+            email: email,
+            sessions: checkedSessions.join(', '),
+            notes: notes
+        };
+
+        if (isFirebaseEnabled) {
+            db.collection('rsvps').add(rsvpData)
+                .then(() => {
+                    if (GOOGLE_SCRIPT_URL) {
+                        fetch(GOOGLE_SCRIPT_URL, {
+                            method: "POST",
+                            mode: "no-cors",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ type: "rsvp", ...rsvpData })
+                        }).catch(err => console.error("Error sending to GAS:", err));
+                    }
+                    showSuccess();
                 })
-            })
-            .then(() => {
-                showSuccess();
-            })
-            .catch(err => {
-                console.error("Error sending RSVP to GAS:", err);
-                showSuccess();
-            });
+                .catch(err => {
+                    console.error("Firebase error:", err);
+                    alert("❌ 提交資料至雲端資料庫失敗，請確認網路連線。");
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalHTML;
+                });
         } else {
-            setTimeout(() => {
-                showSuccess();
-            }, 1000);
+            if (GOOGLE_SCRIPT_URL) {
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ type: "rsvp", ...rsvpData })
+                })
+                .then(() => showSuccess())
+                .catch(() => showSuccess());
+            } else {
+                setTimeout(() => {
+                    showSuccess();
+                }, 1000);
+            }
         }
         
         function showSuccess() {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalHTML;
             
-            // Save locally
-            const rsvpData = {
-                name, company, phone, email, sessions: checkedSessions, notes, time: new Date().toLocaleString()
-            };
-            const storedRsvps = JSON.parse(localStorage.getItem('nextt_rsvp_list') || '[]');
-            storedRsvps.push(rsvpData);
-            localStorage.setItem('nextt_rsvp_list', JSON.stringify(storedRsvps));
-            
-            alert(`✨ 報名成功！\n\n感謝您的預約，${name}。我們已為您登記出席場次：\n${checkedSessions.join('\n')}\n\n期待與您在沙龍現場相見！`);
+            if (!isFirebaseEnabled) {
+                const storedRsvps = JSON.parse(localStorage.getItem('nextt_rsvp_list') || '[]');
+                storedRsvps.push(rsvpData);
+                localStorage.setItem('nextt_rsvp_list', JSON.stringify(storedRsvps));
+                alert(`✨ [測試模式] 報名成功！資料已暫存於本機：\n${name} 已登記：\n${checkedSessions.join('\n')}`);
+            } else {
+                alert(`✨ 報名成功！\n\n感謝您的預約，${name}。我們已為您登記出席場次：\n${checkedSessions.join('\n')}\n\n期待與您在沙龍現場相見！`);
+            }
             form.reset();
         }
     });
 }
 
 // Admin render of RSVP reservations list
-function renderAdminRSVPTable() {
+function renderAdminRSVPTable(data) {
     const tableBody = document.getElementById('admin-rsvp-table-body');
     const countBadge = document.getElementById('rsvp-reg-count');
     if (!tableBody) return;
     
     let rsvps = [];
-    const stored = localStorage.getItem('nextt_rsvp_list');
-    if (stored) {
-        rsvps = JSON.parse(stored);
+    if (data) {
+        rsvps = data;
+    } else if (isFirebaseEnabled) {
+        fetchCloudSubmissions();
+        return;
+    } else {
+        const stored = localStorage.getItem('nextt_rsvp_list');
+        if (stored) {
+            rsvps = JSON.parse(stored);
+        }
     }
     
     if (countBadge) {
@@ -1292,14 +1364,62 @@ function renderAdminRSVPTable() {
     }
 }
 
+let cloudRsvps = [];
+let cloudKols = [];
+
+function fetchCloudSubmissions() {
+    if (!isFirebaseEnabled) return;
+    
+    const tableBodyRsvp = document.getElementById('admin-rsvp-table-body');
+    const countBadgeRsvp = document.getElementById('rsvp-reg-count');
+    const tableBodyKol = document.getElementById('admin-kol-table-body');
+    const countBadgeKol = document.getElementById('kol-reg-count');
+    
+    // Fetch RSVPs
+    db.collection('rsvps').get()
+        .then(snapshot => {
+            cloudRsvps = [];
+            snapshot.forEach(doc => {
+                cloudRsvps.push(doc.data());
+            });
+            renderAdminRSVPTable(cloudRsvps);
+        })
+        .catch(err => {
+            console.error("Error fetching RSVPs from Firestore:", err);
+            if (tableBodyRsvp) {
+                tableBodyRsvp.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #ef4444; padding: 2rem;">❌ 雲端資料庫讀取失敗：權限不足。</td></tr>`;
+            }
+        });
+        
+    // Fetch KOLs
+    db.collection('kols').get()
+        .then(snapshot => {
+            cloudKols = [];
+            snapshot.forEach(doc => {
+                cloudKols.push(doc.data());
+            });
+            renderAdminKOLTable(cloudKols);
+        })
+        .catch(err => {
+            console.error("Error fetching KOLs from Firestore:", err);
+            if (tableBodyKol) {
+                tableBodyKol.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #ef4444; padding: 2rem;">❌ 雲端資料庫讀取失敗：權限不足。</td></tr>`;
+            }
+        });
+}
+
 // Export RSVP list from browser to a CSV file (Excel compatible Chinese encoding)
 function exportRSVPToCSV() {
-    const stored = localStorage.getItem('nextt_rsvp_list');
-    if (!stored) {
-        alert('目前尚無報名資料可匯出！');
-        return;
+    let rsvps = [];
+    if (isFirebaseEnabled) {
+        rsvps = cloudRsvps;
+    } else {
+        const stored = localStorage.getItem('nextt_rsvp_list');
+        if (stored) {
+            rsvps = JSON.parse(stored);
+        }
     }
-    const rsvps = JSON.parse(stored);
+    
     if (rsvps.length === 0) {
         alert('目前尚無報名資料可匯出！');
         return;
@@ -1339,21 +1459,66 @@ function initAdminLockScreen() {
     
     if (!unlockBtn) return;
     
-    if (sessionStorage.getItem('nextt_admin_unlocked') === 'true') {
-        lockScreen.style.display = 'none';
-        contentScreen.style.display = 'block';
+    if (isFirebaseEnabled) {
+        // Firebase Cloud Session Check
+        auth.onAuthStateChanged(user => {
+            if (user && user.email === 'admin@nextt.com') {
+                sessionStorage.setItem('nextt_admin_unlocked', 'true');
+                lockScreen.style.display = 'none';
+                contentScreen.style.display = 'block';
+                fetchCloudSubmissions();
+            } else {
+                lockScreen.style.display = 'block';
+                contentScreen.style.display = 'none';
+            }
+        });
+    } else {
+        // Local Fallback Session Check
+        if (sessionStorage.getItem('nextt_admin_unlocked') === 'true') {
+            lockScreen.style.display = 'none';
+            contentScreen.style.display = 'block';
+            renderAdminRSVPTable();
+            renderAdminKOLTable();
+        }
     }
     
     unlockBtn.addEventListener('click', () => {
         const password = passwordInput.value.trim();
-        if (password === 'nextt20260718') {
-            sessionStorage.setItem('nextt_admin_unlocked', 'true');
-            lockScreen.style.display = 'none';
-            contentScreen.style.display = 'block';
-            errorMsg.style.display = 'none';
+        
+        if (isFirebaseEnabled) {
+            unlockBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 驗證中...';
+            unlockBtn.disabled = true;
+            
+            // Sign in securely via Cloud Auth using pre-configured Admin email and input password
+            auth.signInWithEmailAndPassword('admin@nextt.com', password)
+                .then(() => {
+                    unlockBtn.innerHTML = '<i class="fa-solid fa-key"></i> 解鎖管理系統';
+                    unlockBtn.disabled = false;
+                    sessionStorage.setItem('nextt_admin_unlocked', 'true');
+                    lockScreen.style.display = 'none';
+                    contentScreen.style.display = 'block';
+                    errorMsg.style.display = 'none';
+                })
+                .catch(err => {
+                    unlockBtn.innerHTML = '<i class="fa-solid fa-key"></i> 解鎖管理系統';
+                    unlockBtn.disabled = false;
+                    errorMsg.innerText = '❌ 密碼錯誤或驗證失敗，請輸入正確的管理者密碼。';
+                    errorMsg.style.display = 'block';
+                    console.error(err);
+                });
         } else {
-            errorMsg.innerText = '❌ 密碼錯誤，請輸入 NextT 提供的專屬後台解鎖密碼。';
-            errorMsg.style.display = 'block';
+            // Local Fallback Check
+            if (password === 'nextt20260718') {
+                sessionStorage.setItem('nextt_admin_unlocked', 'true');
+                lockScreen.style.display = 'none';
+                contentScreen.style.display = 'block';
+                errorMsg.style.display = 'none';
+                renderAdminRSVPTable();
+                renderAdminKOLTable();
+            } else {
+                errorMsg.innerText = '❌ 密碼錯誤，請輸入 NextT 提供的專屬後台解鎖密碼。';
+                errorMsg.style.display = 'block';
+            }
         }
     });
 

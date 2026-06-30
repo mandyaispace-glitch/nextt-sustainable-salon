@@ -119,7 +119,101 @@ function sendLineNotification(message) {
     "payload": payload,
     "muteHttpExceptions": true
   };
-  
-  const response = UrlFetchApp.fetch(url, options);
-  Logger.log("LINE Notify 回傳：" + response.getContentText());
+    const response = UrlFetchApp.fetch(url, options);
+    Logger.log("LINE Notify 回傳：" + response.getContentText());
+}
+
+/**
+ * GET 請求進入點 (處理後台與前台之資料安全讀取驗證)
+ */
+function doGet(e) {
+  try {
+    const action = e.parameter.action;
+    const password = e.parameter.password;
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    
+    // 1. 後台獲取所有報名與 KOL 申請資料 (需輸入後台密碼 nextt20260718)
+    if (action === "getSubmissions") {
+      if (password !== "nextt20260718") {
+        return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Unauthorized: Invalid password" }))
+                             .setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      let rsvps = [];
+      let kols = [];
+      
+      // 讀取 RSVP 預購單
+      const rsvpSheet = ss.getSheetByName("沙龍選物預購單");
+      if (rsvpSheet) {
+        const values = rsvpSheet.getDataRange().getValues();
+        for (let i = 1; i < values.length; i++) {
+          rsvps.push({
+            time: values[i][0] ? values[i][0].toString() : "",
+            name: values[i][1] || "",
+            phone: values[i][2] || "",
+            itemsSummary: values[i][3] || "",
+            impact: {
+              land: parseFloat(values[i][4]) || 0,
+              water: parseFloat(values[i][5]) || 0,
+              waste: parseFloat(values[i][6]) || 0,
+              jobs: parseFloat(values[i][7]) || 0
+            }
+          });
+        }
+      }
+      
+      // 讀取 KOL 登記單
+      const kolSheet = ss.getSheetByName("盛德好KOL登記");
+      if (kolSheet) {
+        const values = kolSheet.getDataRange().getValues();
+        for (let i = 1; i < values.length; i++) {
+          kols.push({
+            time: values[i][0] ? values[i][0].toString() : "",
+            brandName: values[i][1] || "",
+            propose: values[i][2] || "",
+            rate: values[i][3] || "",
+            kols: values[i][4] || "",
+            status: values[i][5] || "待審核"
+          });
+        }
+      }
+      
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", rsvps: rsvps, kols: kols }))
+                           .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // 2. 前台獲取 KOL 申請登記列表 (需輸入業者密碼 nextt2026)
+    if (action === "getKOLList") {
+      if (password !== "nextt2026") {
+        return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Unauthorized: Invalid password" }))
+                             .setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      let kols = [];
+      const kolSheet = ss.getSheetByName("盛德好KOL登記");
+      if (kolSheet) {
+        const values = kolSheet.getDataRange().getValues();
+        for (let i = 1; i < values.length; i++) {
+          kols.push({
+            time: values[i][0] ? values[i][0].toString() : "",
+            brandName: values[i][1] || "",
+            propose: values[i][2] || "",
+            rate: values[i][3] || "",
+            kols: values[i][4] || "",
+            status: values[i][5] || "待審核"
+          });
+        }
+      }
+      
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", kols: kols }))
+                           .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Invalid action" }))
+                         .setMimeType(ContentService.MimeType.JSON);
+                         
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString() }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
 }
