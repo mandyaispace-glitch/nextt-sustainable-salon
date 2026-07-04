@@ -228,22 +228,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v16');
-    const storedProducts = localStorage.getItem('nextt_products_data_v16');
-    const storedCart = localStorage.getItem('nextt_cart_data_v16');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v17');
+    const storedProducts = localStorage.getItem('nextt_products_data_v17');
+    const storedCart = localStorage.getItem('nextt_cart_data_v17');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v16', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v17', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v16', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v17', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -445,9 +445,8 @@ function renderCatalog() {
         const btnClass = isShopee ? 'pairing-btn-redirect btn-shopee' : 'pairing-btn-redirect btn-line';
         
         const visualContent = p.imageUrl 
-            ? `<div class="pairing-visual" onclick="openImageModal('${p.imageUrl}', '${p.title}')" style="background: #f4f6f8; padding: 0; min-height: 140px; height: 140px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: 1px solid var(--morandi-border); cursor: pointer; position: relative;">
+            ? `<div class="pairing-visual" style="background: #f4f6f8; padding: 0; min-height: 140px; height: 140px; display: flex; align-items: center; justify-content: center; box-shadow: none; border: 1px solid var(--morandi-border); position: relative;">
                    <img src="${p.imageUrl}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-sm);">
-                   <div class="gallery-zoom-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.25); opacity: 0; transition: 0.3s; color: white; border-radius: var(--radius-sm);"><i class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.5rem;"></i></div>
                </div>`
             : `<div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}; min-height: 140px; height: 140px; padding: 1.25rem;">
                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">${p.emoji || '🌿'}</div>
@@ -478,8 +477,8 @@ function renderCatalog() {
                         <img src="${p.couponInfo.image}" alt="折價券" style="width:100%; display:block; object-fit:contain; max-height:120px;">
                     </div>` : ''}
                     ${p.decorationImage ? `
-                    <div style="margin-top:0.65rem; border-radius:10px; overflow:hidden; cursor:pointer; box-shadow:0 2px 12px rgba(124,58,237,0.13);" onclick="openImageModal('${p.decorationImage}', '${p.brandName} 產品圖')">
-                        <img src="${p.decorationImage}" alt="${p.brandName} 產品圖" style="width:100%; display:block; object-fit:cover; max-height:160px;">
+                    <div style="margin-top:0.65rem; border-radius:10px; overflow:hidden; box-shadow:0 2px 12px rgba(124,58,237,0.13);" >
+                        <img src="${p.decorationImage}" alt="${p.brandName} 產品圖" style="width:100%; display:block; object-fit:contain; height:auto; background:#faf5ff;">
                     </div>` : ''}
                 </div>
                 <div class="pairing-footer" style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; border-top: 1px dashed rgba(79, 111, 143, 0.1);">
@@ -576,7 +575,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v16', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v17', JSON.stringify(cart));
     });
 }
 
@@ -603,7 +602,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v16', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v17', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -635,7 +634,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v16', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v17', JSON.stringify(cart));
 }
 
 function updateCartUI() {
