@@ -215,7 +215,7 @@ const defaultProducts = [
         visualTitle: "【補水秘訣 擺脱夏日厭世感】",
         visualDesc: "溫潤順口的在地草本色澤。畫面呈現溫和回甘的丹參茶與純淨滴雞精的頂級溫養感。",
         gradient: "linear-gradient(135deg, #7c3aed 0%, #c4b5fd 100%)",
-        decorationImage: "素材/草本誠食裝飾.png"
+        decorationImage: "素材/草本誠食2.png"
     }
 ];
 
@@ -228,22 +228,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v17');
-    const storedProducts = localStorage.getItem('nextt_products_data_v17');
-    const storedCart = localStorage.getItem('nextt_cart_data_v17');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v18');
+    const storedProducts = localStorage.getItem('nextt_products_data_v18');
+    const storedCart = localStorage.getItem('nextt_cart_data_v18');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v17', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v18', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v17', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v18', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -478,7 +478,7 @@ function renderCatalog() {
                     </div>` : ''}
                     ${p.decorationImage ? `
                     <div style="margin-top:0.65rem; border-radius:10px; overflow:hidden; box-shadow:0 2px 12px rgba(124,58,237,0.13);" >
-                        <img src="${p.decorationImage}" alt="${p.brandName} 產品圖" style="width:100%; display:block; object-fit:contain; height:auto; background:#faf5ff;">
+                        <img src="${p.decorationImage}" alt="${p.brandName} 產品圖" style="width:100%; display:block; object-fit:contain; width:100%; height:200px; background:#fff;">
                     </div>` : ''}
                 </div>
                 <div class="pairing-footer" style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; border-top: 1px dashed rgba(79, 111, 143, 0.1);">
@@ -575,7 +575,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v17', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v18', JSON.stringify(cart));
     });
 }
 
@@ -602,7 +602,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v17', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v18', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -634,7 +634,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v17', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v18', JSON.stringify(cart));
 }
 
 function updateCartUI() {
