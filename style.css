@@ -91,6 +91,10 @@ nav {
     border-radius: var(--radius-md);
 }
 
+.mobile-anchor-nav {
+    display: none;
+}
+
 .nav-tab {
     padding: 0.6rem 1.25rem;
     border: none;
@@ -177,128 +181,15 @@ main {
     line-height: 1.5;
 }
 
-.hero-carousel {
-    overflow: hidden;
-    padding: 0 4.5rem 1.8rem;
-    position: relative;
-}
-
-.hero-slides {
-    display: grid;
-}
-
-.hero-slide {
-    align-content: center;
-    display: grid;
-    grid-area: 1 / 1;
-    min-height: 190px;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(24px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-    visibility: hidden;
-}
-
-.hero-slide.active {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
-    visibility: visible;
-}
-
-.hero-slide h2 {
-    color: var(--primary);
-    font-size: 2.25rem;
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
-}
-
-.hero-slide-kicker {
-    color: var(--primary-medium);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.55rem;
-}
-
-.hero-slide-link {
-    align-items: center;
-    color: var(--primary-medium);
-    display: inline-flex;
-    font-size: 0.86rem;
-    font-weight: 700;
-    gap: 0.4rem;
-    justify-self: center;
-    margin-top: 0.9rem;
-    text-decoration: none;
-}
-
-.hero-carousel-arrow {
-    align-items: center;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    color: var(--primary-medium);
-    cursor: pointer;
-    display: flex;
-    height: 38px;
-    justify-content: center;
-    position: absolute;
-    top: 43%;
-    transform: translateY(-50%);
-    transition: var(--transition-smooth);
-    width: 38px;
-}
-
-.hero-carousel-arrow:hover,
-.hero-carousel-arrow:focus-visible {
-    background: var(--primary);
-    color: white;
-    outline: none;
-}
-
-.hero-carousel-prev {
-    left: 0.5rem;
-}
-
-.hero-carousel-next {
-    right: 0.5rem;
-}
-
-.hero-carousel-dots {
-    bottom: 0.25rem;
-    display: flex;
-    gap: 0.45rem;
-    justify-content: center;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-}
-
-.hero-carousel-dot {
-    background: rgba(45, 106, 79, 0.22);
-    border: 0;
-    border-radius: 999px;
-    cursor: pointer;
-    height: 7px;
-    padding: 0;
-    transition: var(--transition-smooth);
-    width: 7px;
-}
-
-.hero-carousel-dot.active {
-    background: var(--accent-orange);
-    width: 24px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .hero-slide,
-    .hero-carousel-dot {
-        transition: none;
+@media (max-width: 520px) {
+    .hero {
+        display: none;
     }
-}
 
-@media (max-width: 600px) {
+    #interactive-table-section {
+        display: none;
+    }
+
     header {
         align-items: center;
         gap: 0.65rem;
@@ -322,6 +213,56 @@ main {
     nav {
         flex: 0 0 auto;
         padding: 0.2rem;
+    }
+
+    .mobile-anchor-nav {
+        -webkit-overflow-scrolling: touch;
+        background: rgba(252, 251, 250, 0.94);
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 0;
+        box-shadow: 0 6px 18px rgba(27, 67, 50, 0.06);
+        display: flex;
+        gap: 0.35rem;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0.45rem 1rem 0.5rem;
+        position: sticky;
+        scrollbar-width: none;
+        top: 58px;
+        z-index: 90;
+    }
+
+    .mobile-anchor-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-anchor-nav a {
+        align-items: center;
+        background: white;
+        border: 1px solid rgba(27, 67, 50, 0.09);
+        border-radius: 999px;
+        color: var(--primary-medium);
+        display: inline-flex;
+        flex: 0 0 auto;
+        font-size: 0.72rem;
+        font-weight: 700;
+        gap: 0.35rem;
+        min-height: 36px;
+        padding: 0.45rem 0.68rem;
+        text-decoration: none;
+    }
+
+    .mobile-anchor-nav a:active,
+    .mobile-anchor-nav a:focus-visible {
+        background: var(--primary);
+        color: white;
+        outline: none;
+    }
+
+    #rundown-section,
+    #catalog-section,
+    #dashboard-section {
+        scroll-margin-top: 118px;
     }
 
     .nav-tab {
@@ -376,28 +317,6 @@ main {
         line-height: 1.2;
         margin-bottom: 0.75rem;
         max-width: 9em;
-    }
-
-    .hero-carousel {
-        overflow: visible;
-        padding: 0;
-    }
-
-    .hero-slide {
-        display: none;
-        min-height: 0;
-        opacity: 1;
-        transform: none;
-        visibility: visible;
-    }
-
-    .hero-slide:first-child {
-        display: block;
-    }
-
-    .hero-carousel-arrow,
-    .hero-carousel-dots {
-        display: none;
     }
 
     .hero-subtitle,
