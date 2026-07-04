@@ -200,20 +200,21 @@ const defaultProducts = [
     {
         id: "c5",
         brandId: "caoben",
-        title: "品牌精選：【酸甜夢幻・安心零嘴】",
-        subtitle: "草本誠食「草莓爆米花」",
-        desc: "「嚴選友善耕作草莓，結合非基改爆米花，無人工色素與香精。每一口都是酸甜自然莓果香，追劇大口吃超安心！」",
+        title: "品牌精選：【在地純粹．草本滋補】",
+        subtitle: "草本誠食「台灣嚴選丹參茶」",
+        desc: "「外面爆熱、冷氣房爆冷，上班族吹到頭昏腦脹、越坐越累？嚴選台灣在地丹參，冷泡熱沖都順口。不燥不熱的天然回甘，幫你在冷氣房溫和補水、調養氣血，輕鬆擺脫夏日厭世感！」",
         price: 150,
-        esgLbl: "支持無毒草莓契作與青年回鄉就業",
+        esgLbl: "🌱 支持台灣在地無毒契作，嚴選100%純粹無添加",
         land: 4,
         water: 0,
         waste: 0.5,
         jobs: 0.05,
         link: "https://tw.shp.ee/7dfmgYNK",
-        emoji: "🍿",
+        emoji: "🍵",
         brandName: "草本誠食",
-        visualDesc: "清新的草莓粉嫩紅與莫蘭迪灰藍. 畫面呈現蓬鬆的爆米花與乾燥草莓碎片的點綴。",
-        gradient: "linear-gradient(135deg, #f43f5e 0%, #cbd5e1 100%)"
+        visualTitle: "【補水秘訣 擺脱夏日厭世感】",
+        visualDesc: "溫潤順口的在地草本色澤。畫面呈現溫和回甘的丹參茶與純淨滴雞精的頂級溫養感。",
+        gradient: "linear-gradient(135deg, #7c3aed 0%, #c4b5fd 100%)"
     }
 ];
 
@@ -226,22 +227,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v13');
-    const storedProducts = localStorage.getItem('nextt_products_data_v13');
-    const storedCart = localStorage.getItem('nextt_cart_data_v13');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v14');
+    const storedProducts = localStorage.getItem('nextt_products_data_v14');
+    const storedCart = localStorage.getItem('nextt_cart_data_v14');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v13', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v14', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v13', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v14', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -449,7 +450,7 @@ function renderCatalog() {
                </div>`
             : `<div class="pairing-visual" style="background: ${p.gradient || 'linear-gradient(135deg, #5c768d 0%, #34495e 100%)'}; min-height: 140px; height: 140px; padding: 1.25rem;">
                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">${p.emoji || '🌿'}</div>
-                   <div class="pairing-visual-title" style="font-size: 1rem;">${p.title.includes('：') ? p.title.split('：')[1] : p.title}</div>
+                   <div class="pairing-visual-title" style="font-size: 1rem;">${p.visualTitle || (p.title.includes('：') ? p.title.split('：')[1] : p.title)}</div>
                    <div class="pairing-visual-concept" style="font-size: 0.7rem; max-width: 160px;">${p.visualDesc || ''}</div>
                </div>`;
             
@@ -570,7 +571,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v13', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v14', JSON.stringify(cart));
     });
 }
 
@@ -597,7 +598,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v13', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v14', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -629,7 +630,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v13', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v14', JSON.stringify(cart));
 }
 
 function updateCartUI() {
