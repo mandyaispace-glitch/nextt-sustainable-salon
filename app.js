@@ -181,7 +181,7 @@ const defaultProducts = [
         title: "品牌精選：【鮮美陸上・永續共生】",
         subtitle: "一夫水產「鮮凍川燙蝦仁」",
         desc: "「深夜加班、週末小酌宵夜救星！溫室循環水高規格養殖藍寶石蝦，抗生素零檢出，退冰川燙 60 秒開動，極致鮮甜、低脂高蛋白無負擔！」",
-        price: 250,
+        hidePrice: true,
         esgLbl: "支持 500L 循環水過濾，減抽 100% 地下水",
         land: 0,
         water: 500,
@@ -203,7 +203,7 @@ const defaultProducts = [
         title: "品牌精選：【在地純粹．草本滋補】",
         subtitle: "草本誠食「台灣嚴選丹參茶」",
         desc: "「外面爆熱、冷氣房爆冷，上班族吹到頭昏腦脹、越坐越累？嚴選台灣在地丹參，冷泡熱沖都順口。不燥不熱的天然回甘，幫你在冷氣房溫和補水、調養氣血，輕鬆擺脫夏日厭世感！」",
-        price: 150,
+        hidePrice: true,
         esgLbl: "🌱 支持台灣在地無毒契作，嚴選100%純粹無添加",
         land: 4,
         water: 0,
@@ -227,22 +227,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v14');
-    const storedProducts = localStorage.getItem('nextt_products_data_v14');
-    const storedCart = localStorage.getItem('nextt_cart_data_v14');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v15');
+    const storedProducts = localStorage.getItem('nextt_products_data_v15');
+    const storedCart = localStorage.getItem('nextt_cart_data_v15');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v14', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v15', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v14', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v15', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -571,7 +571,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v14', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v15', JSON.stringify(cart));
     });
 }
 
@@ -598,7 +598,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v14', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v15', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -630,7 +630,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v14', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v15', JSON.stringify(cart));
 }
 
 function updateCartUI() {
