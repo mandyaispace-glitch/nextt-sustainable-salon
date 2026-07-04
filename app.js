@@ -125,13 +125,13 @@ const defaultProducts = [
         title: "【格外品翻轉・永續椪柑選物組】",
         subtitle: "明星零嘴：柑橘米香（180g） ＋ 生活選物：純釀鮮榨椪柑果醋、柑橘家事清潔劑噴瓶",
         desc: "「辦公室嚼感系零食首選！將台南東山在地柑橘的天然果酸，優雅揉入黃金比例的酥脆米香中。微酸微甜的療癒層次，順口解膩，敲鍵盤隨手抓，低卡低負擔。搭配100%果皮回收研發的天然洗劑，過一個零廢棄的柑橘感官生活。」",
-        price: 230,
+        hidePrice: true,
         esgLbl: "🌱 減少 3.0kg 剩食，活化 6 坪減碳農地",
         land: 6,
         water: 0,
         waste: 3.0,
         jobs: 0.05,
-        link: "https://page.line.me/860pfyue?oat_content=url&openQrModal=true",
+        link: "https://www.carryongarden.com/products/firstpack",
         emoji: "🍊",
         brandName: "川涌果園",
         visualDesc: "溫慢的夕陽橘與莫蘭迪藍交織。畫面上呈現清涼的氣泡感，與飽滿的稻穗米香點綴。",
@@ -141,16 +141,17 @@ const defaultProducts = [
     {
         id: "c2",
         brandId: "yunchang",
-        title: "【厚實堅果香・職人減糖花生禮】",
-        subtitle: "明星零嘴：三代傳承・微甜減糖花生糖（雲林元長核心產區契作）",
-        desc: "「誰說台式花生糖一定甜膩又黏牙？緣長好事顛覆傳統，大膽進行『減糖革命』！成分極簡純粹，咬下去只有滿口爆發的雲林在地花生香，香脆清爽不黏手。下午茶開會來一塊，補充滿滿優質植物油脂與好體力，既解饞又完全沒有罪惡感！」",
-        price: 300,
-        esgLbl: "🌱 守護 3 代農業傳承，支持 100% 在地契作小農",
+        title: "【雲林國產花生香・微甜不黏牙】",
+        subtitle: "雲林在地花生，從土地到餐桌\n香脆濃郁、微甜不膩口，\n每一口都吃得到最純粹的花生香\n讓日常分享，也成為支持在地農業的力量。",
+        desc: "緣長好事好事花生糖，嚴選100%雲林國產花生，呈現最純粹的花生香氣與香脆口感，微甜不黏牙、越吃越涮嘴。我們相信，每一次選擇國產花生，不只是享受美味，更是在支持在地農業，讓餐桌上的每一口，都成為土地永續的一份力量。",
+        hidePrice: true,
+        shippingNote: "享活動限定優惠外，再享<br>【7-11物流免運】團購活動限定優惠 滿 NT$ 280 免運",
+        esgLbl: "🌱 選擇雲林國產花生，支持在地農業永續。",
         land: 13,
         water: 0,
         waste: 0,
         jobs: 0.35,
-        link: "https://line.me/R/ti/p/@899rxilc",
+        link: "https://www.yuanchang-good.com/giftnextt",
         emoji: "🥜",
         brandName: "緣長好事",
         visualDesc: "沉穩的黑豆深色調與焙炒溫暖感。畫面呈現熱茶氤氳的煙霧，與質樸飽滿的花生堅果顆粒。",
@@ -162,7 +163,7 @@ const defaultProducts = [
         title: "【青銀共創・高膳食纖維黑豆點心組】",
         subtitle: "明星零嘴：老農天團契作・烘焙黑豆酥 ＋ 機能飲品：低溫焙炒・產銷履歷黑豆茶",
         desc: "「下午三點嘴饞想吃鹹點心？別再拿化學洋芋片傷害身體了！嚴選台南老農天團契作的 100% 無農藥黑豆，化身為鹹甜酥脆、嚼勁十足的黑豆酥。富含豐富的植物性蛋白質與高膳食纖維，越嚼越香，為長坐辦公室的你補充滿滿健康能量！」",
-        price: 280,
+        hidePrice: true,
         esgLbl: "🌱 100% 無化學農藥，活化破百公頃休耕地",
         land: 10,
         water: 0,
@@ -447,19 +448,27 @@ function renderCatalog() {
                    <div class="pairing-visual-concept" style="font-size: 0.7rem; max-width: 160px;">${p.visualDesc || ''}</div>
                </div>`;
             
+        const subtitleHtml = (p.subtitle || '').replace(/\n/g, '<br>');
+        const shippingNoteHtml = p.shippingNote
+            ? `<div style="background: linear-gradient(135deg, #dcfce7, #bbf7d0); border-left: 3px solid #16a34a; border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 0.78rem; color: #15803d; font-weight: 500; margin-bottom: 0.5rem; line-height: 1.5;">${p.shippingNote}</div>`
+            : '';
+        const priceHtml = p.hidePrice
+            ? ''
+            : `<span class="product-price" style="font-weight: 700; color: var(--primary); font-size: 1.1rem;">NT$ ${p.price}</span>`;
         card.innerHTML = `
             ${visualContent}
             <div class="pairing-content">
                 <div class="pairing-header">
                     <span class="pairing-brand">${p.brandName || ''}</span>
                     <h4 class="pairing-title" style="font-size: 1.15rem; margin: 0.25rem 0;">${p.title}</h4>
-                    <div class="pairing-subtitle" style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;">${p.subtitle || ''}</div>
+                    <div class="pairing-subtitle" style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;">${subtitleHtml}</div>
+                    ${shippingNoteHtml}
                     <p class="pairing-desc">${p.desc}</p>
                     <span class="product-esg-lbl"><i class="fa-solid fa-leaf"></i> ${p.esgLbl}</span>
                 </div>
                 <div class="pairing-footer" style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; border-top: 1px dashed rgba(79, 111, 143, 0.1);">
-                    <span class="product-price" style="font-weight: 700; color: var(--primary); font-size: 1.1rem;">NT$ ${p.price}</span>
-                    <div class="pairing-action-row" style="flex-grow: 1; display: flex; justify-content: flex-end;">
+                    ${priceHtml}
+                    <div class="pairing-action-row" style="flex-grow: 1; display: flex; justify-content: ${p.hidePrice ? 'center' : 'flex-end'};">
                         <a href="${p.link}" target="_blank" class="${btnClass}" style="width: 100%; justify-content: center; text-align: center; box-sizing: border-box; padding: 0.5rem 0.75rem; font-size: 0.8rem;">
                             ${btnIcon} ${btnText}
                         </a>
