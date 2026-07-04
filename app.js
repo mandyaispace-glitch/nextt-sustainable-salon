@@ -187,7 +187,11 @@ const defaultProducts = [
         water: 500,
         waste: 0,
         jobs: 0.1,
-        link: "https://oashop.line.me/shops/eqh9088q",
+        link: "https://mall.iopenmall.tw/026192/index.php?action=product_search&usort=",
+        couponInfo: {
+            image: "素材/一夫水產折價券.PNG",
+            copy: "【選物沙龍】\n輸入折價券代碼:NextT－718"
+        },
         emoji: "🍤",
         brandName: "一夫水產",
         visualDesc: "湛藍澄澈的循環水波紋。畫面呈現急速冷凍川燙蝦仁的粉嫩色澤與鮮甜彈牙感。",
@@ -205,7 +209,7 @@ const defaultProducts = [
         water: 0,
         waste: 0.5,
         jobs: 0.05,
-        link: "https://shopee.tw/puresisoap",
+        link: "https://tw.shp.ee/7dfmgYNK",
         emoji: "🍿",
         brandName: "草本誠食",
         visualDesc: "清新的草莓粉嫩紅與莫蘭迪灰藍. 畫面呈現蓬鬆的爆米花與乾燥草莓碎片的點綴。",
@@ -222,22 +226,22 @@ let cart = [];
 loadData();
 
 function loadData() {
-    const storedBrands = localStorage.getItem('nextt_brands_data_v12');
-    const storedProducts = localStorage.getItem('nextt_products_data_v12');
-    const storedCart = localStorage.getItem('nextt_cart_data_v12');
+    const storedBrands = localStorage.getItem('nextt_brands_data_v13');
+    const storedProducts = localStorage.getItem('nextt_products_data_v13');
+    const storedCart = localStorage.getItem('nextt_cart_data_v13');
     
     if (storedBrands) {
         brandsData = JSON.parse(storedBrands);
     } else {
         brandsData = JSON.parse(JSON.stringify(defaultBrands));
-        localStorage.setItem('nextt_brands_data_v12', JSON.stringify(brandsData));
+        localStorage.setItem('nextt_brands_data_v13', JSON.stringify(brandsData));
     }
     
     if (storedProducts) {
         productsData = JSON.parse(storedProducts);
     } else {
         productsData = JSON.parse(JSON.stringify(defaultProducts));
-        localStorage.setItem('nextt_products_data_v12', JSON.stringify(productsData));
+        localStorage.setItem('nextt_products_data_v13', JSON.stringify(productsData));
     }
 
     if (storedCart) {
@@ -431,10 +435,11 @@ function renderCatalog() {
         const card = document.createElement('div');
         card.className = 'pairing-card';
         
-        // Determine button style for LINE vs Shopee
-        const isShopee = p.link && p.link.includes('shopee.tw');
+        // Determine button style
+        const isShopee = p.link && (p.link.includes('shopee.tw') || p.link.includes('shp.ee'));
+        const isLine = p.link && p.link.includes('line.me');
         const btnText = '前往賣場';
-        const btnIcon = isShopee ? '<i class="fa-solid fa-store"></i>' : '<i class="fa-brands fa-line"></i>';
+        const btnIcon = isShopee ? '<i class="fa-solid fa-store"></i>' : isLine ? '<i class="fa-brands fa-line"></i>' : '<i class="fa-solid fa-cart-shopping"></i>';
         const btnClass = isShopee ? 'pairing-btn-redirect btn-shopee' : 'pairing-btn-redirect btn-line';
         
         const visualContent = p.imageUrl 
@@ -465,6 +470,11 @@ function renderCatalog() {
                     ${shippingNoteHtml}
                     <p class="pairing-desc">${p.desc}</p>
                     <span class="product-esg-lbl"><i class="fa-solid fa-leaf"></i> ${p.esgLbl}</span>
+                    ${p.couponInfo ? `
+                    <div style="margin-top:0.6rem; border:1px dashed #94a3b8; border-radius:8px; overflow:hidden; cursor:pointer;" onclick="openImageModal('${p.couponInfo.image}', '${p.couponInfo.copy.replace(/\n/g,' ')}')">
+                        <div style="background:#f0fdf4; padding:0.4rem 0.6rem; font-size:0.82rem; font-weight:600; color:#166534; text-align:center; line-height:1.5;">${p.couponInfo.copy.replace(/\n/g,'<br>')}</div>
+                        <img src="${p.couponInfo.image}" alt="折價券" style="width:100%; display:block; object-fit:contain; max-height:120px;">
+                    </div>` : ''}
                 </div>
                 <div class="pairing-footer" style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; border-top: 1px dashed rgba(79, 111, 143, 0.1);">
                     ${priceHtml}
@@ -560,7 +570,7 @@ function initCart() {
         
         document.getElementById('checkout-name').value = '';
         document.getElementById('checkout-phone').value = '';
-        localStorage.setItem('nextt_cart_data_v12', JSON.stringify(cart));
+        localStorage.setItem('nextt_cart_data_v13', JSON.stringify(cart));
     });
 }
 
@@ -587,7 +597,7 @@ window.togglePledge = function(productId, element) {
     }
     updateCartUI();
     
-    localStorage.setItem('nextt_cart_data_v12', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v13', JSON.stringify(cart));
 };
 
 window.addToCart = function(productId) {
@@ -619,7 +629,7 @@ function removeFromCart(productId) {
         }
     }
     
-    localStorage.setItem('nextt_cart_data_v12', JSON.stringify(cart));
+    localStorage.setItem('nextt_cart_data_v13', JSON.stringify(cart));
 }
 
 function updateCartUI() {
