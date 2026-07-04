@@ -279,6 +279,9 @@ function loadBrandDataFromFirestore() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Front-end initializers
+    if (document.querySelector('.hero-carousel')) {
+        initHeroCarousel();
+    }
     if (document.querySelector('.nav-tab')) {
         initNavigation();
     }
@@ -303,6 +306,64 @@ document.addEventListener('DOMContentLoaded', () => {
         initKOLMatchmaker();
     }
 });
+
+function initHeroCarousel() {
+    const carousel = document.querySelector('.hero-carousel');
+    const slides = Array.from(carousel.querySelectorAll('.hero-slide'));
+    const dots = Array.from(carousel.querySelectorAll('.hero-carousel-dot'));
+    const previousButton = carousel.querySelector('.hero-carousel-prev');
+    const nextButton = carousel.querySelector('.hero-carousel-next');
+    const desktopQuery = window.matchMedia('(min-width: 601px)');
+    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let currentSlide = 0;
+    let rotationTimer = null;
+
+    const showSlide = (nextIndex) => {
+        currentSlide = (nextIndex + slides.length) % slides.length;
+        slides.forEach((slide, index) => {
+            const isActive = index === currentSlide;
+            slide.classList.toggle('active', isActive);
+            slide.setAttribute('aria-hidden', String(!isActive));
+            dots[index].classList.toggle('active', isActive);
+            dots[index].setAttribute('aria-selected', String(isActive));
+        });
+    };
+
+    const stopRotation = () => {
+        if (rotationTimer) {
+            window.clearInterval(rotationTimer);
+            rotationTimer = null;
+        }
+    };
+
+    const startRotation = () => {
+        stopRotation();
+        if (desktopQuery.matches && !reduceMotionQuery.matches) {
+            rotationTimer = window.setInterval(() => showSlide(currentSlide + 1), 4000);
+        }
+    };
+
+    const selectSlide = (index) => {
+        showSlide(index);
+        startRotation();
+    };
+
+    previousButton.addEventListener('click', () => selectSlide(currentSlide - 1));
+    nextButton.addEventListener('click', () => selectSlide(currentSlide + 1));
+    dots.forEach((dot, index) => dot.addEventListener('click', () => selectSlide(index)));
+    carousel.addEventListener('mouseenter', stopRotation);
+    carousel.addEventListener('mouseleave', startRotation);
+    carousel.addEventListener('focusin', stopRotation);
+    carousel.addEventListener('focusout', startRotation);
+    document.addEventListener('visibilitychange', () => document.hidden ? stopRotation() : startRotation());
+    desktopQuery.addEventListener('change', () => {
+        showSlide(0);
+        startRotation();
+    });
+
+    showSlide(0);
+    startRotation();
+}
 
 // 1. Navigation Logic
 function initNavigation() {
