@@ -279,9 +279,6 @@ function loadBrandDataFromFirestore() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Front-end initializers
-    if (document.querySelector('.hero-carousel')) {
-        initHeroCarousel();
-    }
     if (document.querySelector('.nav-tab')) {
         initNavigation();
     }
@@ -306,64 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initKOLMatchmaker();
     }
 });
-
-function initHeroCarousel() {
-    const carousel = document.querySelector('.hero-carousel');
-    const slides = Array.from(carousel.querySelectorAll('.hero-slide'));
-    const dots = Array.from(carousel.querySelectorAll('.hero-carousel-dot'));
-    const previousButton = carousel.querySelector('.hero-carousel-prev');
-    const nextButton = carousel.querySelector('.hero-carousel-next');
-    const desktopQuery = window.matchMedia('(min-width: 601px)');
-    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let currentSlide = 0;
-    let rotationTimer = null;
-
-    const showSlide = (nextIndex) => {
-        currentSlide = (nextIndex + slides.length) % slides.length;
-        slides.forEach((slide, index) => {
-            const isActive = index === currentSlide;
-            slide.classList.toggle('active', isActive);
-            slide.setAttribute('aria-hidden', String(!isActive));
-            dots[index].classList.toggle('active', isActive);
-            dots[index].setAttribute('aria-selected', String(isActive));
-        });
-    };
-
-    const stopRotation = () => {
-        if (rotationTimer) {
-            window.clearInterval(rotationTimer);
-            rotationTimer = null;
-        }
-    };
-
-    const startRotation = () => {
-        stopRotation();
-        if (desktopQuery.matches && !reduceMotionQuery.matches) {
-            rotationTimer = window.setInterval(() => showSlide(currentSlide + 1), 4000);
-        }
-    };
-
-    const selectSlide = (index) => {
-        showSlide(index);
-        startRotation();
-    };
-
-    previousButton.addEventListener('click', () => selectSlide(currentSlide - 1));
-    nextButton.addEventListener('click', () => selectSlide(currentSlide + 1));
-    dots.forEach((dot, index) => dot.addEventListener('click', () => selectSlide(index)));
-    carousel.addEventListener('mouseenter', stopRotation);
-    carousel.addEventListener('mouseleave', startRotation);
-    carousel.addEventListener('focusin', stopRotation);
-    carousel.addEventListener('focusout', startRotation);
-    document.addEventListener('visibilitychange', () => document.hidden ? stopRotation() : startRotation());
-    desktopQuery.addEventListener('change', () => {
-        showSlide(0);
-        startRotation();
-    });
-
-    showSlide(0);
-    startRotation();
-}
 
 // 1. Navigation Logic
 function initNavigation() {
@@ -426,17 +365,51 @@ function initNavigation() {
 
 // 2. Interactive Dining Table Hotspots
 function initInteractiveTable() {
-    const hotspots = document.querySelectorAll('.hotspot');
-    
-    hotspots.forEach(hotspot => {
+    const hotspots = Array.from(document.querySelectorAll('.hotspot'));
+    const tableSection = document.getElementById('interactive-table-section');
+    const desktopQuery = window.matchMedia('(min-width: 521px)');
+    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let activeIndex = hotspots.findIndex(hotspot => hotspot.classList.contains('active'));
+    let rotationTimer = null;
+
+    if (activeIndex < 0) activeIndex = 0;
+
+    const showBrand = (nextIndex) => {
+        activeIndex = (nextIndex + hotspots.length) % hotspots.length;
+        hotspots.forEach((hotspot, index) => hotspot.classList.toggle('active', index === activeIndex));
+        updateBrandDetailCard(hotspots[activeIndex].getAttribute('data-brand'));
+    };
+
+    const stopRotation = () => {
+        if (rotationTimer) {
+            window.clearInterval(rotationTimer);
+            rotationTimer = null;
+        }
+    };
+
+    const startRotation = () => {
+        stopRotation();
+        if (desktopQuery.matches && !reduceMotionQuery.matches) {
+            rotationTimer = window.setInterval(() => showBrand(activeIndex + 1), 4000);
+        }
+    };
+
+    hotspots.forEach((hotspot, index) => {
         hotspot.addEventListener('click', () => {
-            hotspots.forEach(h => h.classList.remove('active'));
-            hotspot.classList.add('active');
-            
-            const brandId = hotspot.getAttribute('data-brand');
-            updateBrandDetailCard(brandId);
+            showBrand(index);
+            startRotation();
         });
     });
+
+    tableSection.addEventListener('mouseenter', stopRotation);
+    tableSection.addEventListener('mouseleave', startRotation);
+    tableSection.addEventListener('focusin', stopRotation);
+    tableSection.addEventListener('focusout', startRotation);
+    document.addEventListener('visibilitychange', () => document.hidden ? stopRotation() : startRotation());
+    desktopQuery.addEventListener('change', startRotation);
+
+    showBrand(activeIndex);
+    startRotation();
 }
 
 function updateBrandDetailCard(brandId) {
