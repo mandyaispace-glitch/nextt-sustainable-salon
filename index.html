@@ -23,7 +23,7 @@
     <meta property="twitter:description" content="精選五大台灣在地食農品牌，提供大宗團購組合與健康辦公室零嘴，結合現場 AI 侍茶感官體驗，用消費力量推動生態永續。">
     <meta property="twitter:image" content="https://mandyaispace-glitch.github.io/nextt-sustainable-salon/images/salon_bg.png">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=21">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -48,13 +48,53 @@
         <!-- ==================== TAB 1: CATALOG & INTERACTIVE TABLE ==================== -->
         <section id="catalog-tab" class="tab-content active">
             <div class="hero">
-                <h1>餐桌上的永續影響力：週末選物沙龍</h1>
-                <p class="hero-subtitle">由 NextT 旅創加速器與 T Planner 共同策劃 ── 陪伴在地品牌，對接主流通路，將永續故事變現</p>
-                <p class="hero-desc">本活動提供五大品牌（一夫水產、緣長好事、幸福良食、草本誠食、川涌果園）之特惠團購組合。點擊下方互動餐桌認識品牌，並在風味指南中點選 LINE 或 Facebook 按鈕即可直達官方進行預購與洽詢！</p>
+                <div class="hero-eyebrow">NextT × T Planner｜永續食農選物企劃</div>
+                <div class="hero-carousel" aria-roledescription="carousel" aria-label="永續食農沙龍焦點">
+                    <div class="hero-slides" aria-live="polite">
+                        <article class="hero-slide active" data-slide="0">
+                            <h1>餐桌上的永續影響力：週末選物沙龍</h1>
+                            <p class="hero-subtitle">由 NextT 旅創加速器與 T Planner 共同策劃 ── 陪伴在地品牌，對接主流通路，將永續故事變現</p>
+                            <p class="hero-desc">本活動提供五大品牌（一夫水產、緣長好事、幸福良食、草本誠食、川涌果園）之特惠團購組合。點擊下方互動餐桌認識品牌，並在風味指南中直達官方預購與洽詢！</p>
+                        </article>
+                        <article class="hero-slide" data-slide="1" aria-hidden="true">
+                            <div class="hero-slide-kicker">五大品牌・一席永續餐桌</div>
+                            <h2>從土地到餐桌，看見每一口背後的選擇</h2>
+                            <p class="hero-subtitle">循環水養殖、友善耕作、剩食再生與在地契作</p>
+                            <p class="hero-desc">一次認識一夫水產、緣長好事、幸福良食、草本誠食與川涌果園，讓好味道也成為支持生態與地方共好的日常行動。</p>
+                            <a class="hero-slide-link" href="#interactive-table-section">探索五大品牌 <i class="fa-solid fa-arrow-right"></i></a>
+                        </article>
+                        <article class="hero-slide" data-slide="2" aria-hidden="true">
+                            <div class="hero-slide-kicker">7/18–7/19・週末限定</div>
+                            <h2>親自品味，讓永續不只是一組數字</h2>
+                            <p class="hero-subtitle">品牌故事 × 風味體驗 × 企業永續採購對話</p>
+                            <p class="hero-desc">走進現場與品牌面對面，從產地方法到 ESG 環境影響力，找到值得長期支持的台灣永續食農夥伴。</p>
+                            <a class="hero-slide-link" href="#rundown-section">立即預約沙龍 <i class="fa-solid fa-arrow-right"></i></a>
+                        </article>
+                    </div>
+                    <button class="hero-carousel-arrow hero-carousel-prev" type="button" aria-label="上一張"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="hero-carousel-arrow hero-carousel-next" type="button" aria-label="下一張"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="hero-carousel-dots" role="tablist" aria-label="選擇輪播內容">
+                        <button class="hero-carousel-dot active" type="button" role="tab" aria-label="第 1 張" aria-selected="true" data-slide-to="0"></button>
+                        <button class="hero-carousel-dot" type="button" role="tab" aria-label="第 2 張" aria-selected="false" data-slide-to="1"></button>
+                        <button class="hero-carousel-dot" type="button" role="tab" aria-label="第 3 張" aria-selected="false" data-slide-to="2"></button>
+                    </div>
+                </div>
+                <div class="hero-mobile-summary">
+                    <p>一次認識五個台灣永續食農品牌，從產地故事、風味體驗到友善採購，讓每一次選擇都成為土地的正向影響力。</p>
+                    <div class="hero-mobile-meta" aria-label="活動重點">
+                        <span><i class="fa-solid fa-calendar-days"></i> 7/18–7/19</span>
+                        <span><i class="fa-solid fa-seedling"></i> 五大永續品牌</span>
+                        <span><i class="fa-solid fa-mug-hot"></i> 現場品味體驗</span>
+                    </div>
+                    <div class="hero-mobile-actions">
+                        <a class="btn btn-primary" href="#rundown-section">立即預約沙龍</a>
+                        <a class="hero-text-link" href="#interactive-table-section">探索品牌 <i class="fa-solid fa-arrow-down"></i></a>
+                    </div>
+                </div>
             </div>
 
             <!-- Section 1: Interactive Dining Table -->
-            <div class="interactive-table-section">
+            <div id="interactive-table-section" class="interactive-table-section">
                 <div class="table-title-box">
                     <h2><i class="fa-solid fa-circle-dot" style="color: var(--accent-orange);"></i> 互動永續餐桌</h2>
                 </div>
@@ -290,8 +330,8 @@
             <!-- Section 4: ESG Impact Dashboard -->
             <div id="dashboard-section" class="origin-section" style="margin-top: 4rem; border-color: #3b82f6; background: linear-gradient(135deg, rgba(240, 253, 244, 0.4) 0%, rgba(255, 255, 255, 0.9) 100%);">
                 <div class="origin-header">
-                    <h2><i class="fa-solid fa-chart-line" style="color: #3b82f6;"></i> NextT 永續食農聯盟 ESG 數據看板</h2>
-                    <p>數據說話！此看板整合了所有合作業者在生產與營運端所創造的累計社會影響力與環境效益。透明的數據是打入大型品牌通路採購體系的最強綠色名片。</p>
+                    <h2><i class="fa-solid fa-chart-line" style="color: #3b82f6;"></i> NextT 永續食農聯盟 ESG環境影響力估算 (Impact Projection)</h2>
+                    <p>數據說話！本看板採用環境影響力估算 (Impact Projection) 模型，匯聚夥伴常態生態量能。以客觀、透明的綠色指標，共創企業永續採購的最強信任名片。</p>
                 </div>
                 
                 <!-- Highlight Cards -->
@@ -303,6 +343,7 @@
                         </div>
                         <div class="dash-card-body">
                             <span class="dash-card-val">140+</span>
+                            <span class="dash-card-est">(Est.)</span>
                             <span class="dash-card-unit">公頃</span>
                         </div>
                         <div class="dash-card-footer">
@@ -318,6 +359,7 @@
                         </div>
                         <div class="dash-card-body">
                             <span class="dash-card-val">1,240,000</span>
+                            <span class="dash-card-est">(Est.)</span>
                             <span class="dash-card-unit">公升</span>
                         </div>
                         <div class="dash-card-footer">
@@ -333,6 +375,7 @@
                         </div>
                         <div class="dash-card-body">
                             <span class="dash-card-val">1,200</span>
+                            <span class="dash-card-est">(Est.)</span>
                             <span class="dash-card-unit">公斤</span>
                         </div>
                         <div class="dash-card-footer">
@@ -348,6 +391,7 @@
                         </div>
                         <div class="dash-card-body">
                             <span class="dash-card-val">28</span>
+                            <span class="dash-card-est">(Est.)</span>
                             <span class="dash-card-unit">人</span>
                         </div>
                         <div class="dash-card-footer">
@@ -364,29 +408,47 @@
                         <div class="mock-bar-chart">
                             <div class="bar-row">
                                 <div class="bar-label-container">
-                                    <span>幸福良食（活化農地）</span>
-                                    <span>140+ Hectares</span>
+                                    <span class="bar-brand">幸福良食</span>
+                                    <span class="bar-positioning">「農地活化與老農安定契作冠軍」</span>
                                 </div>
                                 <div class="bar-bg">
-                                    <div class="bar-fill" style="width: 100%;"></div>
+                                    <div class="bar-fill" style="width: 95%;"></div>
                                 </div>
                             </div>
                             <div class="bar-row">
                                 <div class="bar-label-container">
-                                    <span>一夫水產（水資源循環）</span>
-                                    <span>100% Recycled Water</span>
+                                    <span class="bar-brand">一夫水產</span>
+                                    <span class="bar-positioning">「科技節水與溫室循環養殖冠軍」</span>
                                 </div>
                                 <div class="bar-bg">
-                                    <div class="bar-fill" style="width: 80%;"></div>
+                                    <div class="bar-fill" style="width: 85%;"></div>
                                 </div>
                             </div>
                             <div class="bar-row">
                                 <div class="bar-label-container">
-                                    <span>川涌果園（柑橘果皮再製）</span>
-                                    <span>1,200 Kilograms Upcycled</span>
+                                    <span class="bar-brand">川涌果園</span>
+                                    <span class="bar-positioning">「農業資材回收與高值減廢冠軍」</span>
                                 </div>
                                 <div class="bar-bg">
-                                    <div class="bar-fill" style="width: 90%;"></div>
+                                    <div class="bar-fill" style="width: 75%;"></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label-container">
+                                    <span class="bar-brand">草本誠食</span>
+                                    <span class="bar-positioning">「精準滴灌與有機格外品加值冠軍」</span>
+                                </div>
+                                <div class="bar-bg">
+                                    <div class="bar-fill" style="width: 65%;"></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label-container">
+                                    <span class="bar-brand">緣長好事</span>
+                                    <span class="bar-positioning">「土豆鳥友善棲地與生態共生標竿」</span>
+                                </div>
+                                <div class="bar-bg">
+                                    <div class="bar-fill" style="width: 10%;"></div>
                                 </div>
                             </div>
 
@@ -537,6 +599,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <!-- JS Logic -->
-    <script src="app.js?v=20"></script>
+    <script src="app.js?v=21"></script>
 </body>
 </html>
