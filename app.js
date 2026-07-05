@@ -279,6 +279,9 @@ function loadBrandDataFromFirestore() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Front-end initializers
+    if (document.querySelector('.hero-carousel')) {
+        initManualHeroCarousel();
+    }
     if (document.querySelector('.nav-tab')) {
         initNavigation();
     }
@@ -303,6 +306,31 @@ document.addEventListener('DOMContentLoaded', () => {
         initKOLMatchmaker();
     }
 });
+
+function initManualHeroCarousel() {
+    const carousel = document.querySelector('.hero-carousel');
+    const slides = Array.from(carousel.querySelectorAll('.hero-slide'));
+    const dots = Array.from(carousel.querySelectorAll('.hero-carousel-dot'));
+    const previousButton = carousel.querySelector('.hero-carousel-prev');
+    const nextButton = carousel.querySelector('.hero-carousel-next');
+    let currentSlide = 0;
+
+    const showSlide = (nextIndex) => {
+        currentSlide = (nextIndex + slides.length) % slides.length;
+        slides.forEach((slide, index) => {
+            const isActive = index === currentSlide;
+            slide.classList.toggle('active', isActive);
+            slide.setAttribute('aria-hidden', String(!isActive));
+            dots[index].classList.toggle('active', isActive);
+            dots[index].setAttribute('aria-selected', String(isActive));
+        });
+    };
+
+    previousButton.addEventListener('click', () => showSlide(currentSlide - 1));
+    nextButton.addEventListener('click', () => showSlide(currentSlide + 1));
+    dots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)));
+    showSlide(0);
+}
 
 // 1. Navigation Logic
 function initNavigation() {
