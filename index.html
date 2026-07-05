@@ -23,7 +23,7 @@
     <meta property="twitter:description" content="精選五大台灣在地食農品牌，提供大宗團購組合與健康辦公室零嘴，結合現場 AI 侍茶感官體驗，用消費力量推動生態永續。">
     <meta property="twitter:image" content="https://mandyaispace-glitch.github.io/nextt-sustainable-salon/images/salon_bg.png">
 
-    <link rel="stylesheet" href="style.css?v=22">
+    <link rel="stylesheet" href="style.css?v=23">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -54,8 +54,34 @@
         <!-- ==================== TAB 1: CATALOG & INTERACTIVE TABLE ==================== -->
         <section id="catalog-tab" class="tab-content active">
             <div class="hero">
-                <h1>餐桌上的永續影響力</h1>
-                <p class="hero-subtitle">五大品牌・一席永續餐桌</p>
+                <div class="hero-eyebrow">NextT × T Planner｜永續食農選物企劃</div>
+                <div class="hero-carousel" aria-roledescription="carousel" aria-label="永續食農沙龍焦點">
+                    <div class="hero-slides" aria-live="polite">
+                        <article class="hero-slide active" data-slide="0">
+                            <h1>餐桌上的永續影響力：週末選物沙龍</h1>
+                            <p class="hero-subtitle">陪伴在地品牌，對接主流通路，將永續故事變現</p>
+                        </article>
+                        <article class="hero-slide" data-slide="1" aria-hidden="true">
+                            <div class="hero-slide-kicker">五大品牌・一席永續餐桌</div>
+                            <h2>從土地到餐桌，看見每一口背後的選擇</h2>
+                            <p class="hero-subtitle">循環水養殖、友善耕作、剩食再生與在地契作</p>
+                            <a class="hero-slide-link" href="#interactive-table-section">探索五大品牌 <i class="fa-solid fa-arrow-right"></i></a>
+                        </article>
+                        <article class="hero-slide" data-slide="2" aria-hidden="true">
+                            <div class="hero-slide-kicker">7/18–7/19・週末限定</div>
+                            <h2>親自品味，讓永續不只是一組數字</h2>
+                            <p class="hero-subtitle">品牌故事 × 風味體驗 × 企業永續採購對話</p>
+                            <a class="hero-slide-link" href="#rundown-section">立即預約沙龍 <i class="fa-solid fa-arrow-right"></i></a>
+                        </article>
+                    </div>
+                    <button class="hero-carousel-arrow hero-carousel-prev" type="button" aria-label="上一張"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="hero-carousel-arrow hero-carousel-next" type="button" aria-label="下一張"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="hero-carousel-dots" role="tablist" aria-label="選擇主視覺內容">
+                        <button class="hero-carousel-dot active" type="button" role="tab" aria-label="第 1 張" aria-selected="true" data-slide-to="0"></button>
+                        <button class="hero-carousel-dot" type="button" role="tab" aria-label="第 2 張" aria-selected="false" data-slide-to="1"></button>
+                        <button class="hero-carousel-dot" type="button" role="tab" aria-label="第 3 張" aria-selected="false" data-slide-to="2"></button>
+                    </div>
+                </div>
             </div>
 
             <!-- Section 1: Interactive Dining Table -->
@@ -564,6 +590,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <!-- JS Logic -->
-    <script src="app.js?v=22"></script>
+    <script src="app.js?v=23"></script>
 </body>
 </html>
