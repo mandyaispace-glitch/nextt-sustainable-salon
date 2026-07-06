@@ -290,6 +290,46 @@ main {
     width: 24px;
 }
 
+.hero-slide-speakers {
+    background-image: linear-gradient(90deg, rgba(255, 252, 242, 0.98) 0%, rgba(255, 252, 242, 0.86) 36%, rgba(255, 252, 242, 0.08) 62%), url('images/hero-speakers-v1.png');
+    background-position: center;
+    background-size: cover;
+    border: 1px solid rgba(77, 106, 49, 0.16);
+    border-radius: var(--radius-lg);
+    min-height: 340px;
+    overflow: hidden;
+    padding: 1.7rem 2rem;
+    text-align: left;
+}
+
+.hero-speaker-panel {
+    max-width: 46%;
+}
+
+.hero-slide-speakers h2 {
+    font-size: 1.85rem;
+    margin-bottom: 0.8rem;
+}
+
+.hero-speaker-list {
+    display: grid;
+    gap: 0.38rem;
+}
+
+.hero-speaker-list span {
+    background: rgba(255, 255, 255, 0.72);
+    border-left: 3px solid var(--accent-orange);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-main);
+    font-size: 0.76rem;
+    line-height: 1.35;
+    padding: 0.36rem 0.55rem;
+}
+
+.hero-speaker-list strong {
+    color: var(--primary);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .hero-slide,
     .hero-carousel-dot {
@@ -299,10 +339,60 @@ main {
 
 @media (max-width: 520px) {
     .hero {
-        display: none;
+        display: block;
     }
 
     #interactive-table-section {
+        display: none;
+    }
+
+    .hero-carousel {
+        padding: 0;
+    }
+
+    .hero-slides {
+        display: block;
+    }
+
+    .hero-slide {
+        display: none;
+    }
+
+    .hero-slide-speakers {
+        align-content: end;
+        background-image: linear-gradient(180deg, rgba(255, 252, 242, 0.02) 0%, rgba(255, 252, 242, 0.12) 43%, rgba(255, 252, 242, 0.98) 68%), url('images/hero-speakers-v1.png');
+        background-position: center, center 1rem;
+        background-repeat: no-repeat;
+        background-size: 100% 100%, calc(100% - 2rem) auto;
+        display: grid;
+        min-height: 540px;
+        opacity: 1;
+        padding: 1rem;
+        pointer-events: auto;
+        transform: none;
+        visibility: visible;
+    }
+
+    .hero-speaker-panel {
+        max-width: 100%;
+    }
+
+    .hero-slide-speakers h2 {
+        font-size: 1.35rem;
+        margin-bottom: 0.65rem;
+    }
+
+    .hero-speaker-list {
+        gap: 0.28rem;
+    }
+
+    .hero-speaker-list span {
+        font-size: 0.68rem;
+        padding: 0.3rem 0.45rem;
+    }
+
+    .hero-carousel-arrow,
+    .hero-carousel-dots {
         display: none;
     }
 
@@ -517,6 +607,19 @@ main {
 .table-title-box h2 {
     font-size: 1.75rem;
     color: var(--primary);
+}
+
+.table-cocreate-badge {
+    background: linear-gradient(90deg, rgba(216, 243, 220, 0.72), rgba(254, 243, 199, 0.72));
+    border: 1px solid rgba(45, 106, 79, 0.12);
+    border-radius: 999px;
+    color: var(--primary-medium);
+    display: inline-flex;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-top: 0.65rem;
+    padding: 0.38rem 0.8rem;
 }
 
 /* Dining Table SVG & Hotspot Layout */
