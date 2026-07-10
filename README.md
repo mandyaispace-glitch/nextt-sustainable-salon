@@ -62,3 +62,9 @@ git push -u origin main
 ## 🛠️ 開發與設定說明
 * **資料同步**：本專案前台與後台使用瀏覽器 `localStorage` 進行本地聯動。
 * **雲端串接**：若要進行真實線上資料收集，請參考資料夾中的 [deployment_guide.md](deployment_guide.md) 設定 Google Apps Script 與 LINE Notify 通知。
+# 後台密碼與報名資料安全
+
+- 後台密碼不寫在 `admin.html`，也不寫在公開 GitHub 程式碼中。
+- 後台密碼由 Vercel Production 環境變數 `ADMIN_PASSWORD` 管理。
+- 若忘記後台密碼，不需要找回舊密碼；直接在 Vercel 重新設定 `ADMIN_PASSWORD`，再重新部署 Production 即可。
+- 報名資料由 Vercel API 寫入 GitHub Issues；前台不會暴露 `GITHUB_TOKEN`。

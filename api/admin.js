@@ -1,6 +1,5 @@
 const OWNER = process.env.GITHUB_OWNER || "mandyaispace-glitch";
 const REPO = process.env.GITHUB_REPO || "nextt-sustainable-salon";
-const DEFAULT_ADMIN_PASSWORD = "nextt20260718";
 const ALLOWED_ORIGINS = new Set([
   "https://mandyaispace-glitch.github.io",
   "http://localhost:8767",
@@ -72,7 +71,12 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const expectedPassword = process.env.ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD;
+  const expectedPassword = process.env.ADMIN_PASSWORD;
+  if (!expectedPassword) {
+    sendJson(res, 500, { ok: false, error: "後台尚未設定 ADMIN_PASSWORD。" }, corsHeaders);
+    return;
+  }
+
   const password = req.headers["x-admin-password"] || req.query?.password || "";
   if (password !== expectedPassword) {
     sendJson(res, 401, { ok: false, error: "後台密碼錯誤" }, corsHeaders);
