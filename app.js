@@ -1,6 +1,13 @@
 // Google Apps Script Web App URL (Paste your URL once deployed. If empty, uses LocalStorage/Firebase only)
 const GOOGLE_SCRIPT_URL = "";
 
+// Vercel API backend. Keep this as the Vercel project URL while the public page stays on GitHub Pages.
+// If the project URL changes after deployment, update only this value and admin.html.
+const NEXTT_BACKEND_API_BASE = "https://nextt-sustainable-salon.vercel.app";
+const NEXTT_RSVP_API_URL = NEXTT_BACKEND_API_BASE
+    ? `${NEXTT_BACKEND_API_BASE.replace(/\/$/, '')}/api/rsvp`
+    : "";
+
 // =================【Firebase 雲端設定區】=================
 // 請至 Firebase Console 建立專案並獲取網頁應用程式配置參數貼在此處。
 // 若為預設 placeholder 值，系統將自動啟用地端 LocalStorage 測試與相容模式。
@@ -1213,6 +1220,8 @@ function initRSVPForm() {
         
         const rsvpData = {
             time: new Date().toLocaleString(),
+            submittedAt: new Date().toISOString(),
+            source: "github-pages",
             name: name,
             company: company,
             phone: phone,
@@ -1221,7 +1230,26 @@ function initRSVPForm() {
             notes: notes
         };
 
-        if (isFirebaseEnabled) {
+        if (NEXTT_RSVP_API_URL) {
+            fetch(NEXTT_RSVP_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(rsvpData)
+            })
+                .then(async response => {
+                    const result = await response.json().catch(() => ({}));
+                    if (!response.ok || result.ok === false) {
+                        throw new Error(result.error || "報名 API 暫時無法接收資料");
+                    }
+                    showSuccess({ cloud: true });
+                })
+                .catch(err => {
+                    console.error("Vercel RSVP API error:", err);
+                    alert(`❌ 報名資料尚未送出。\n\n原因：${err.message || "後台連線失敗"}\n\n請稍後再試，或截圖聯繫主辦單位。`);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalHTML;
+                });
+        } else if (isFirebaseEnabled) {
             db.collection('rsvps').add(rsvpData)
                 .then(() => {
                     if (GOOGLE_SCRIPT_URL) {
@@ -1257,11 +1285,11 @@ function initRSVPForm() {
             }
         }
         
-        function showSuccess() {
+        function showSuccess(options = {}) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalHTML;
             
-            if (!isFirebaseEnabled) {
+            if (!options.cloud && !isFirebaseEnabled && !GOOGLE_SCRIPT_URL) {
                 const storedRsvps = JSON.parse(localStorage.getItem('nextt_rsvp_list') || '[]');
                 storedRsvps.push(rsvpData);
                 localStorage.setItem('nextt_rsvp_list', JSON.stringify(storedRsvps));

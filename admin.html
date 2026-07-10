@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextT 永續沙龍報名後台</title>
+    <style>
+        :root {
+            --primary: #174c35;
+            --accent: #df7b00;
+            --bg: #f7faf6;
+            --border: #dfe8df;
+            --muted: #66776c;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+            color: var(--primary);
+            background: linear-gradient(135deg, #f7faf6, #fff8ec);
+        }
+
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 20px 56px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .brand {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .logo {
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.45rem, 3vw, 2rem);
+        }
+
+        .subtitle {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: 0 18px 45px rgba(23, 76, 53, 0.1);
+            padding: 22px;
+        }
+
+        .login {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            min-height: 44px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font: inherit;
+        }
+
+        input {
+            padding: 0 14px;
+            color: #18392b;
+            background: white;
+        }
+
+        button {
+            border: 0;
+            padding: 0 18px;
+            color: white;
+            background: var(--primary);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button.secondary {
+            color: var(--primary);
+            background: #e8f0ea;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin: 12px 0 16px;
+            flex-wrap: wrap;
+        }
+
+        .count {
+            font-size: 1.05rem;
+            font-weight: 800;
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 920px;
+        }
+
+        th, td {
+            text-align: left;
+            vertical-align: top;
+            padding: 12px 14px;
+            border-bottom: 1px solid #edf2ee;
+            font-size: 0.92rem;
+        }
+
+        th {
+            background: #f0f6f1;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        tr:last-child td { border-bottom: 0; }
+
+        .status {
+            min-height: 24px;
+            margin: 8px 0 0;
+            color: var(--muted);
+        }
+
+        .error { color: #b42318; }
+        .success { color: var(--primary); }
+
+        a {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        @media (max-width: 720px) {
+            .header { align-items: flex-start; flex-direction: column; }
+            .login { grid-template-columns: 1fr; }
+            .card { padding: 16px; border-radius: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <header class="header">
+            <div class="brand">
+                <div class="logo">NextT</div>
+                <div>
+                    <h1>永續沙龍報名後台</h1>
+                    <p class="subtitle">讀取 GitHub Issues 中由 Vercel API 寫入的報名資料</p>
+                </div>
+            </div>
+            <a href="./index.html">回到前台</a>
+        </header>
+
+        <section class="card">
+            <div class="login">
+                <input id="password" type="password" placeholder="請輸入後台密碼" autocomplete="current-password">
+                <button id="loadBtn">讀取報名名單</button>
+            </div>
+            <div class="toolbar">
+                <div>
+                    <div class="count" id="count">尚未讀取</div>
+                    <div class="hint">預設密碼可之後改成 Vercel 環境變數 ADMIN_PASSWORD。</div>
+                </div>
+                <button class="secondary" id="exportBtn" disabled>下載 CSV</button>
+            </div>
+            <div class="status" id="status"></div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>送出時間</th>
+                            <th>姓名</th>
+                            <th>單位 / 職稱</th>
+                            <th>電話</th>
+                            <th>Email</th>
+                            <th>場次</th>
+                            <th>備註</th>
+                            <th>Issue</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr><td colspan="9">請先輸入密碼讀取資料。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const NEXTT_BACKEND_API_BASE = "https://nextt-sustainable-salon.vercel.app";
+        const API_BASE = window.location.hostname.endsWith(".vercel.app")
+            ? ""
+            : NEXTT_BACKEND_API_BASE.replace(/\/$/, "");
+        let currentItems = [];
+
+        const $ = (selector) => document.querySelector(selector);
+        const tbody = $("#tbody");
+        const statusEl = $("#status");
+        const countEl = $("#count");
+        const exportBtn = $("#exportBtn");
+
+        function escapeHtml(value) {
+            return String(value || "")
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;");
+        }
+
+        function render(items) {
+            currentItems = items;
+            countEl.textContent = `目前 ${items.length} 筆報名`;
+            exportBtn.disabled = items.length === 0;
+
+            if (!items.length) {
+                tbody.innerHTML = '<tr><td colspan="9">目前尚無報名資料。</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = items.map((item, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${escapeHtml(new Date(item.submittedAt || item.createdAt).toLocaleString())}</td>
+                    <td><strong>${escapeHtml(item.name)}</strong></td>
+                    <td>${escapeHtml(item.company)}</td>
+                    <td>${escapeHtml(item.phone)}</td>
+                    <td>${escapeHtml(item.email)}</td>
+                    <td>${escapeHtml(item.sessions)}</td>
+                    <td>${escapeHtml(item.notes)}</td>
+                    <td><a href="${item.url}" target="_blank" rel="noreferrer">#${item.id}</a></td>
+                </tr>
+            `).join("");
+        }
+
+        async function loadRsvps() {
+            const password = $("#password").value;
+            if (!password) {
+                statusEl.textContent = "請先輸入後台密碼。";
+                statusEl.className = "status error";
+                return;
+            }
+
+            statusEl.textContent = "讀取中...";
+            statusEl.className = "status";
+            $("#loadBtn").disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/admin`, {
+                    headers: { "X-Admin-Password": password }
+                });
+                const result = await response.json();
+                if (!response.ok || result.ok === false) {
+                    throw new Error(result.error || "後台讀取失敗");
+                }
+                render(result.items || []);
+                statusEl.textContent = "讀取完成。";
+                statusEl.className = "status success";
+            } catch (error) {
+                statusEl.textContent = error.message || "後台讀取失敗";
+                statusEl.className = "status error";
+            } finally {
+                $("#loadBtn").disabled = false;
+            }
+        }
+
+        function downloadCsv() {
+            const headers = ["送出時間", "姓名", "單位/職稱", "電話", "Email", "場次", "備註", "Issue"];
+            const rows = currentItems.map(item => [
+                new Date(item.submittedAt || item.createdAt).toLocaleString(),
+                item.name,
+                item.company,
+                item.phone,
+                item.email,
+                item.sessions,
+                item.notes,
+                item.url
+            ]);
+            const csv = [headers, ...rows]
+                .map(row => row.map(value => `"${String(value || "").replaceAll('"', '""')}"`).join(","))
+                .join("\n");
+            const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `nextt-rsvp-${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        $("#loadBtn").addEventListener("click", loadRsvps);
+        exportBtn.addEventListener("click", downloadCsv);
+        $("#password").addEventListener("keydown", (event) => {
+            if (event.key === "Enter") loadRsvps();
+        });
+    </script>
+</body>
+</html>
