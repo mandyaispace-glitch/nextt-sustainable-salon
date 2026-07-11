@@ -41,26 +41,24 @@ function buildIssueBody(data) {
     submittedAt: data.submittedAt || new Date().toISOString(),
     time: data.time || "",
     source: data.source || "website",
-    name: data.name,
-    company: data.company,
-    phone: data.phone,
-    email: data.email,
-    sessions: data.sessions,
-    notes: data.notes || "",
+    brandName: data.brandName,
+    propose: data.propose,
+    rate: data.rate || "20% (盛德好專案)",
+    kols: data.kols,
+    status: data.status || "待審核",
   };
 
   return [
-    "## NextT 永續沙龍報名",
+    "## NextT KOL 團購媒合申請",
     "",
-    `- 姓名：${safeData.name}`,
-    `- 單位 / 職稱：${safeData.company}`,
-    `- 電話：${safeData.phone}`,
-    `- Email：${safeData.email}`,
-    `- 場次：${safeData.sessions}`,
-    `- 備註：${safeData.notes || "無"}`,
+    `- 品牌：${safeData.brandName}`,
+    `- 分潤條件：${safeData.rate}`,
+    `- 想媒合 KOL：${safeData.kols}`,
+    `- 團購品項 / 組合：${safeData.propose}`,
+    `- 狀態：${safeData.status}`,
     `- 送出時間：${safeData.time || safeData.submittedAt}`,
     "",
-    "<!-- nextt-rsvp-json",
+    "<!-- nextt-kol-json",
     JSON.stringify(safeData, null, 2),
     "-->",
   ].join("\n");
@@ -85,7 +83,7 @@ module.exports = async function handler(req, res) {
     sendJson(
       res,
       500,
-      { ok: false, error: "後台尚未設定 GITHUB_TOKEN，報名資料未送出。" },
+      { ok: false, error: "後台尚未設定 GITHUB_TOKEN，KOL 申請未送出。" },
       corsHeaders
     );
     return;
@@ -95,11 +93,9 @@ module.exports = async function handler(req, res) {
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
     const data = {
       ...body,
-      name: getRequiredText(body, "name", "姓名"),
-      company: getRequiredText(body, "company", "單位 / 職稱"),
-      phone: getRequiredText(body, "phone", "聯絡電話"),
-      email: getRequiredText(body, "email", "電子信箱"),
-      sessions: getRequiredText(body, "sessions", "欲報名場次"),
+      brandName: getRequiredText(body, "brandName", "品牌"),
+      propose: getRequiredText(body, "propose", "團購品項或組合"),
+      kols: getRequiredText(body, "kols", "想媒合 KOL"),
     };
 
     const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/issues`, {
@@ -109,10 +105,10 @@ module.exports = async function handler(req, res) {
         Accept: "application/vnd.github+json",
         "Content-Type": "application/json",
         "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "nextt-sustainable-salon-rsvp",
+        "User-Agent": "nextt-sustainable-salon-kol",
       },
       body: JSON.stringify({
-        title: `[NextT RSVP] ${data.name}｜${data.sessions}`,
+        title: `[NextT KOL] ${data.brandName}｜${data.kols}`,
         body: buildIssueBody(data),
       }),
     });
@@ -122,13 +118,8 @@ module.exports = async function handler(req, res) {
       throw new Error(result.message || "GitHub Issues 寫入失敗");
     }
 
-    sendJson(
-      res,
-      200,
-      { ok: true, id: result.number, url: result.html_url },
-      corsHeaders
-    );
+    sendJson(res, 200, { ok: true, id: result.number, url: result.html_url }, corsHeaders);
   } catch (error) {
-    sendJson(res, 400, { ok: false, error: error.message || "報名資料格式錯誤" }, corsHeaders);
+    sendJson(res, 400, { ok: false, error: error.message || "KOL 申請資料格式錯誤" }, corsHeaders);
   }
 };

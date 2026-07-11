@@ -7,6 +7,9 @@ const NEXTT_BACKEND_API_BASE = "https://nextt-sustainable-salon.vercel.app";
 const NEXTT_RSVP_API_URL = NEXTT_BACKEND_API_BASE
     ? `${NEXTT_BACKEND_API_BASE.replace(/\/$/, '')}/api/rsvp`
     : "";
+const NEXTT_KOL_API_URL = NEXTT_BACKEND_API_BASE
+    ? `${NEXTT_BACKEND_API_BASE.replace(/\/$/, '')}/api/kol`
+    : "";
 
 // =================【Firebase 雲端設定區】=================
 // 請至 Firebase Console 建立專案並獲取網頁應用程式配置參數貼在此處。
@@ -1038,14 +1041,39 @@ function initKOLMatchmaker() {
             // Save application
             const app = {
                 time: new Date().toLocaleString(),
+                submittedAt: new Date().toISOString(),
+                source: "github-pages",
                 brandName: brandsData[brandId] ? brandsData[brandId].name : brandId,
                 propose: propose,
                 rate: '20% (盛德好專案)',
                 kols: checkedKols.join(', '),
                 status: '待審核'
             };
+
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 正在送出媒合申請...';
             
-            if (isFirebaseEnabled) {
+            if (NEXTT_KOL_API_URL) {
+                fetch(NEXTT_KOL_API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(app)
+                })
+                    .then(async response => {
+                        const result = await response.json().catch(() => ({}));
+                        if (!response.ok || result.ok === false) {
+                            throw new Error(result.error || "KOL 後台暫時無法接收資料");
+                        }
+                        showKOLSuccess();
+                    })
+                    .catch(err => {
+                        console.error("Vercel KOL API error:", err);
+                        alert(`❌ 媒合申請尚未送出。\n\n原因：${err.message || "後台連線失敗"}\n\n請稍後再試，或截圖聯繫 NextT 團隊。`);
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalHTML;
+                    });
+            } else if (isFirebaseEnabled) {
                 db.collection('kols').add(app)
                     .then(() => {
                         if (GOOGLE_SCRIPT_URL) {
@@ -1061,6 +1089,8 @@ function initKOLMatchmaker() {
                     .catch(err => {
                         alert('❌ 提交資料至雲端資料庫失敗，請確認網路連線。');
                         console.error(err);
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalHTML;
                     });
             } else {
                 let applications = [];
@@ -1083,6 +1113,8 @@ function initKOLMatchmaker() {
             }
             
             function showKOLSuccess() {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
                 alert(`🎉 盛德好 KOL 媒合申請送出成功！\n品牌：${app.brandName}\n媒合KOL：${app.kols}\n分潤：20%\n\nNextT 團隊將會儘快為您辦理媒合對接！`);
                 document.getElementById('kol-product-propose').value = '';
                 document.getElementById('kol-check-commission').checked = false;

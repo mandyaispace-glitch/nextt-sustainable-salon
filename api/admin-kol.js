@@ -30,8 +30,8 @@ function sendJson(res, status, payload, headers = {}) {
   res.end(JSON.stringify(payload));
 }
 
-function parseRsvpIssue(issue) {
-  const match = issue.body?.match(/<!-- nextt-rsvp-json\s*([\s\S]*?)\s*-->/);
+function parseKolIssue(issue) {
+  const match = issue.body?.match(/<!-- nextt-kol-json\s*([\s\S]*?)\s*-->/);
   let data = {};
   if (match) {
     try {
@@ -46,12 +46,11 @@ function parseRsvpIssue(issue) {
     title: issue.title,
     createdAt: issue.created_at,
     url: issue.html_url,
-    name: data.name || "",
-    company: data.company || "",
-    phone: data.phone || "",
-    email: data.email || "",
-    sessions: data.sessions || "",
-    notes: data.notes || "",
+    brandName: data.brandName || "",
+    propose: data.propose || "",
+    rate: data.rate || "",
+    kols: data.kols || "",
+    status: data.status || "待審核",
     submittedAt: data.submittedAt || issue.created_at,
   };
 }
@@ -87,7 +86,7 @@ module.exports = async function handler(req, res) {
     sendJson(
       res,
       500,
-      { ok: false, error: "後台尚未設定 GITHUB_TOKEN，無法讀取報名資料。" },
+      { ok: false, error: "後台尚未設定 GITHUB_TOKEN，無法讀取 KOL 申請。" },
       corsHeaders
     );
     return;
@@ -101,7 +100,7 @@ module.exports = async function handler(req, res) {
           Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
           Accept: "application/vnd.github+json",
           "X-GitHub-Api-Version": "2022-11-28",
-          "User-Agent": "nextt-sustainable-salon-admin",
+          "User-Agent": "nextt-sustainable-salon-admin-kol",
         },
       }
     );
@@ -111,12 +110,12 @@ module.exports = async function handler(req, res) {
     }
 
     const items = issues
-      .filter((issue) => issue.title?.startsWith("[NextT RSVP]"))
-      .map(parseRsvpIssue)
+      .filter((issue) => issue.title?.startsWith("[NextT KOL]"))
+      .map(parseKolIssue)
       .sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
 
     sendJson(res, 200, { ok: true, count: items.length, items }, corsHeaders);
   } catch (error) {
-    sendJson(res, 500, { ok: false, error: error.message || "後台讀取失敗" }, corsHeaders);
+    sendJson(res, 500, { ok: false, error: error.message || "KOL 後台讀取失敗" }, corsHeaders);
   }
 };

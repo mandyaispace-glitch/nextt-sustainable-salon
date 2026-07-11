@@ -191,7 +191,7 @@
         <section class="card">
             <div class="login">
                 <input id="password" type="password" placeholder="請輸入後台密碼" autocomplete="current-password">
-                <button id="loadBtn">讀取報名名單</button>
+                <button id="loadBtn">讀取後台資料</button>
             </div>
             <div class="toolbar">
                 <div>
@@ -222,6 +222,36 @@
                 </table>
             </div>
         </section>
+
+        <section class="card" style="margin-top: 22px;">
+            <div class="toolbar">
+                <div>
+                    <div class="count" id="kolCount">KOL 媒合申請：尚未讀取</div>
+                    <div class="hint">讀取業者於「KOL 合作專區」送出的團購媒合申請。</div>
+                </div>
+                <button class="secondary" id="kolExportBtn" disabled>下載 KOL CSV</button>
+            </div>
+            <div class="status" id="kolStatus"></div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>送出時間</th>
+                            <th>品牌</th>
+                            <th>分潤</th>
+                            <th>想媒合 KOL</th>
+                            <th>團購品項 / 組合</th>
+                            <th>狀態</th>
+                            <th>Issue</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kolTbody">
+                        <tr><td colspan="8">請先輸入密碼讀取資料。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -230,12 +260,17 @@
             ? ""
             : NEXTT_BACKEND_API_BASE.replace(/\/$/, "");
         let currentItems = [];
+        let currentKolItems = [];
 
         const $ = (selector) => document.querySelector(selector);
         const tbody = $("#tbody");
         const statusEl = $("#status");
         const countEl = $("#count");
         const exportBtn = $("#exportBtn");
+        const kolTbody = $("#kolTbody");
+        const kolStatusEl = $("#kolStatus");
+        const kolCountEl = $("#kolCount");
+        const kolExportBtn = $("#kolExportBtn");
 
         function escapeHtml(value) {
             return String(value || "")
@@ -265,6 +300,30 @@
                     <td>${escapeHtml(item.email)}</td>
                     <td>${escapeHtml(item.sessions)}</td>
                     <td>${escapeHtml(item.notes)}</td>
+                    <td><a href="${item.url}" target="_blank" rel="noreferrer">#${item.id}</a></td>
+                </tr>
+            `).join("");
+        }
+
+        function renderKols(items) {
+            currentKolItems = items;
+            kolCountEl.textContent = `KOL 媒合申請：目前 ${items.length} 筆`;
+            kolExportBtn.disabled = items.length === 0;
+
+            if (!items.length) {
+                kolTbody.innerHTML = '<tr><td colspan="8">目前尚無 KOL 媒合申請。</td></tr>';
+                return;
+            }
+
+            kolTbody.innerHTML = items.map((item, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${escapeHtml(new Date(item.submittedAt || item.createdAt).toLocaleString())}</td>
+                    <td><strong>${escapeHtml(item.brandName)}</strong></td>
+                    <td>${escapeHtml(item.rate)}</td>
+                    <td>${escapeHtml(item.kols)}</td>
+                    <td>${escapeHtml(item.propose)}</td>
+                    <td>${escapeHtml(item.status)}</td>
                     <td><a href="${item.url}" target="_blank" rel="noreferrer">#${item.id}</a></td>
                 </tr>
             `).join("");
@@ -301,6 +360,43 @@
             }
         }
 
+        async function loadKols(password) {
+            kolStatusEl.textContent = "讀取中...";
+            kolStatusEl.className = "status";
+
+            try {
+                const response = await fetch(`${API_BASE}/api/admin-kol`, {
+                    headers: { "X-Admin-Password": password }
+                });
+                const result = await response.json();
+                if (!response.ok || result.ok === false) {
+                    throw new Error(result.error || "KOL 後台讀取失敗");
+                }
+                renderKols(result.items || []);
+                kolStatusEl.textContent = "KOL 申請讀取完成。";
+                kolStatusEl.className = "status success";
+            } catch (error) {
+                kolStatusEl.textContent = error.message || "KOL 後台讀取失敗";
+                kolStatusEl.className = "status error";
+            }
+        }
+
+        async function loadAll() {
+            const password = $("#password").value;
+            if (!password) {
+                statusEl.textContent = "請先輸入後台密碼。";
+                statusEl.className = "status error";
+                kolStatusEl.textContent = "請先輸入後台密碼。";
+                kolStatusEl.className = "status error";
+                return;
+            }
+
+            $("#loadBtn").disabled = true;
+            await loadRsvps();
+            await loadKols(password);
+            $("#loadBtn").disabled = false;
+        }
+
         function downloadCsv() {
             const headers = ["送出時間", "姓名", "單位/職稱", "電話", "Email", "場次", "備註", "Issue"];
             const rows = currentItems.map(item => [
@@ -325,10 +421,34 @@
             URL.revokeObjectURL(url);
         }
 
-        $("#loadBtn").addEventListener("click", loadRsvps);
+        function downloadKolCsv() {
+            const headers = ["送出時間", "品牌", "分潤", "想媒合 KOL", "團購品項/組合", "狀態", "Issue"];
+            const rows = currentKolItems.map(item => [
+                new Date(item.submittedAt || item.createdAt).toLocaleString(),
+                item.brandName,
+                item.rate,
+                item.kols,
+                item.propose,
+                item.status,
+                item.url
+            ]);
+            const csv = [headers, ...rows]
+                .map(row => row.map(value => `"${String(value || "").replaceAll('"', '""')}"`).join(","))
+                .join("\n");
+            const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `nextt-kol-${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        $("#loadBtn").addEventListener("click", loadAll);
         exportBtn.addEventListener("click", downloadCsv);
+        kolExportBtn.addEventListener("click", downloadKolCsv);
         $("#password").addEventListener("keydown", (event) => {
-            if (event.key === "Enter") loadRsvps();
+            if (event.key === "Enter") loadAll();
         });
     </script>
 </body>
