@@ -179,7 +179,7 @@ const defaultProducts = [
         water: 0,
         waste: 0,
         jobs: 0.25,
-        link: "https://openchat.line.me/tw/cover/jsThnluwcHgl6yxczBW3kCVguCqZ4YptkcF7EygtV0plYiuN_UqSKJ1lA5w?utm_source=line-openchat-seo&utm_medium=search_keyword&utm_campaign=default",
+        link: "https://www.happyfood1000.com.tw/order_detail/27",
         emoji: "🫖",
         brandName: "幸福良食",
         visualDesc: "深邃的漢方草本綠與金黃酥脆的對比。畫面傳遞出安心、溫補與職人手作的踏實感。",
