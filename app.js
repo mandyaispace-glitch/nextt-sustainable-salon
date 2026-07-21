@@ -895,75 +895,401 @@ function initModals() {
 
 // 8. KOL Matchmaker (Front-end Private Tab)
 const kolsList = [
-    { name: "郝旭烈/郝聲音", show: "郝聲音" },
-    { name: "五吉郎", show: "五吉郎" },
-    { name: "精算媽咪的家計簿｜珊迪兔", show: "精算媽咪的家計簿" },
-    { name: "不敗教主-陳重銘", show: "不敗教主陳重銘" },
-    { name: "布姐陪你聰明工作創意生活", show: "布姐的沙發" },
-    { name: "瓦基閱讀前哨站", show: "下一本讀什麼？" },
-    { name: "蕭邦", show: "蕭邦相談室" },
-    { name: "Dr Selena", show: "小資變有錢｜Dr.Selena生活理財王" },
-    { name: "林程揚｜Hank大叔 / 維琪的幸福叮嚀", show: "能量黑客" },
-    { name: "胡咪老師", show: "分手的99個理由" },
-    { name: "Vito大叔", show: "粉紅地獄辛辣麵" },
-    { name: "梁哲維", show: "OHMYBOOK｜哲維說書" },
-    { name: "宋家小館｜Becky", show: "宋家小館" },
-    { name: "尼可這樣說", show: "尼可這樣說" },
-    { name: "美股夢想家", show: "夢想家說股事" },
-    { name: "我的動齡限量版", show: "我的動齡限量版" },
-    { name: "哇賽心理學_蔡宇哲", show: "哇賽心理學" },
-    { name: "GK爸爸", show: "GK爸爸原創故事繪本" },
-    { name: "30節約男子", show: "財富餐車不打烊" },
-    { name: "美股航海王", show: "航海王的富人學" },
-    { name: "美業幹什麼｜蔡佩陵", show: "美業幹什麼" },
-    { name: "無所不試無樂不作", show: "無所不試 無樂不作" },
-    { name: "加班當爸媽．櫻桃可可CherryCoco", show: "加班當爸媽｜櫻桃可可CherryCoco" },
-    { name: "聲音表達講師林依柔", show: "說話人聲" },
-    { name: "丁菱娟", show: "丁菱娟的邊走邊想" },
-    { name: "莫菲穿搭", show: "【莫轉台】-試穿新人生" },
-    { name: "楊月娥（楊肉爐）", show: "楊肉盧" },
-    { name: "蘇絢慧分享空間", show: "蘇心時光" },
-    { name: "山姆書書", show: "山姆書書" },
-    { name: "主播/主持人朱楚文", show: "科技領航家" },
-    { name: "別人的工作最有趣｜Fiona", show: "別人的工作最有趣" },
-    { name: "玩命之徒｜林尚諾大師兄", show: "玩命之徒" },
-    { name: "閱讀聊樂key", show: "閱讀聊樂KEY" },
-    { name: "爛泥媽媽的重生日記（Jill)", show: "爛泥Jill式優雅" },
-    { name: "人生啊！小歐", show: "人生啊｜陪你一起看懂人生" },
-    { name: "張忘形", show: "人類行為研究社" },
-    { name: "Fire人生大學｜道哥", show: "FIRE 人生大學" },
-    { name: "小思大維｜雪柔", show: "小思大維" },
-    { name: "姐姐不想懂事了｜莉安君怡 / 姊姊不想懂事了", show: "《姐姐不想懂事了》 | Soft Rebellion" },
-    { name: "品牌女子A娜", show: "你也想紅嗎" },
-    { name: "治療師瑪奇", show: "教出你的路" },
-    { name: "孫治華", show: "人生挖WoW-企業人生策略學" },
-    { name: "聰明主婦的生活投資學", show: "聰明生活投資學" },
-    { name: "文森說書", show: "文森說書" },
-    { name: "孫子玲", show: "子玲的親子聊心屋-媽咪的自我成長&親子教養" },
-    { name: "王琄", show: "琄蜜莉的異想世界" },
-    { name: "佐依Zoey", show: "佐編茶水間" },
-    { name: "斜槓空姐cindy", show: "錢進頭等艙" },
-    { name: "潘思璇ＣＰ", show: "CP有主見" },
-    { name: "即薑抵達｜薑咪", show: "即薑抵達" },
-    { name: "小河馬媽媽", show: "來晚無添加河粉吧！" },
-    { name: "慢活夫妻Dewi&George", show: "慢活夫妻－專業美股投資與理財" },
-    { name: "崔咪", show: "一不小心太漂亮" },
-    { name: "微光中的貓| Claire Hsiao", show: "《 微光中的北極星 》人生策略、自我成長、內在力量" },
-    { name: "育兒專機｜犬媽 / 犬兒媽咪の育兒手帳", show: "育兒專機" },
-    { name: "廣播主持人_楊凱涵", show: "請多包涵 / BaoHan Talk" },
-    { name: "林慧", show: "做自己很難嗎？" },
-    { name: "喬王的投資理財筆記", show: "斜槓 槓槓槓" },
-    { name: "樂筆", show: "歡迎光臨" },
-    { name: "下半場陪談師＿張嘉茹老師", show: "下半場人生陪談師" },
-    { name: "李柏鋒的擴大機", show: "鋒富理財學" },
-    { name: "迷途艾比", show: "迷途星球" },
-    { name: "高言值表達力教練｜竺宥璋｜小竺", show: "這下言重了" },
-    { name: "莊舒涵（卡姊）", show: "我不是病人，我是卡姊！" },
-    { name: "瑪那熊諮商心理師", show: "瑪那熊聊愛情" },
-    { name: "趙函穎的營養健康週報", show: "趙函穎的營養健康報報" },
-    { name: "謎卡Mika Lin", show: "米米說" },
-    { name: "蘋果老師", show: "網紅，紅什麼" },
-    { name: "Cynthia Huang黃馨儀", show: "媽媽好神經病" }
+    {
+        "name": "郝旭烈/郝聲音",
+        "show": "郝聲音",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E9%83%9D%E8%81%B2%E9%9F%B3/id1533782597"
+    },
+    {
+        "name": "五吉郎",
+        "show": "五吉郎",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%BA%94%E5%90%89%E9%83%8E/id1640942537?uo=4"
+    },
+    {
+        "name": "精算媽咪的家計簿｜珊迪兔",
+        "show": "精算媽咪的家計簿",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%B2%BE%E7%AE%97%E5%AA%BD%E5%92%AA%E7%9A%84%E5%AE%B6%E8%A8%88%E7%B0%BF/id1501644109"
+    },
+    {
+        "name": "不敗教主-陳重銘",
+        "show": "不敗教主陳重銘",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%B8%8D%E6%95%97%E6%95%99%E4%B8%BB%E9%99%B3%E9%87%8D%E9%8A%98/id1541450581?uo=4"
+    },
+    {
+        "name": "布姐陪你聰明工作創意生活",
+        "show": "布姐的沙發",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%B8%83%E5%A7%90%E7%9A%84%E6%B2%99%E7%99%BC/id1571405666?uo=4"
+    },
+    {
+        "name": "瓦基閱讀前哨站",
+        "show": "下一本讀什麼？",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%B8%8B%E4%B8%80%E6%9C%AC%E8%AE%80%E4%BB%80%E9%BA%BC/id1532820533?uo=4"
+    },
+    {
+        "name": "蕭邦",
+        "show": "蕭邦相談室",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%95%AD%E9%82%A6%E7%9B%B8%E8%AB%87%E5%AE%A4/id1858503728"
+    },
+    {
+        "name": "Dr Selena",
+        "show": "小資變有錢｜Dr.Selena生活理財王",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%B0%8F%E8%B3%87%E8%AE%8A%E6%9C%89%E9%8C%A2-dr-selena%E7%94%9F%E6%B4%BB%E7%90%86%E8%B2%A1%E7%8E%8B/id1626035937"
+    },
+    {
+        "name": "胡咪老師",
+        "show": "分手的99個理由",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%88%86%E6%89%8B%E7%9A%8499%E5%80%8B%E7%90%86%E7%94%B1/id1680844787?uo=4"
+    },
+    {
+        "name": "林程揚｜Hank大叔 / 維琪的幸福叮嚀",
+        "show": "能量黑客",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%83%BD%E9%87%8F%E9%BB%91%E5%AE%A2/id1852155372"
+    },
+    {
+        "name": "Vito大叔",
+        "show": "粉紅地獄辛辣麵",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%B2%89%E7%B4%85%E5%9C%B0%E7%8D%84%E8%BE%9B%E8%BE%A3%E9%BA%B5/id1588077436?uo=4"
+    },
+    {
+        "name": "宋家小館｜Becky",
+        "show": "宋家小館",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%AE%8B%E5%AE%B6%E5%B0%8F%E9%A4%A8/id1721336862"
+    },
+    {
+        "name": "梁哲維",
+        "show": "OHMYBOOK｜哲維說書",
+        "apple": "https://podcasts.apple.com/tw/podcast/ohmybook-%E5%93%B2%E7%B6%AD%E8%AA%AA%E6%9B%B8/id1637612999?uo=4"
+    },
+    {
+        "name": "尼可這樣說",
+        "show": "尼可這樣說",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%B0%BC%E5%8F%AF%E9%80%99%E6%A8%A3%E8%AA%AA/id1518927685?uo=4"
+    },
+    {
+        "name": "我的動齡限量版",
+        "show": "我的動齡限量版",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E6%88%91%E7%9A%84%E5%8B%95%E9%BD%A1%E9%99%90%E9%87%8F%E7%89%88/id1809082365?uo=4"
+    },
+    {
+        "name": "哇賽心理學_蔡宇哲",
+        "show": "哇賽心理學",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%93%87%E8%B3%BD%E5%BF%83%E7%90%86%E5%AD%B8/id1500162537"
+    },
+    {
+        "name": "美股夢想家",
+        "show": "夢想家說股事",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%A4%A2%E6%83%B3%E5%AE%B6%E8%AA%AA%E8%82%A1%E4%BA%8B/id1585270910"
+    },
+    {
+        "name": "GK爸爸",
+        "show": "GK爸爸原創故事繪本",
+        "apple": "https://podcasts.apple.com/tw/podcast/gk%E7%88%B8%E7%88%B8%E5%8E%9F%E5%89%B5%E6%95%85%E4%BA%8B%E7%B9%AA%E6%9C%AC/id1525978220?uo=4"
+    },
+    {
+        "name": "30節約男子",
+        "show": "財富餐車不打烊",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%B2%A1%E5%AF%8C%E9%A4%90%E8%BB%8A%E4%B8%8D%E6%89%93%E7%83%8A/id1814388684?uo=4"
+    },
+    {
+        "name": "無所不試無樂不作",
+        "show": "無所不試 無樂不作",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%84%A1%E6%89%80%E4%B8%8D%E8%A9%A6-%E7%84%A1%E6%A8%82%E4%B8%8D%E4%BD%9C/id1754690202?uo=4"
+    },
+    {
+        "name": "美股航海王",
+        "show": "航海王的富人學",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%88%AA%E6%B5%B7%E7%8E%8B%E7%9A%84%E5%AF%8C%E4%BA%BA%E5%AD%B8/id1726458489"
+    },
+    {
+        "name": "美業幹什麼｜蔡佩陵",
+        "show": "美業幹什麼",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%BE%8E%E6%A5%AD%E5%B9%B9%E4%BB%80%E9%BA%BC/id1822200991"
+    },
+    {
+        "name": "加班當爸媽．櫻桃可可CherryCoco",
+        "show": "加班當爸媽｜櫻桃可可CherryCoco",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%8A%A0%E7%8F%AD%E7%95%B6%E7%88%B8%E5%AA%BD-%E6%AB%BB%E6%A1%83%E5%8F%AF%E5%8F%AFcherrycoco/id1520423194"
+    },
+    {
+        "name": "莫菲穿搭",
+        "show": "【莫轉台】-試穿新人生",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%8E%AB%E8%BD%89%E5%8F%B0-%E8%A9%A6%E7%A9%BF%E6%96%B0%E4%BA%BA%E7%94%9F/id1865854397"
+    },
+    {
+        "name": "楊月娥（楊肉爐）",
+        "show": "楊肉盧",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E6%A5%8A%E8%82%89%E7%9B%A7/id1714589755?uo=4"
+    },
+    {
+        "name": "聲音表達講師林依柔",
+        "show": "說話人聲",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%AA%AA%E8%A9%B1%E4%BA%BA%E8%81%B2/id1562262569"
+    },
+    {
+        "name": "丁菱娟",
+        "show": "丁菱娟的邊走邊想",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%B8%81%E8%8F%B1%E5%A8%9F%E7%9A%84%E9%82%8A%E8%B5%B0%E9%82%8A%E6%83%B3/id1864552953?uo=4"
+    },
+    {
+        "name": "山姆書書",
+        "show": "山姆書書",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%B1%B1%E5%A7%86%E6%9B%B8%E6%9B%B8/id1630531870"
+    },
+    {
+        "name": "玩命之徒｜林尚諾大師兄",
+        "show": "玩命之徒",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%8E%A9%E5%91%BD%E4%B9%8B%E5%BE%92/id1526430681?uo=4"
+    },
+    {
+        "name": "蘇絢慧分享空間",
+        "show": "蘇心時光",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%98%87%E5%BF%83%E6%99%82%E5%85%89/id1850663669"
+    },
+    {
+        "name": "爛泥媽媽的重生日記（Jill)",
+        "show": "爛泥Jill式優雅",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%88%9B%E6%B3%A5jill%E5%BC%8F%E5%84%AA%E9%9B%85/id1822120421?uo=4"
+    },
+    {
+        "name": "別人的工作最有趣｜Fiona",
+        "show": "別人的工作最有趣",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%88%A5%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%9C%80%E6%9C%89%E8%B6%A3/id1626274583"
+    },
+    {
+        "name": "閱讀聊樂key",
+        "show": "閱讀聊樂KEY",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E9%96%B1%E8%AE%80%E8%81%8A%E6%A8%82key/id1650123413?uo=4"
+    },
+    {
+        "name": "人生啊！小歐",
+        "show": "人生啊｜陪你一起看懂人生",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%BA%BA%E7%94%9F%E5%95%8A-%E9%99%AA%E4%BD%A0%E4%B8%80%E8%B5%B7%E7%9C%8B%E6%87%82%E4%BA%BA%E7%94%9F/id1669156618?uo=4"
+    },
+    {
+        "name": "張忘形",
+        "show": "人類行為研究社",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%BA%BA%E9%A1%9E%E8%A1%8C%E7%82%BA%E7%A0%94%E7%A9%B6%E7%A4%BE/id1792379960"
+    },
+    {
+        "name": "Fire人生大學｜道哥",
+        "show": "FIRE 人生大學",
+        "apple": "https://podcasts.apple.com/tw/podcast/fire-%E4%BA%BA%E7%94%9F%E5%A4%A7%E5%AD%B8/id1765837689?uo=4"
+    },
+    {
+        "name": "小思大維｜雪柔",
+        "show": "小思大維",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%B0%8F%E6%80%9D%E5%A4%A7%E7%B6%AD/id1780788374?uo=4"
+    },
+    {
+        "name": "姐姐不想懂事了｜莉安君怡 / 姊姊不想懂事了",
+        "show": "《姐姐不想懂事了》 | Soft Rebellion",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%A7%90%E5%A7%90%E4%B8%8D%E6%83%B3%E6%87%82%E4%BA%8B%E4%BA%86-soft-rebellion/id1837928642"
+    },
+    {
+        "name": "下半場人生事務有限公司",
+        "show": "下半場人生陪談師",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%B8%8B%E5%8D%8A%E5%A0%B4%E4%BA%BA%E7%94%9F%E9%99%AA%E8%AB%87%E5%B8%AB/id1847818338?uo=4"
+    },
+    {
+        "name": "治療師瑪奇",
+        "show": "教出你的路",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E6%95%99%E5%87%BA%E4%BD%A0%E7%9A%84%E8%B7%AF/id1807085418?uo=4"
+    },
+    {
+        "name": "品牌女子A娜",
+        "show": "你也想紅嗎",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%BD%A0%E4%B9%9F%E6%83%B3%E7%B4%85%E5%97%8E/id1787670641?uo=4"
+    },
+    {
+        "name": "孫治華",
+        "show": "人生挖挖WoW-企業人生策略學",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%BA%BA%E7%94%9F%E6%8C%96%E6%8C%96wow-%E4%BC%81%E6%A5%AD%E4%BA%BA%E7%94%9F%E7%AD%96%E7%95%A5%E5%AD%B8/id1800646759?uo=4"
+    },
+    {
+        "name": "文森說書",
+        "show": "文森說書",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E6%96%87%E6%A3%AE%E8%AA%AA%E6%9B%B8/id1513786617?uo=4"
+    },
+    {
+        "name": "聰明主婦的生活投資學",
+        "show": "聰明生活投資學",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%81%B0%E6%98%8E%E7%94%9F%E6%B4%BB%E6%8A%95%E8%B3%87%E5%AD%B8/id1740507134?uo=4"
+    },
+    {
+        "name": "孫子玲",
+        "show": "子玲的親子聊心屋-媽咪的自我成長&親子教養",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%AD%90%E7%8E%B2%E7%9A%84%E8%A6%AA%E5%AD%90%E8%81%8A%E5%BF%83%E5%B1%8B-%E5%AA%BD%E5%92%AA%E7%9A%84%E8%87%AA%E6%88%91%E6%88%90%E9%95%B7-%E8%A6%AA%E5%AD%90%E6%95%99%E9%A4%8A/id1650760949"
+    },
+    {
+        "name": "王琄",
+        "show": "琄蜜莉的異想世界",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%90%84%E8%9C%9C%E8%8E%89%E7%9A%84%E7%95%B0%E6%83%B3%E4%B8%96%E7%95%8C/id1812288750?uo=4"
+    },
+    {
+        "name": "佐依Zoey",
+        "show": "佐編茶水間",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%BD%90%E7%B7%A8%E8%8C%B6%E6%B0%B4%E9%96%93/id1399974297"
+    },
+    {
+        "name": "斜槓空姐cindy",
+        "show": "錢進頭等艙",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E9%8C%A2%E9%80%B2%E9%A0%AD%E7%AD%89%E8%89%99/id1522267699?uo=4"
+    },
+    {
+        "name": "即薑抵達｜薑咪",
+        "show": "即薑抵達",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%8D%B3%E8%96%91%E6%8A%B5%E9%81%94/id1767555436?uo=4"
+    },
+    {
+        "name": "曼蒂歐逆-轉型之路",
+        "show": "任性歐逆機智生活",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%BB%BB%E6%80%A7%E6%AD%90%E9%80%86%E6%A9%9F%E6%99%BA%E7%94%9F%E6%B4%BB/id1719757743?uo=4"
+    },
+    {
+        "name": "潘思璇ＣＰ",
+        "show": "CP有主見",
+        "apple": "https://podcasts.apple.com/tw/podcast/cp%E6%9C%89%E4%B8%BB%E8%A6%8B/id1719147550"
+    },
+    {
+        "name": "鄧惠文",
+        "show": "鄧惠文 不想說",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E9%84%A7%E6%83%A0%E6%96%87-%E4%B8%8D%E6%83%B3%E8%AA%AA/id1544980529?uo=4"
+    },
+    {
+        "name": "小河馬媽媽",
+        "show": "來晚無添加河粉吧！",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%BE%86%E6%99%9A%E7%84%A1%E6%B7%BB%E5%8A%A0%E6%B2%B3%E7%B2%89%E5%90%A7/id1692523518?uo=4"
+    },
+    {
+        "name": "慢活夫妻Dewi&George",
+        "show": "慢活夫妻－專業美股投資與理財",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E6%85%A2%E6%B4%BB%E5%A4%AB%E5%A6%BB-%E5%B0%88%E6%A5%AD%E7%BE%8E%E8%82%A1%E6%8A%95%E8%B3%87%E8%88%87%E7%90%86%E8%B2%A1/id1520711973"
+    },
+    {
+        "name": "崔咪",
+        "show": "一不小心太漂亮",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E4%B8%8D%E5%B0%8F%E5%BF%83%E5%A4%AA%E6%BC%82%E4%BA%AE/id1743546553"
+    },
+    {
+        "name": "微光中的貓| Claire Hsiao",
+        "show": "《 微光中的北極星 》人生策略、自我成長、內在力量",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%BE%AE%E5%85%89%E4%B8%AD%E7%9A%84%E5%8C%97%E6%A5%B5%E6%98%9F-%E4%BA%BA%E7%94%9F%E7%AD%96%E7%95%A5-%E8%87%AA%E6%88%91%E6%88%90%E9%95%B7-%E5%85%A7%E5%9C%A8%E5%8A%9B%E9%87%8F/id1500126618?uo=4"
+    },
+    {
+        "name": "育兒專機｜犬媽 / 犬兒媽咪の育兒手帳",
+        "show": "育兒專機",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%82%B2%E5%85%92%E5%B0%88%E6%A9%9F/id1621435372?uo=4"
+    },
+    {
+        "name": "廣播主持人_楊凱涵",
+        "show": "請多包涵 / BaoHan Talk",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%AB%8B%E5%A4%9A%E5%8C%85%E6%B6%B5-baohan-talk/id1838861694?uo=4"
+    },
+    {
+        "name": "林慧",
+        "show": "做自己很難嗎？",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%81%9A%E8%87%AA%E5%B7%B1%E5%BE%88%E9%9B%A3%E5%97%8E/id1625614829?uo=4"
+    },
+    {
+        "name": "喬王的投資理財筆記",
+        "show": "斜槓 槓槓槓",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E6%96%9C%E6%A7%93-%E6%A7%93%E6%A7%93%E6%A7%93/id1522239777?uo=4"
+    },
+    {
+        "name": "樂筆",
+        "show": "歡迎光臨",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E6%AD%A1%E8%BF%8E%E5%85%89%E8%87%A8/id1553101154"
+    },
+    {
+        "name": "莊舒涵（卡姊）",
+        "show": "其實我們都有病",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E6%88%91%E4%B8%8D%E6%98%AF%E7%97%85%E4%BA%BA-%E6%88%91%E6%98%AF%E5%8D%A1%E5%A7%8A/id1816381557?uo=4"
+    },
+    {
+        "name": "主播/主持人朱楚文",
+        "show": "科技領航家",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%A7%91%E6%8A%80%E9%A0%98%E8%88%AA%E5%AE%B6/id1485503209"
+    },
+    {
+        "name": "布萊恩老師",
+        "show": "",
+        "apple": ""
+    },
+    {
+        "name": "幼兒情緒教育學院-萬叔的心café",
+        "show": "",
+        "apple": ""
+    },
+    {
+        "name": "全遠距工作的行銷人|Coco",
+        "show": "",
+        "apple": ""
+    },
+    {
+        "name": "李柏鋒的擴大機",
+        "show": "鋒富理財學",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E9%8B%92%E5%AF%8C%E7%90%86%E8%B2%A1%E5%AD%B8/id1570396032?uo=4"
+    },
+    {
+        "name": "阿駿日常",
+        "show": "",
+        "apple": ""
+    },
+    {
+        "name": "迷途艾比",
+        "show": "迷途星球",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%BF%B7%E9%80%94%E6%98%9F%E7%90%83/id1597967789"
+    },
+    {
+        "name": "高言值表達力教練｜竺宥璋｜小竺",
+        "show": "這下言重了",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E9%80%99%E4%B8%8B%E8%A8%80%E9%87%8D%E4%BA%86/id1760705946?uo=4"
+    },
+    {
+        "name": "張書書",
+        "show": "",
+        "apple": ""
+    },
+    {
+        "name": "雷浩斯價值投資網",
+        "show": "",
+        "apple": ""
+    },
+    {
+        "name": "瑪那熊諮商心理師",
+        "show": "瑪那熊聊愛情",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%91%AA%E9%82%A3%E7%86%8A%E8%81%8A%E6%84%9B%E6%83%85/id1572389025?uo=4"
+    },
+    {
+        "name": "趙函穎的營養健康週報",
+        "show": "趙函穎的營養健康報報",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E8%B6%99%E5%87%BD%E7%A9%8E%E7%9A%84%E7%87%9F%E9%A4%8A%E5%81%A5%E5%BA%B7%E5%A0%B1%E5%A0%B1/id1704815000?uo=4"
+    },
+    {
+        "name": "劉亦酉",
+        "show": "",
+        "apple": ""
+    },
+    {
+        "name": "謎卡Mika Lin",
+        "show": "米米說",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%B1%B3%E7%B1%B3%E8%AA%AA/id1752285824"
+    },
+    {
+        "name": "蘋果老師",
+        "show": "網紅，紅什麼",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E7%B6%B2%E7%B4%85-%E7%B4%85%E4%BB%80%E9%BA%BC/id1590745751?uo=4"
+    },
+    {
+        "name": "Coco｜全遠距工作的行銷人",
+        "show": "",
+        "apple": ""
+    },
+    {
+        "name": "Cynthia Huang黃馨儀",
+        "show": "媽媽好神經病",
+        "apple": "https://podcasts.apple.com/tw/podcast/%E5%AA%BD%E5%AA%BD%E5%A5%BD%E7%A5%9E%E7%B6%93%E7%97%85/id1552428220"
+    }
 ];
 
 function initKOLMatchmaker() {
@@ -1001,7 +1327,7 @@ function initKOLMatchmaker() {
     const submitBtn = document.getElementById('kol-submit-btn');
     if (submitBtn) {
         submitBtn.addEventListener('click', () => {
-            const brandId = document.getElementById('kol-brand-select').value;
+            const brandNameInput = document.getElementById('kol-brand-select').value.trim();
             const propose = document.getElementById('kol-product-propose').value.trim();
             
             // Get Checkboxes
@@ -1017,6 +1343,10 @@ function initKOLMatchmaker() {
             });
             
             // Validations
+            if (!brandNameInput) {
+                alert('❌ 請填寫您的品牌名稱！');
+                return;
+            }
             if (!checkCommission) {
                 alert('❌ 請確認並勾選「同意提供售價 20% 分潤」！');
                 return;
@@ -1033,20 +1363,15 @@ function initKOLMatchmaker() {
                 alert('❌ 請確認並勾選「確認已填寫完整商品組合與品項」！');
                 return;
             }
-            if (checkedKols.length === 0) {
-                alert('❌ 請至少勾選一位您有合作意願的 KOL！');
-                return;
-            }
-            
             // Save application
             const app = {
                 time: new Date().toLocaleString(),
                 submittedAt: new Date().toISOString(),
                 source: "github-pages",
-                brandName: brandsData[brandId] ? brandsData[brandId].name : brandId,
+                brandName: brandNameInput,
                 propose: propose,
                 rate: '20% (盛德好專案)',
-                kols: checkedKols.join(', '),
+                kols: checkedKols.length ? checkedKols.join(', ') : '未指定（由經紀公司評估建議）',
                 status: '待審核'
             };
 
@@ -1115,7 +1440,8 @@ function initKOLMatchmaker() {
             function showKOLSuccess() {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalHTML;
-                alert(`🎉 盛德好 KOL 媒合申請送出成功！\n品牌：${app.brandName}\n媒合KOL：${app.kols}\n分潤：20%\n\nNextT 團隊將會儘快為您辦理媒合對接！`);
+                alert(`🎉 盛德好 KOL 媒合申請送出成功！\n品牌：${app.brandName}\n媒合KOL偏好：${app.kols}\n分潤：20%\n\nNextT 團隊將會儘快為您辦理媒合對接！`);
+                document.getElementById('kol-brand-select').value = '';
                 document.getElementById('kol-product-propose').value = '';
                 document.getElementById('kol-check-commission').checked = false;
                 document.getElementById('kol-check-price').checked = false;
@@ -1151,16 +1477,22 @@ function renderKOLList(filterText = "") {
         div.style.borderRadius = 'var(--radius-sm)';
         div.style.border = '1px solid #f1f5f9';
         
+        const kolValue = kol.show ? `${kol.name}｜${kol.show}` : kol.name;
+        const appleLink = kol.apple
+            ? `<a href="${kol.apple}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" style="display:inline-flex; align-items:center; gap:0.25rem; margin-top:0.35rem; font-size:0.72rem; color:#2563eb; text-decoration:none; font-weight:600;"><i class="fa-brands fa-apple"></i> Apple Podcast</a>`
+            : `<span style="display:inline-block; margin-top:0.35rem; font-size:0.72rem; color:var(--text-muted);">Apple Podcast：尚無連結</span>`;
+
         div.innerHTML = `
-            <div style="display:flex; align-items:center; gap:0.75rem;">
-                <div style="font-size:1.2rem; background:#eff6ff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;">🎙️</div>
-                <div>
-                    <strong style="color:var(--primary); font-size:0.9rem;">${kol.name}</strong>
-                    <span style="font-size:0.75rem; color:var(--text-muted); margin-left:0.5rem;">節目：${kol.show}</span>
+            <div style="display:flex; align-items:flex-start; gap:0.75rem; min-width:0;">
+                <div style="font-size:1.2rem; background:#eff6ff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:0 0 auto;">🎙️</div>
+                <div style="min-width:0;">
+                    <strong style="color:var(--primary); font-size:0.9rem; display:block;">${kol.name}</strong>
+                    ${kol.show ? `<span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:0.15rem;">節目：${kol.show}</span>` : `<span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:0.15rem;">節目：待確認</span>`}
+                    ${appleLink}
                 </div>
             </div>
-            <div>
-                <input type="checkbox" class="kol-select-checkbox" value="${kol.name}" style="width:18px; height:18px; cursor:pointer;">
+            <div style="flex:0 0 auto;">
+                <input type="checkbox" class="kol-select-checkbox" value="${kolValue}" style="width:18px; height:18px; cursor:pointer;">
             </div>
         `;
         container.appendChild(div);
